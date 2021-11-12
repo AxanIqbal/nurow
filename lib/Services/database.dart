@@ -1,7 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:nurow/models/user.dart';
+
+import 'dio.dart';
+import 'http.dart';
 
 class DataService {
   // FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final HttpService _httpService = HttpServiceImpl();
+
+  // DataService() {
+  //   _httpService.init();
+  // }
 
   Future<Map> getImageUrl() async {
     // CollectionReference xrayImages = firestore.collection('xrays');
@@ -14,15 +23,9 @@ class DataService {
     return data;
   }
 
-  Future<Map> getUserLogs() async {
-    // var client = http.Client();
-    // var data = await client.get(Uri.parse("http://127.0.0.1:5000/getuserlogs"));
-    Response data = await Dio().get('185.132.38.189:3928/api/getuserlogs');
-    // print('dio');
-    // print(data.statusCode);
-    // print(data.statusMessage);
-    // print(data.data);
-    // print(data);
-    return data.data;
+  Future<List<User>> getUserLogs() async {
+    var response = await _httpService.getRequest('/getuserlogs');
+    final data = usersFromJson(response.data);
+    return data;
   }
 }

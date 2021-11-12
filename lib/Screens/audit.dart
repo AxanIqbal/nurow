@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:nurow/Services/database.dart';
 import 'package:nurow/models/user.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -141,11 +141,10 @@ class Audit extends StatelessWidget {
                   child: SizedBox(
                     height: height * 0.7,
                     child: SingleChildScrollView(
-                      child: FutureBuilder<Response<List<dynamic>>>(
-                        future: Dio()
-                            .get('http://185.132.38.189:3928/api/getuserlogs'),
+                      child: FutureBuilder<List<User>>(
+                        future: DataService().getUserLogs(),
                         builder: (context, snapshot) {
-                          print(snapshot.data);
+                          // print(snapshot.data);
 
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -165,9 +164,9 @@ class Audit extends StatelessWidget {
                           if (snapshot.connectionState ==
                                   ConnectionState.done &&
                               snapshot.hasData) {
-                            List<User> data = List<User>.from(snapshot
-                                .data!.data!
-                                .map((e) => User.fromJson(e)));
+                            // List<User> data = List<User>.from(snapshot
+                            //     .data!.data!
+                            //     .map((e) => User.fromJson(e)));
                             // List<UserModel> data = snapshot.data.data;
                             return DataTable(
                               columns: const [
@@ -188,11 +187,13 @@ class Audit extends StatelessWidget {
                                 ),
                               ],
                               rows: List<DataRow>.generate(
-                                snapshot.data!.data!.length,
+                                snapshot.data!.length,
                                 (int index) => DataRow(
                                   cells: [
-                                    DataCell(Text(data[index].userName)),
-                                    DataCell(Text(data[index].creationTime)),
+                                    DataCell(
+                                        Text(snapshot.data![index].userName)),
+                                    DataCell(Text(
+                                        snapshot.data![index].creationTime)),
                                     DataCell(
                                       TextButton(
                                         onPressed: () {
@@ -217,13 +218,15 @@ class Audit extends StatelessWidget {
                                                       ],
                                                       rows: List<
                                                           DataRow>.generate(
-                                                        data[index]
+                                                        snapshot
+                                                            .data![index]
                                                             .lastSignInTime
                                                             .length,
                                                         (int index2) => DataRow(
                                                           cells: [
                                                             DataCell(
-                                                              Text(data[index]
+                                                              Text(snapshot
+                                                                      .data![index]
                                                                       .lastSignInTime[
                                                                   index2]),
                                                             ),
@@ -241,13 +244,15 @@ class Audit extends StatelessWidget {
                                                       ],
                                                       rows: List<
                                                           DataRow>.generate(
-                                                        data[index]
+                                                        snapshot
+                                                            .data![index]
                                                             .lastLogOutTime
                                                             .length,
                                                         (int index2) => DataRow(
                                                           cells: [
                                                             DataCell(
-                                                              Text(data[index]
+                                                              Text(snapshot
+                                                                      .data![index]
                                                                       .lastLogOutTime[
                                                                   index2]),
                                                             ),
