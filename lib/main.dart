@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/layout_template.dart';
 import 'package:nurow/locator.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      localizationsDelegates: const [
+        FormBuilderLocalizations.delegate,
+      ],
       home: const Center(
         child: HomeLayout(),
       ),

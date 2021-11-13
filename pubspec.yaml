@@ -37,12 +37,15 @@ dependencies:
   flutter_dropzone: ^2.0.1
   font_awesome_flutter: ^9.1.0
   get_it: null
-  image_picker: ^0.8.4
   responsive_builder: ^0.4.1
   shared_preferences: ^2.0.7
   video_player: null
   get: ^4.3.8
   dio: ^4.0.1
+  flutter_form_builder: ^7.0.0
+  image_picker: ^0.8.4+4
+  form_builder_image_picker: ^2.0.0
+  form_builder_validators: ^7.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -28,4 +28,9 @@ class DataService {
     final data = usersFromJson(response.data);
     return data;
   }
+
+  Future<dynamic> getXrays() async {
+    var response = await _httpService.getRequest('/getxray');
+    return response;
+  }
 }
