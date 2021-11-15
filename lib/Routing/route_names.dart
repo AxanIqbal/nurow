@@ -9,3 +9,7 @@ const String analysisPage = "selectImage";
 const String patientDetailsPage = "patientsSelect";
 
 const String auditPage = "audit";
+
+const String xRayForm = "xRayForm";
+
+const String xRayView = "xRayView";

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nurow/Routing/route_names.dart';
 import 'package:nurow/Screens/patient_details.dart';
 import 'package:nurow/Services/database.dart';
+import 'package:nurow/Services/navigation_service.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import '../locator.dart';
 
 class SelectImage extends StatefulWidget {
   const SelectImage({Key? key}) : super(key: key);
@@ -94,32 +98,71 @@ class _SelectImageState extends State<SelectImage> {
                                               ConnectionState.done &&
                                           snapshot.hasData) {
                                         List<Widget> images = [
-                                          gridImage(height, width,
-                                              snapshot.data!["image1"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image2"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image3"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image4"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image2"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image1"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image2"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image3"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image4"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image3"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image1"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image2"], context),
-                                          gridImage(height, width,
-                                              snapshot.data!["image3"], context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image1"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image2"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image3"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image4"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image2"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image1"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image2"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image3"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image4"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image3"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image1"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image2"],
+                                              context),
+                                          gridImage(
+                                              height,
+                                              width,
+                                              snapshot.data!["image3"],
+                                              context),
                                         ];
 
                                         return Container(
@@ -218,7 +261,9 @@ class _SelectImageState extends State<SelectImage> {
                       ),
                       if (!isImageSelected) ...{
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => {
+                            locator<NavigationService>().navigateTo(xRayForm)
+                          },
                           child: const Text(
                             "Upload X-Ray",
                             style: TextStyle(

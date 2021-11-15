@@ -22,7 +22,7 @@ class Audit extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "User Management",
+                  "Audit",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

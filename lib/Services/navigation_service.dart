@@ -6,6 +6,11 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamed(routeName);
   }
 
+  Future<dynamic> navigateToWidget(dynamic route) {
+    return navigatorKey.currentState!
+        .push(MaterialPageRoute(builder: (BuildContext context) => route()));
+  }
+
   dynamic goBack() {
     return navigatorKey.currentState!.pop();
   }

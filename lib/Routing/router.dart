@@ -3,6 +3,7 @@ import 'package:nurow/Routing/route_names.dart';
 import 'package:nurow/Screens/audit.dart';
 import 'package:nurow/Screens/select_image.dart';
 import 'package:nurow/Screens/select_patient.dart';
+import 'package:nurow/Screens/xray_form.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   print('generateRoute: ${settings.name}');
@@ -13,6 +14,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const SelectPatient());
     case auditPage:
       return _getPageRoute(const Audit());
+    case xRayForm:
+      return _getPageRoute(const XRayForm());
+    // case xRayView:
+    //   return _getPageRoute(const XRayView(data: data));
     default:
       return _getPageRoute(const SelectImage());
   }
