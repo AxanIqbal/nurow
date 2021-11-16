@@ -40,8 +40,8 @@ class DataService {
     return response;
   }
 
-  Future<dynamic> addPatient() async {
-    var response = await _httpService.getRequest('/patientdata');
+  Future<Response> addPatient(Map<String, dynamic> data) async {
+    Response response = await _httpService.post('/patientdata', data);
     return response;
   }
 

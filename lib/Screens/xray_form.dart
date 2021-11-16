@@ -210,8 +210,32 @@ class XRayForm extends StatelessWidget {
                       debugPrint(_formKey.currentState!.value.toString());
                     }
                   },
-                  child: const Text("Next"),
-                )
+                  child: const Text(
+                    "Next",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    padding:
+                        MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                      (Set<MaterialState> states) {
+                        return const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        );
+                      },
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

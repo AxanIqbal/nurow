@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/patient_details_text.dart';
+import 'package:nurow/Screens/widgets/xray_table.dart';
+import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/models/xray.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import '../locator.dart';
 
 // ignore: avoid_web_libraries_in_flutter
 // import 'dart:html' as html;
 
 class Reports extends StatefulWidget {
-  const Reports({Key? key, required this.image}) : super(key: key);
+  const Reports({Key? key, required this.xray}) : super(key: key);
 
-  final image;
+  final Xray xray;
 
   @override
   _ReportsState createState() => _ReportsState();
@@ -18,7 +23,7 @@ class _ReportsState extends State<Reports> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    var width = MediaQuery.of(context).size.width * 0.9;
 
     return ResponsiveBuilder(builder: (context, sizingInformation) {
       return Scaffold(
@@ -46,7 +51,7 @@ class _ReportsState extends State<Reports> {
                           image: DecorationImage(
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                              widget.image,
+                              widget.xray.image.path,
                             ),
                           ),
                         ),
@@ -78,7 +83,7 @@ class _ReportsState extends State<Reports> {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                        widget.image,
+                                        widget.xray.image.path,
                                       ),
                                     ),
                                   ),
@@ -104,7 +109,7 @@ class _ReportsState extends State<Reports> {
                                   image: DecorationImage(
                                     fit: BoxFit.fill,
                                     image: NetworkImage(
-                                      widget.image,
+                                      widget.xray.image.path,
                                     ),
                                   ),
                                 ),
@@ -270,7 +275,7 @@ class _ReportsState extends State<Reports> {
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
                                         image: NetworkImage(
-                                          widget.image,
+                                          widget.xray.image.path,
                                         ),
                                       ),
                                     ),
@@ -306,7 +311,7 @@ class _ReportsState extends State<Reports> {
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
                                         image: NetworkImage(
-                                          widget.image,
+                                          widget.xray.image.path,
                                         ),
                                       ),
                                     ),
@@ -327,7 +332,7 @@ class _ReportsState extends State<Reports> {
                             image: DecorationImage(
                               fit: BoxFit.fill,
                               image: NetworkImage(
-                                widget.image,
+                                widget.xray.image.path,
                               ),
                             ),
                           ),
@@ -344,22 +349,29 @@ class _ReportsState extends State<Reports> {
                               margin: const EdgeInsets.fromLTRB(30, 10, 10, 10),
                               height: height * 0.25,
                               width: width * 0.3,
-                              decoration: const BoxDecoration(
-                                  // color: Colors.black,
-                                  ),
-                              child: Center(
-                                child: PatientDetailsText(
-                                  sizingInformation: sizingInformation,
-                                  width: width * 0.2,
-                                ),
-                              ),
+                              child: xRayTable(widget.xray),
                             ),
+                            // Container(
+                            //   margin: const EdgeInsets.fromLTRB(30, 10, 10, 10),
+                            //   height: height * 0.25,
+                            //   width: width * 0.3,
+                            //   decoration: const BoxDecoration(
+                            //       // color: Colors.black,
+                            //       ),
+                            //   child: Center(
+                            //     child: PatientDetailsText(
+                            //       sizingInformation: sizingInformation,
+                            //       width: width * 0.2,
+                            //     ),
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 10,
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                locator<NavigationService>()
+                                    .navigateTo("selectImage");
                               },
                               child: const Text(
                                 "Go Back",
@@ -429,8 +441,8 @@ Widget reportButton(
     child: Column(
       children: [
         Container(
-          height: height * 0.23,
-          width: width * 0.17,
+          height: 250,
+          width: 200,
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -458,8 +470,8 @@ Widget reportButton(
           ),
         ),
         Container(
-          height: height * 0.07,
-          width: width * 0.17,
+          height: 50,
+          width: 200,
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(

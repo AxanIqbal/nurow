@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:nurow/Screens/analysis_report.dart';
 import 'package:nurow/Screens/widgets/patient_details_text.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -111,10 +110,10 @@ All analysis complete.
                         isAnalysisDone
                             ? TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Reports(
-                                            image: widget.imageUrl,
-                                          )));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => Reports(
+                                  //           image: widget.imageUrl,
+                                  //         )));
                                 },
                                 child: const Text(
                                   "Get Reports",
@@ -274,13 +273,13 @@ All analysis complete.
                                       ? TextButton(
                                           onPressed: () {
                                             print("object");
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Reports(
-                                                          image:
-                                                              widget.imageUrl,
-                                                        )));
+                                            // Navigator.of(context).push(
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             Reports(
+                                            //               image:
+                                            //                   widget.imageUrl,
+                                            //             )));
                                           },
                                           child: const Text(
                                             "Get Reports",

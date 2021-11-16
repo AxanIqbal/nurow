@@ -5,6 +5,8 @@ import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/xray.dart';
 
+import 'analysis_report.dart';
+
 class XRayAnalyse extends StatefulWidget {
   const XRayAnalyse({Key? key, required this.xray}) : super(key: key);
 
@@ -28,7 +30,11 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
             Row(
               children: [
                 xRayImage(widget.xray.image.path),
-                Expanded(child: xRayTable(widget.xray)),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: xRayTable(widget.xray),
+                )),
               ],
             ),
             Expanded(
@@ -69,37 +75,56 @@ All analysis complete
               ),
             ),
             if (!isComplete)
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "Stop Analyse",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Divider(),
+                  const Divider(),
+                  const Icon(
+                    Icons.access_time,
+                    size: 55,
                   ),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  padding:
-                      MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-                    (Set<MaterialState> states) {
-                      return const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 20,
-                      );
-                    },
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      "Stop Analyse",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      padding:
+                          MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                        (Set<MaterialState> states) {
+                          return const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 20,
+                          );
+                        },
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               )
             else
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Reports(
+                        xray: widget.xray,
+                      ),
+                    ),
+                  );
+                },
                 child: const Text(
                   "Next",
                   style: TextStyle(
