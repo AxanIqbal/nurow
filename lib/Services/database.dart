@@ -33,4 +33,26 @@ class DataService {
     var response = await _httpService.getRequest('/getxray');
     return response;
   }
+
+  Future<dynamic> getXrayType(String id, String type) async {
+    var response = await _httpService
+        .getRequest('/getxray', parameters: {"id": id, "type": type});
+    return response;
+  }
+
+  Future<dynamic> addPatient() async {
+    var response = await _httpService.getRequest('/patientdata');
+    return response;
+  }
+
+  Future<dynamic> getPatient(String id) async {
+    var response =
+        await _httpService.getRequest('/patientdata', parameters: {"id": id});
+    return response;
+  }
+
+  Future<dynamic> getAllPatients() async {
+    var response = await _httpService.getRequest('/patientdata');
+    return response;
+  }
 }

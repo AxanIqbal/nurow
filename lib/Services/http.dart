@@ -9,7 +9,6 @@ class HttpServiceImpl implements HttpService {
   late Dio _dio;
 
   HttpServiceImpl() {
-    print('init');
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
@@ -21,17 +20,24 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<Response> getRequest(String url) async {
+  Future<Response> getRequest(String url,
+      {Map<String, dynamic>? parameters}) async {
     // TODO: implement getRequest
 
     Response response;
     try {
-      response = await _dio.get(url);
+      response = await _dio.get(url, queryParameters: parameters);
     } on DioError catch (e) {
       print(e.message);
       throw Exception(e.message);
     }
 
+    return response;
+  }
+
+  @override
+  Future<Response> post(String url, Map<String, dynamic> data) async {
+    Response response = await _dio.post(url, data: data);
     return response;
   }
 
