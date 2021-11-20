@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_analyse.dart';
-import 'package:nurow/Services/database.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -64,15 +62,15 @@ class XRayView extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    var resp = await DataService().addPatient({
-                      'id': data.number,
-                      'name': data.name,
-                      'dob': data.dob,
-                      'label': data.type,
-                      'creationTime': Timestamp.now(),
-                      'updatedTime': Timestamp.now(),
-                    });
-                    debugPrint(resp.data);
+                    // var resp = await DataService().addPatient({
+                    //   'id': data.number,
+                    //   'name': data.name,
+                    //   'dob': data.dob,
+                    //   'label': data.type,
+                    //   'creationTime': Timestamp.now().toString(),
+                    //   'updatedTime': Timestamp.now().toString(),
+                    // });
+                    // debugPrint(resp.data);
                     locator<NavigationService>()
                         .navigateToWidget(() => XRayAnalyse(
                               xray: data,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Screens/analysis_report.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/xray.dart';
+import 'package:nurow/pdf/master.dart';
+import 'package:printing/printing.dart';
 
 class XRayResult extends StatelessWidget {
   const XRayResult({Key? key, required this.xray}) : super(key: key);
@@ -68,17 +71,30 @@ class XRayResult extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 reportButton(
-                    height: 200, width: 200, name: "Master Report", pdfURL: ''),
+                  height: 200,
+                  width: 200,
+                  name: "Master Report",
+                  onTap: () {
+                    Get.to(
+                      () => PdfPreview(
+                        maxPageWidth: 700,
+                        build: (format) => masterPDF(format, xray),
+                      ),
+                    );
+                  },
+                ),
                 reportButton(
-                    height: 200,
-                    width: 200,
-                    name: "Diagnosis Report",
-                    pdfURL: ''),
+                  height: 200,
+                  width: 200,
+                  name: "Diagnosis Report",
+                  onTap: () {},
+                ),
                 reportButton(
-                    height: 200,
-                    width: 200,
-                    name: "Epidemology Report",
-                    pdfURL: ''),
+                  height: 200,
+                  width: 200,
+                  name: "Epidemology Report",
+                  onTap: () {},
+                ),
               ],
             ),
           ),

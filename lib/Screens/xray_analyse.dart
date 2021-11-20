@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
+import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/models/xray.dart';
-
-import 'analysis_report.dart';
 
 class XRayAnalyse extends StatefulWidget {
   const XRayAnalyse({Key? key, required this.xray}) : super(key: key);
@@ -119,7 +118,7 @@ All analysis complete
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Reports(
+                      builder: (context) => XRayResult(
                         xray: widget.xray,
                       ),
                     ),
