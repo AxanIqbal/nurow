@@ -1,15 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_result.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/patient.dart';
 
 class XRayAnalyse extends StatefulWidget {
-  const XRayAnalyse({Key? key, required this.xray}) : super(key: key);
+  const XRayAnalyse({Key? key, required this.patient}) : super(key: key);
 
-  final Xray xray;
+  final Patient patient;
 
   @override
   State<XRayAnalyse> createState() => _XRayAnalyseState();
@@ -28,11 +29,11 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
           children: [
             Row(
               children: [
-                xRayImage(widget.xray.image.path),
+                xRayImage(widget.patient.xray[0]!.originalImage.path),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: xRayTable(widget.xray),
+                  child: xRayTable(widget.patient),
                 )),
               ],
             ),
@@ -116,11 +117,9 @@ All analysis complete
             else
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => XRayResult(
-                        xray: widget.xray,
-                      ),
+                  Get.off(
+                    () => XRayResult(
+                      patient: widget.patient,
                     ),
                   );
                 },

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 
 Xray xrayFromJson(String str) => Xray.fromJson(json.decode(str));
@@ -8,36 +9,24 @@ String xrayToJson(Xray data) => json.encode(data.toJson());
 
 class Xray {
   Xray({
-    required this.image,
-    required this.type,
-    required this.name,
-    required this.address,
-    required this.number,
-    required this.dob,
-  });
+    required this.originalImage,
+    required this.xrayLabel,
+    DateTime? timeStamp,
+  }) : timeStamp = timeStamp ?? Timestamp.now().toDate();
 
-  XFile image;
-  String type;
-  String name;
-  String address;
-  String number;
-  DateTime dob;
+  XFile originalImage;
+  DateTime timeStamp;
+  String xrayLabel;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(
-        image: json["image"][0],
-        type: json["type"],
-        name: json["name"],
-        address: json["address"],
-        number: json["number"],
-        dob: json["dob"],
+        originalImage: json["originalImage"][0],
+        timeStamp: json["timeStamp"],
+        xrayLabel: json["xrayLabel"],
       );
 
   Map<String, dynamic> toJson() => {
-        "image": image,
-        "type": type,
-        "name": name,
-        "address": address,
-        "number": number,
-        "dob": dob.toIso8601String(),
+        "image": originalImage,
+        "timeStamp": timeStamp.toIso8601String(),
+        "xrayLabel": xrayLabel,
       };
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/patient.dart';
 
-Widget xRayTable(Xray data) {
+Widget xRayTable(Patient data) {
   return Table(
     children: [
       TableRow(
@@ -69,7 +69,7 @@ Widget xRayTable(Xray data) {
             ),
           ),
           Text(
-            data.type,
+            data.xray[0]!.xrayLabel,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,

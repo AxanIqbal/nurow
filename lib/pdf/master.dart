@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/patient.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-Future<Uint8List> masterPDF(PdfPageFormat format, Xray patient) async {
+Future<Uint8List> masterPDF(PdfPageFormat format, Patient patient) async {
   final doc = pw.Document(pageMode: PdfPageMode.outlines);
 
   doc.addPage(

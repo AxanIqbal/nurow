@@ -192,8 +192,9 @@ class Audit extends StatelessWidget {
                                   cells: [
                                     DataCell(
                                         Text(snapshot.data![index].userName)),
-                                    DataCell(Text(
-                                        snapshot.data![index].creationTime)),
+                                    DataCell(Text(snapshot
+                                        .data![index].creationTime
+                                        .toString())),
                                     DataCell(
                                       TextButton(
                                         onPressed: () {
@@ -231,10 +232,11 @@ class Audit extends StatelessWidget {
                                                             cells: [
                                                               DataCell(
                                                                 Text(snapshot
-                                                                        .data![
-                                                                            index]
-                                                                        .lastSignInTime[
-                                                                    index2]),
+                                                                    .data![
+                                                                        index]
+                                                                    .lastSignInTime[
+                                                                        index2]
+                                                                    .toString()),
                                                               ),
                                                             ],
                                                           ),
@@ -259,10 +261,11 @@ class Audit extends StatelessWidget {
                                                             cells: [
                                                               DataCell(
                                                                 Text(snapshot
-                                                                        .data![
-                                                                            index]
-                                                                        .lastLogOutTime[
-                                                                    index2]),
+                                                                    .data![
+                                                                        index]
+                                                                    .lastLogOutTime[
+                                                                        index2]
+                                                                    .toString()),
                                                               ),
                                                             ],
                                                           ),

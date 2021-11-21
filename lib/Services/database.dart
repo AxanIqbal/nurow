@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/user.dart';
 
 import 'dio.dart';
@@ -24,7 +26,7 @@ class DataService {
   }
 
   Future<List<User>> getUserLogs() async {
-    var response = await _httpService.getRequest('/getuserlogs');
+    Response response = await _httpService.getRequest('/getuserlogs');
     final data = usersFromJson(response.data);
     return data;
   }
@@ -51,8 +53,10 @@ class DataService {
     return response;
   }
 
-  Future<dynamic> getAllPatients() async {
-    var response = await _httpService.getRequest('/patientdata');
-    return response;
+  Future<List<Patient>> getAllPatients() async {
+    Response response = await _httpService.getRequest('/patientdata');
+    final data = patientsFromJson(response.data);
+    debugPrint(data.toString());
+    return data;
   }
 }

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 List<User> userFromJson(String str) =>
     List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 
-List<User> usersFromJson(List<Map<String, dynamic>> data) =>
+List<User> usersFromJson(List data) =>
     List<User>.from(data.map((x) => User.fromJson(x)));
 
 String userToJson(List<User> data) =>
@@ -18,25 +20,37 @@ class User {
     required this.userName,
   });
 
-  String creationTime;
+  DateTime creationTime;
   String email;
-  List<String> lastLogOutTime;
-  List<String> lastSignInTime;
+  List<DateTime> lastLogOutTime;
+  List<DateTime> lastSignInTime;
   String userName;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        creationTime: json["creationTime"],
+        creationTime: json["dob"] is DateTime
+            ? json["dob"]
+            : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz')
+                .parse(json["creationTime"]),
         email: json["email"],
-        lastLogOutTime: List<String>.from(json["lastLogOutTime"].map((x) => x)),
-        lastSignInTime: List<String>.from(json["lastSignInTime"].map((x) => x)),
+        lastLogOutTime: List<DateTime>.from(json["lastLogOutTime"].map((x) =>
+            x is DateTime
+                ? x
+                : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(x))),
+        lastSignInTime: List<DateTime>.from(json["lastSignInTime"].map((x) =>
+            x is DateTime
+                ? x
+                : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(x))),
         userName: json["userName"],
       );
 
   Map<String, dynamic> toJson() => {
-        "creationTime": creationTime,
+        "creationTime":
+            DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(creationTime),
         "email": email,
-        "lastLogOutTime": List<dynamic>.from(lastLogOutTime.map((x) => x)),
-        "lastSignInTime": List<dynamic>.from(lastSignInTime.map((x) => x)),
+        "lastLogOutTime": List<dynamic>.from(lastLogOutTime.map((x) =>
+            DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(x).toString())),
+        "lastSignInTime": List<dynamic>.from(lastSignInTime.map((x) =>
+            DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(x).toString())),
         "userName": userName,
       };
 }

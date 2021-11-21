@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_analyse.dart';
+import 'package:nurow/Services/database.dart';
 import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/patient.dart';
 
 import '../locator.dart';
 
@@ -11,9 +12,11 @@ class XRayView extends StatelessWidget {
   const XRayView({
     Key? key,
     required this.data,
+    this.isNew = true,
   }) : super(key: key);
 
-  final Xray data;
+  final Patient data;
+  final bool isNew;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class XRayView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Center(child: xRayImage(data.image.path)),
+            Center(child: xRayImage(data.xray[0]!.originalImage.path)),
             SizedBox(
               width: 400,
               child: xRayTable(data),
@@ -62,19 +65,14 @@ class XRayView extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    // var resp = await DataService().addPatient({
-                    //   'id': data.number,
-                    //   'name': data.name,
-                    //   'dob': data.dob,
-                    //   'label': data.type,
-                    //   'creationTime': Timestamp.now().toString(),
-                    //   'updatedTime': Timestamp.now().toString(),
-                    // });
-                    // debugPrint(resp.data);
-                    locator<NavigationService>()
-                        .navigateToWidget(() => XRayAnalyse(
-                              xray: data,
-                            ));
+                    if (isNew) {
+                      await DataService().addPatient(data.toJson());
+                    }
+                    locator<NavigationService>().navigateToWidget(
+                      () => XRayAnalyse(
+                        patient: data,
+                      ),
+                    );
                   },
                   child: const Text(
                     "Analyse",

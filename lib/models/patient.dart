@@ -1,6 +1,12 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+import 'package:nurow/models/xray.dart';
+
 Patient patientFromJson(String str) => Patient.fromJson(json.decode(str));
+
+List<Patient> patientsFromJson(List data) =>
+    List<Patient>.from(data.map((x) => Patient.fromJson(x)));
 
 String patientToJson(Patient data) => json.encode(data.toJson());
 
@@ -11,36 +17,34 @@ class Patient {
     required this.number,
     required this.address,
     required this.xray,
-    required this.xrayLabel,
-    required this.log,
   });
 
   String name;
-  String dob;
+  DateTime dob;
   String number;
   String address;
-  List<String> xray;
-  List<String> xrayLabel;
-  Log log;
+  List<Xray?> xray;
 
   factory Patient.fromJson(Map<String, dynamic> json) => Patient(
         name: json["name"],
-        dob: json["dob"],
+        dob: json["dob"] is DateTime
+            ? json["dob"]
+            : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(json["dob"]),
         number: json["number"],
         address: json["address"],
-        xray: List<String>.from(json["xray"].map((x) => x)),
-        xrayLabel: List<String>.from(json["xrayLabel"].map((x) => x)),
-        log: Log.fromJson(json["log"]),
+        xray: json['xray'] != null
+            ? json['xray'] is List
+                ? List<Xray?>.from(json['xray'].map((x) => Xray.fromJson(x)))
+                : [Xray.fromJson(json['xray'])]
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "dob": dob,
+        "dob": DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(dob),
         "number": number,
         "address": address,
-        "xray": List<dynamic>.from(xray.map((x) => x)),
-        "xrayLabel": List<dynamic>.from(xrayLabel.map((x) => x)),
-        "log": log.toJson(),
+        // "xray": List<dynamic>.from(xray.map((x) => x?.toJson())),
       };
 }
 

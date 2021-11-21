@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:nurow/Screens/analysis_report.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/patient.dart';
 import 'package:nurow/pdf/master.dart';
 import 'package:printing/printing.dart';
 
 class XRayResult extends StatelessWidget {
-  const XRayResult({Key? key, required this.xray}) : super(key: key);
+  const XRayResult({Key? key, required this.patient}) : super(key: key);
 
-  final Xray xray;
+  final Patient patient;
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +26,28 @@ class XRayResult extends StatelessWidget {
                 Column(
                   children: [
                     const Text("original"),
-                    xRayImage(xray.image.path,
+                    xRayImage(patient.xray[0]!.originalImage.path,
                         imageHeight: 200, imageWidth: 200),
                   ],
                 ),
                 Column(
                   children: [
                     const Text("Tooth identification"),
-                    xRayImage(xray.image.path,
+                    xRayImage(patient.xray[0]!.originalImage.path,
                         imageHeight: 200, imageWidth: 200),
                   ],
                 ),
                 Column(
                   children: [
                     const Text("Anatomy"),
-                    xRayImage(xray.image.path,
+                    xRayImage(patient.xray[0]!.originalImage.path,
                         imageHeight: 200, imageWidth: 200),
                   ],
                 ),
                 Column(
                   children: [
                     const Text("Foriegn structures"),
-                    xRayImage(xray.image.path,
+                    xRayImage(patient.xray[0]!.originalImage.path,
                         imageHeight: 200, imageWidth: 200),
                   ],
                 ),
@@ -59,8 +59,8 @@ class XRayResult extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                xRayTable(xray),
-                xRayImage(xray.image.path),
+                xRayTable(patient),
+                xRayImage(patient.xray[0]!.originalImage.path),
                 const SizedBox(),
               ],
             ),
@@ -78,7 +78,7 @@ class XRayResult extends StatelessWidget {
                     Get.to(
                       () => PdfPreview(
                         maxPageWidth: 700,
-                        build: (format) => masterPDF(format, xray),
+                        build: (format) => masterPDF(format, patient),
                       ),
                     );
                   },
