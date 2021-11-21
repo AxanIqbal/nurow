@@ -29,17 +29,17 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
         creationTime: json["dob"] is DateTime
             ? json["dob"]
-            : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz')
+            : DateFormat('EEE, dd MMM yyyy hh:mm:ss')
                 .parse(json["creationTime"]),
         email: json["email"],
         lastLogOutTime: List<DateTime>.from(json["lastLogOutTime"].map((x) =>
             x is DateTime
                 ? x
-                : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(x))),
+                : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
         lastSignInTime: List<DateTime>.from(json["lastSignInTime"].map((x) =>
             x is DateTime
                 ? x
-                : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(x))),
+                : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
         userName: json["userName"],
       );
 

@@ -29,7 +29,7 @@ class Patient {
         name: json["name"],
         dob: json["dob"] is DateTime
             ? json["dob"]
-            : DateFormat('EEE, dd MMM yyyy hh:mm:ss zzz').parse(json["dob"]),
+            : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(json["dob"]),
         number: json["number"],
         address: json["address"],
         xray: json['xray'] != null

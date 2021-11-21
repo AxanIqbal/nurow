@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/patient_form.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/models/patient.dart';
@@ -22,6 +23,7 @@ class _XRayFormState extends State<XRayForm> {
 
   handle(Patient patientX) {
     patientY = patientX;
+    Get.back();
     setState(() {
       isNew = !isNew;
     });
