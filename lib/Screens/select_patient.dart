@@ -12,9 +12,23 @@ class SelectPatient extends StatelessWidget {
         backgroundColor: Colors.grey[400],
         body: Container(
           padding: const EdgeInsets.all(10),
-          child: const Align(
-            alignment: Alignment.topCenter,
-            child: PatientsTable(),
+          child: Column(
+            children: const [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Text(
+                  "Patients Detail",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: PatientsTable(),
+              ),
+            ],
           ),
         ),
       );
