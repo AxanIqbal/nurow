@@ -30,8 +30,8 @@ class Authentication {
           });
           cred.user!.sendEmailVerification();
           await cred.user!.updateDisplayName(userName);
-          print("testing this fellow");
-          print(cred.user);
+          // debugPrint("testing this fellow");
+          // debugPrint(cred.user);
           await showDialog(
             context: context,
             builder: (context) {
@@ -80,7 +80,7 @@ class Authentication {
               );
             },
           );
-          print(e);
+          debugPrint(e.toString());
           return e;
         }
       } else {
@@ -198,7 +198,7 @@ class Authentication {
           );
         },
       );
-      print(e);
+      debugPrint(e.toString());
       return e;
     }
   }

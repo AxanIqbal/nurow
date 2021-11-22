@@ -27,7 +27,13 @@ class XRayView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Center(child: xRayImage(data.xray[0]!.originalImage.path)),
+            Center(
+              child: xRayImage(
+                data.xray[0]!.originalImage.path,
+                imageHeight: MediaQuery.of(context).size.height * 0.5,
+                imageWidth: MediaQuery.of(context).size.width * 0.5,
+              ),
+            ),
             SizedBox(
               width: 400,
               child: xRayTable(data),

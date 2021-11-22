@@ -4,6 +4,11 @@ import 'package:nurow/models/patient.dart';
 
 Widget xRayTable(Patient data) {
   return Table(
+    columnWidths: const {
+      0: FlexColumnWidth(4),
+      1: FlexColumnWidth(1),
+      2: FlexColumnWidth(4),
+    },
     children: [
       TableRow(
         children: [

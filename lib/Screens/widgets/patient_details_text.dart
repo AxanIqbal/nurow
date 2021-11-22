@@ -1,83 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:nurow/models/patient.dart';
 
-class PatientDetailsText extends StatelessWidget {
-  final sizingInformation;
-  final width;
-  const PatientDetailsText({
-    Key? key,
-    this.sizingInformation,
-    @required this.width,
-  }) : super(key: key);
+class PatientDetails extends StatefulWidget {
+  const PatientDetails({Key? key, required this.patients, this.handle})
+      : super(key: key);
+  final List<Patient> patients;
+  final Function? handle;
+
+  @override
+  _PatientDetailsState createState() => _PatientDetailsState();
+}
+
+class _PatientDetailsState extends State<PatientDetails> {
+  TextEditingController controller = TextEditingController();
+  String _searchResult = '';
+  List<Patient> patientFiltered = [];
+
+  @override
+  void initState() {
+    setState(() {
+      patientFiltered = widget.patients;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: width,
-        padding: const EdgeInsets.all(5),
-        child: patientText(sizingInformation));
+    return Column(
+      children: [
+        SizedBox(
+          width: 400,
+          child: ListTile(
+            leading: const Icon(Icons.search),
+            title: TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                hintText: 'Search',
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                setState(
+                  () {
+                    _searchResult = value;
+                    patientFiltered = widget.patients
+                        .where((user) =>
+                            user.name.toLowerCase().contains(_searchResult))
+                        .toList();
+                  },
+                );
+              },
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.cancel),
+              onPressed: () {
+                setState(
+                  () {
+                    controller.clear();
+                    _searchResult = '';
+                    patientFiltered = widget.patients;
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+        DataTable(
+          columns: <DataColumn>[
+            const DataColumn(
+              label: Text(
+                'Name',
+              ),
+            ),
+            const DataColumn(
+              label: Text(
+                'Date Of Birth',
+              ),
+            ),
+            const DataColumn(
+              label: Text(
+                'Number',
+              ),
+            ),
+            if (widget.handle != null)
+              const DataColumn(
+                label: Text(
+                  'Select',
+                ),
+              ),
+          ],
+          rows: List.generate(
+            patientFiltered.length,
+            (index) => DataRow(
+              cells: <DataCell>[
+                DataCell(
+                  Text(patientFiltered[index].name),
+                ),
+                DataCell(
+                  Text(
+                    DateFormat("dd-MM-yyyy").format(patientFiltered[index].dob),
+                  ),
+                ),
+                DataCell(
+                  Text(patientFiltered[index].number),
+                ),
+                if (widget.handle != null)
+                  DataCell(
+                    IconButton(
+                      icon: const Icon(
+                        Icons.check,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () => widget.handle!(patientFiltered[index]),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
-}
-
-Widget patientText(sizingInformation) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        """ 
-Patient Name
-DOB 
-X-Ray Type
-""",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: sizingInformation.isTablet ? 15 : 18,
-          fontWeight: FontWeight.w600,
-          fontFamily: 'Poppins',
-        ),
-      ),
-      Text(
-        """ 
-: John Doe
-: 12/12/12
-: Left Bitewing
-""",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: sizingInformation.isTablet ? 15 : 18,
-          fontWeight: FontWeight.w600,
-          fontFamily: 'Poppins',
-        ),
-      )
-      // Text(
-      //   name,
-      //   style: TextStyle(
-      //     color: Colors.black,
-      //     fontSize: sizingInformation.isTablet ? 15 : 18,
-      //     fontWeight: FontWeight.w600,
-      //     fontFamily: 'Poppins',
-      //   ),
-      // ),
-      // SizedBox(
-      //   width: width,
-      // ),
-      // Text(
-      //   ": ",
-      //   style: TextStyle(
-      //     color: Colors.black,
-      //     fontSize: sizingInformation.isTablet ? 15 : 18,
-      //     fontWeight: FontWeight.w600,
-      //     fontFamily: 'Poppins',
-      //   ),
-      // ),
-      // Text(
-      //   value,
-      //   style: TextStyle(
-      //     color: Colors.black,
-      //     fontSize: sizingInformation.isTablet ? 15 : 18,
-      //     fontWeight: FontWeight.w600,
-      //     fontFamily: 'Poppins',
-      //   ),
-      // ),
-    ],
-  );
 }

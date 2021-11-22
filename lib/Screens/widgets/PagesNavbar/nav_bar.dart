@@ -44,7 +44,7 @@ class PagesNavBar extends StatelessWidget {
           navbarItem("Support", Icons.support, ""),
           TextButton(
             onPressed: () async {
-              print(FirebaseAuth.instance.currentUser!.displayName);
+              debugPrint(FirebaseAuth.instance.currentUser!.displayName);
               FirebaseFirestore.instance
                   .collection('users')
                   .doc(FirebaseAuth.instance.currentUser!.displayName)

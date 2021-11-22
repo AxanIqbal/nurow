@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:nurow/Screens/widgets/patient_details_text.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class AnalysisDetails extends StatefulWidget {
@@ -54,13 +53,13 @@ class _AnalysisDetailsState extends State<AnalysisDetails> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          decoration: const BoxDecoration(),
-                          child: PatientDetailsText(
-                            sizingInformation: sizingInformation,
-                            width: width * 0.7,
-                          ),
-                        ),
+                        // Container(
+                        //   decoration: const BoxDecoration(),
+                        //   child: PatientDetailsText(
+                        //     sizingInformation: sizingInformation,
+                        //     width: width * 0.7,
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 10,
                         ),
@@ -208,10 +207,10 @@ All analysis complete.
                                 ),
                               ),
                             ),
-                            PatientDetailsText(
-                              sizingInformation: sizingInformation,
-                              width: width * 0.2,
-                            )
+                            // PatientDetailsText(
+                            //   sizingInformation: sizingInformation,
+                            //   width: width * 0.2,
+                            // )
                           ],
                         ),
                       ),

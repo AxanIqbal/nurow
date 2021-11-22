@@ -20,49 +20,87 @@ class XRayResult extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    const Text("original"),
-                    xRayImage(patient.xray[0]!.originalImage.path,
-                        imageHeight: 200, imageWidth: 200),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text("Tooth identification"),
-                    xRayImage(patient.xray[0]!.originalImage.path,
-                        imageHeight: 200, imageWidth: 200),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text("Anatomy"),
-                    xRayImage(patient.xray[0]!.originalImage.path,
-                        imageHeight: 200, imageWidth: 200),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text("Foriegn structures"),
-                    xRayImage(patient.xray[0]!.originalImage.path,
-                        imageHeight: 200, imageWidth: 200),
-                  ],
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      const Text("original"),
+                      xRayImage(
+                        patient.xray[0]!.originalImage.path,
+                        imageHeight: MediaQuery.of(context).size.height * 0.25,
+                        imageWidth: MediaQuery.of(context).size.width * 0.23,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text("Tooth identification"),
+                      xRayImage(
+                        'assets/teethlabel.png',
+                        imageHeight: MediaQuery.of(context).size.height * 0.25,
+                        imageWidth: MediaQuery.of(context).size.width * 0.23,
+                        isAsset: true,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text("Anatomy"),
+                      xRayImage(
+                        "assets/teethlayers.png",
+                        imageHeight: MediaQuery.of(context).size.height * 0.25,
+                        imageWidth: MediaQuery.of(context).size.width * 0.23,
+                        isAsset: true,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text("Foriegn structures"),
+                      xRayImage(
+                        patient.xray[0]!.originalImage.path,
+                        imageHeight: MediaQuery.of(context).size.height * 0.25,
+                        imageWidth: MediaQuery.of(context).size.width * 0.23,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                xRayTable(patient),
-                xRayImage(patient.xray[0]!.originalImage.path),
-                const SizedBox(),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    child: Center(child: xRayTable(patient)),
+                  ),
+                  xRayImage(
+                    patient.xray[0]!.originalImage.path,
+                    imageWidth: MediaQuery.of(context).size.width * 0.5,
+                    imageHeight: MediaQuery.of(context).size.height * 0.5,
+                  ),
+                  const SizedBox(),
+                ],
+              ),
             ),
           ),
           Expanded(

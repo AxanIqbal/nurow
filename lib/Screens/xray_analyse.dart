@@ -29,7 +29,10 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
           children: [
             Row(
               children: [
-                xRayImage(widget.patient.xray[0]!.originalImage.path),
+                xRayImage(
+                  widget.patient.xray[0]!.originalImage.path,
+                  imageWidth: MediaQuery.of(context).size.width * 0.5,
+                ),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
