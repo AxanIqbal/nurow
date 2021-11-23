@@ -34,7 +34,6 @@ class PatientForm extends StatelessWidget {
               child: FormBuilderImagePicker(
                 name: 'originalImage',
                 decoration: const InputDecoration(
-                  labelText: 'Pick X-Ray',
                   border: InputBorder.none,
                 ),
                 validator: FormBuilderValidators.compose([
@@ -48,25 +47,56 @@ class PatientForm extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 400,
-            child: Table(
-              columnWidths: const {
-                0: FlexColumnWidth(1),
-                1: FlexColumnWidth(2),
-              },
-              children: [
-                TableRow(
-                  children: [
-                    const TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Text("Xray Type:"),
-                    ),
-                    TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Padding(
+            width: 500,
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+              child: Table(
+                columnWidths: const {
+                  0: FlexColumnWidth(1),
+                  1: FlexColumnWidth(2),
+                },
+                children: [
+                  TableRow(
+                    children: [
+                      const TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Text("Radiograph Type:"),
+                      ),
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: FormBuilderTextField(
+                            name: 'xrayLabel',
+                            validator: FormBuilderValidators.compose(
+                              [
+                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.minLength(context, 3),
+                              ],
+                            ),
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      const TableCell(
+                          verticalAlignment: TableCellVerticalAlignment.middle,
+                          child: Text("Patient Name:")),
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: FormBuilderTextField(
-                          name: 'xrayLabel',
+                          name: 'name',
+                          enabled: patient == null,
+                          initialValue: patient?.name,
                           validator: FormBuilderValidators.compose(
                             [
                               FormBuilderValidators.required(context),
@@ -79,76 +109,23 @@ class PatientForm extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    const TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Text("Patient Name:")),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FormBuilderTextField(
-                        name: 'name',
-                        enabled: patient == null,
-                        initialValue: patient?.name,
-                        validator: FormBuilderValidators.compose(
-                          [
-                            FormBuilderValidators.required(context),
-                            FormBuilderValidators.minLength(context, 3),
-                          ],
-                        ),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    const TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Text("Patient Address:")),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FormBuilderTextField(
-                        name: 'address',
-                        enabled: patient == null,
-                        initialValue: patient?.address,
-                        validator: FormBuilderValidators.compose(
-                          [
-                            FormBuilderValidators.required(context),
-                            FormBuilderValidators.minLength(context, 3),
-                          ],
-                        ),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    const TableCell(
-                      verticalAlignment: TableCellVerticalAlignment.middle,
-                      child: Text("Patient Number:"),
-                    ),
-                    TableCell(
-                      child: Padding(
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      const TableCell(
+                          verticalAlignment: TableCellVerticalAlignment.middle,
+                          child: Text("Patient Address:")),
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: FormBuilderTextField(
-                          name: 'number',
+                          name: 'address',
                           enabled: patient == null,
-                          initialValue: patient?.number,
+                          initialValue: patient?.address,
                           validator: FormBuilderValidators.compose(
                             [
                               FormBuilderValidators.required(context),
-                              FormBuilderValidators.minLength(context, 3)
+                              FormBuilderValidators.minLength(context, 3),
                             ],
                           ),
                           decoration: const InputDecoration(
@@ -157,32 +134,61 @@ class PatientForm extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    const TableCell(
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      const TableCell(
                         verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Text("Patient Date Of Birth:")),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FormBuilderDateTimePicker(
-                        name: 'dob',
-                        enabled: patient == null,
-                        initialValue: patient?.dob,
-                        inputType: InputType.date,
-                        validator: FormBuilderValidators.compose(
-                            [FormBuilderValidators.required(context)]),
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        child: Text("Patient Number:"),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: FormBuilderTextField(
+                            name: 'number',
+                            enabled: patient == null,
+                            initialValue: patient?.number,
+                            validator: FormBuilderValidators.compose(
+                              [
+                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.minLength(context, 3)
+                              ],
+                            ),
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 10),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      const TableCell(
+                          verticalAlignment: TableCellVerticalAlignment.middle,
+                          child: Text("Patient Date Of Birth:")),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: FormBuilderDateTimePicker(
+                          name: 'dob',
+                          enabled: patient == null,
+                          initialValue: patient?.dob,
+                          inputType: InputType.date,
+                          validator: FormBuilderValidators.compose(
+                              [FormBuilderValidators.required(context)]),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           ElevatedButton(

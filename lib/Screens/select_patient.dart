@@ -17,7 +17,7 @@ class SelectPatient extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 40),
                 child: Text(
-                  "Patients Detail",
+                  "Search Patient",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

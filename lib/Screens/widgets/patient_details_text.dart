@@ -32,6 +32,7 @@ class _PatientDetailsState extends State<PatientDetails> {
         SizedBox(
           width: 400,
           child: ListTile(
+            tileColor: Colors.white,
             leading: const Icon(Icons.search),
             title: TextField(
               controller: controller,
@@ -66,35 +67,38 @@ class _PatientDetailsState extends State<PatientDetails> {
           ),
         ),
         DataTable(
-          columns: <DataColumn>[
-            const DataColumn(
+          columns: const <DataColumn>[
+            DataColumn(
               label: Text(
                 'Name',
               ),
             ),
-            const DataColumn(
+            DataColumn(
               label: Text(
                 'Date Of Birth',
               ),
             ),
-            const DataColumn(
+            DataColumn(
               label: Text(
-                'Number',
+                'Address',
               ),
             ),
-            if (widget.handle != null)
-              const DataColumn(
-                label: Text(
-                  'Select',
-                ),
+            DataColumn(
+              label: Text(
+                'Patient No.',
               ),
+            ),
           ],
           rows: List.generate(
             patientFiltered.length,
             (index) => DataRow(
               cells: <DataCell>[
                 DataCell(
-                  Text(patientFiltered[index].name),
+                  TextButton(
+                      onPressed: () => widget.handle != null
+                          ? widget.handle!(patientFiltered[index])
+                          : null,
+                      child: Text(patientFiltered[index].name)),
                 ),
                 DataCell(
                   Text(
@@ -102,18 +106,21 @@ class _PatientDetailsState extends State<PatientDetails> {
                   ),
                 ),
                 DataCell(
+                  Text(patientFiltered[index].address),
+                ),
+                DataCell(
                   Text(patientFiltered[index].number),
                 ),
-                if (widget.handle != null)
-                  DataCell(
-                    IconButton(
-                      icon: const Icon(
-                        Icons.check,
-                        color: Colors.blue,
-                      ),
-                      onPressed: () => widget.handle!(patientFiltered[index]),
-                    ),
-                  ),
+                // if (widget.handle != null)
+                //   DataCell(
+                //     IconButton(
+                //       icon: const Icon(
+                //         Icons.check,
+                //         color: Colors.blue,
+                //       ),
+                //       onPressed: () => widget.handle!(patientFiltered[index]),
+                //     ),
+                //   ),
               ],
             ),
           ),

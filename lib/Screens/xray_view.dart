@@ -26,6 +26,7 @@ class XRayView extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
               child: xRayImage(
@@ -35,12 +36,16 @@ class XRayView extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 400,
-              child: xRayTable(data),
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: XRayTable(
+                data: data,
+              ),
             ),
+            const SizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                const SizedBox(),
                 ElevatedButton(
                   onPressed: () => locator<NavigationService>().goBack(),
                   child: const Text(
@@ -106,6 +111,7 @@ class XRayView extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(),
               ],
             )
           ],

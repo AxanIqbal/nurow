@@ -27,21 +27,26 @@ class PagesNavBar extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: Image.network("https://i.ibb.co/bzyPjVc/X-Icon.png"),
+          Center(
+            child: SizedBox(
+              height: 100,
+              width: 100,
+              child: Image.network("https://i.ibb.co/bzyPjVc/X-Icon.png"),
+            ),
           ),
-          navbarItem("Analyse X-Ray", Icons.analytics_outlined, analysisPage),
-          navbarItem("Substractive Imagery", Icons.analytics_rounded, ""),
-          navbarItem("Pathology Inv...", Icons.home_max_rounded, ""),
-          navbarItem("Patient Data", Icons.people, patientDetailsPage),
-          navbarItem("User Management", Icons.supervised_user_circle, ""),
-          navbarItem("Audit", Icons.check_box, auditPage),
-          navbarItem("License Management", Icons.pages, ""),
-          navbarItem("Support", Icons.support, ""),
+          navbarItem("Analyse Radiograph", Icons.analytics_outlined,
+              analysisPage, context),
+          navbarItem(
+              "Substractive Imagery", Icons.analytics_rounded, "", context),
+          navbarItem("Pathology Inv...", Icons.home_max_rounded, "", context),
+          navbarItem("Patient Data", Icons.people, patientDetailsPage, context),
+          navbarItem(
+              "User Management", Icons.supervised_user_circle, "", context),
+          navbarItem("Audit", Icons.check_box, auditPage, context),
+          navbarItem("License Management", Icons.pages, "", context),
+          navbarItem("Support", Icons.support, "", context),
           TextButton(
             onPressed: () async {
               debugPrint(FirebaseAuth.instance.currentUser!.displayName);
@@ -88,7 +93,8 @@ class PagesNavBar extends StatelessWidget {
   }
 }
 
-Widget navbarItem(String name, IconData icon, String routeName) {
+Widget navbarItem(
+    String name, IconData icon, String routeName, BuildContext context) {
   return InkWell(
     onTap: () {
       locator<NavigationService>().navigateTo(routeName);
@@ -99,15 +105,16 @@ Widget navbarItem(String name, IconData icon, String routeName) {
       children: [
         Text(
           name,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 16,
+            fontSize: (13 / 720) * MediaQuery.of(context).size.height,
           ),
         ),
         const SizedBox(width: 10),
         Icon(
           icon,
           color: Colors.white,
+          size: (16 / 720) * MediaQuery.of(context).size.height,
         )
       ],
     ),
