@@ -63,6 +63,7 @@ class _XRayFormState extends State<XRayForm> {
                         context: context,
                         builder: (BuildContext context) => Dialog(
                           child: Container(
+                            color: Colors.grey[350],
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 20),
                             child: PatientsTable(

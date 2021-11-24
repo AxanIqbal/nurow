@@ -17,11 +17,13 @@ class Patient {
     required this.number,
     required this.address,
     required this.xray,
+    this.id,
   });
 
   String name;
   DateTime dob;
   String number;
+  String? id;
   String address;
   List<Xray?> xray;
 
@@ -31,6 +33,7 @@ class Patient {
             ? json["dob"]
             : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(json["dob"]),
         number: json["number"],
+        id: json["id"],
         address: json["address"],
         xray: json['xray'] != null
             ? json['xray'] is List

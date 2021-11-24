@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class PagesNavBar extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: SizedBox(
@@ -36,17 +37,19 @@ class PagesNavBar extends StatelessWidget {
               child: Image.network("https://i.ibb.co/bzyPjVc/X-Icon.png"),
             ),
           ),
-          navbarItem("Analyse Radiograph", Icons.analytics_outlined,
+          navbarItem("Analyse Radiograph", 'assets/Analyse Radiograph.png',
               analysisPage, context),
+          navbarItem("Subtractive Imagery", 'assets/subtractive imagery.png',
+              "", context),
+          navbarItem("Pathology Investigation",
+              'assets/pathology investigation.png', "", context),
           navbarItem(
-              "Substractive Imagery", Icons.analytics_rounded, "", context),
-          navbarItem("Pathology Inv...", Icons.home_max_rounded, "", context),
-          navbarItem("Patient Data", Icons.people, patientDetailsPage, context),
+              "Patient Data", 'assets/audit.png', patientDetailsPage, context),
           navbarItem(
-              "User Management", Icons.supervised_user_circle, "", context),
-          navbarItem("Audit", Icons.check_box, auditPage, context),
-          navbarItem("License Management", Icons.pages, "", context),
-          navbarItem("Support", Icons.support, "", context),
+              "User Management", 'assets/user management.png', "", context),
+          navbarItem("Audit", 'audit.png', auditPage, context),
+          navbarItem("License Management", 'assets/license.png', "", context),
+          navbarItem("Support", 'assets/Support.png', "", context),
           TextButton(
             onPressed: () async {
               debugPrint(FirebaseAuth.instance.currentUser!.displayName);
@@ -94,29 +97,41 @@ class PagesNavBar extends StatelessWidget {
 }
 
 Widget navbarItem(
-    String name, IconData icon, String routeName, BuildContext context) {
-  return InkWell(
-    onTap: () {
-      locator<NavigationService>().navigateTo(routeName);
-    },
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: (13 / 720) * MediaQuery.of(context).size.height,
-          ),
-        ),
-        const SizedBox(width: 10),
-        Icon(
-          icon,
-          color: Colors.white,
-          size: (16 / 720) * MediaQuery.of(context).size.height,
-        )
-      ],
+    String name, String icon, String routeName, BuildContext context) {
+  return ListTile(
+    // mainAxisSize: MainAxisSize.min,
+    // mainAxisAlignment: MainAxisAlignment.center,
+    onTap: () => locator<NavigationService>().navigateTo(routeName),
+    contentPadding: const EdgeInsets.only(left: 10.0),
+    horizontalTitleGap: 1.0,
+    dense: true,
+    minLeadingWidth: 30,
+    title: AutoSizeText(
+      name,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+      ),
+      minFontSize: 0,
+      stepGranularity: 0.1,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     ),
+    leading: ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 20,
+        maxHeight: 20,
+      ),
+      child: Image.asset(
+        icon,
+        color: Colors.white,
+        fit: BoxFit.fill,
+      ),
+    ),
+    // leading: Icon(
+    //   icon,
+    //   color: Colors.white,
+    //   size: (16 / 720) * MediaQuery.of(context).size.height,
+    // ),
   );
 }
