@@ -103,9 +103,9 @@ Widget navbarItem(
     // mainAxisAlignment: MainAxisAlignment.center,
     onTap: () => locator<NavigationService>().navigateTo(routeName),
     contentPadding: const EdgeInsets.only(left: 10.0),
-    horizontalTitleGap: 1.0,
+    // horizontalTitleGap: 1.0,
     dense: true,
-    minLeadingWidth: 30,
+    minLeadingWidth: 0,
     title: AutoSizeText(
       name,
       style: const TextStyle(
@@ -117,11 +117,13 @@ Widget navbarItem(
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     ),
-    leading: ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 20,
-        maxHeight: 20,
-      ),
+    leading: SizedBox(
+      // constraints: const BoxConstraints(
+      //   maxWidth: 30,
+      //   maxHeight: 23,
+      // ),
+      width: MediaQuery.of(context).size.width * 0.02,
+      height: MediaQuery.of(context).size.height * 0.025,
       child: Image.asset(
         icon,
         color: Colors.white,
