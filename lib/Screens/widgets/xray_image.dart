@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 Widget xRayImage(String image,
     {double imageHeight = 400, double? imageWidth, bool isAsset = false}) {
-  return Container(
+  return AnimatedContainer(
+    duration: const Duration(milliseconds: 500),
     padding: const EdgeInsets.all(10),
     height: imageHeight,
     width: imageWidth,

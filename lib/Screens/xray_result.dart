@@ -7,10 +7,29 @@ import 'package:nurow/models/patient.dart';
 import 'package:nurow/pdf/master.dart';
 import 'package:printing/printing.dart';
 
-class XRayResult extends StatelessWidget {
+class XRayResult extends StatefulWidget {
   const XRayResult({Key? key, required this.patient}) : super(key: key);
 
   final Patient patient;
+
+  @override
+  State<XRayResult> createState() => _XRayResultState();
+}
+
+class _XRayResultState extends State<XRayResult> {
+  late String _image;
+
+  @override
+  void initState() {
+    super.initState();
+    _image = widget.patient.xray[0]!.originalImage.path;
+  }
+
+  void changeImage(String image) {
+    setState(() {
+      _image = image;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +53,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("original"),
-                          xRayImage(
-                            patient.xray[0]!.originalImage.path,
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
+                          InkWell(
+                            onTap: () => changeImage(
+                                widget.patient.xray[0]!.originalImage.path),
+                            child: xRayImage(
+                              widget.patient.xray[0]!.originalImage.path,
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -49,13 +72,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("Tooth identification"),
-                          xRayImage(
-                            'assets/teethlabel.png',
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
-                            isAsset: true,
+                          InkWell(
+                            onTap: () => changeImage('assets/teethlabel.png'),
+                            child: xRayImage(
+                              'assets/teethlabel.png',
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                              isAsset: true,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -65,13 +91,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("Anatomy"),
-                          xRayImage(
-                            "assets/teethlayers.png",
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
-                            isAsset: true,
+                          InkWell(
+                            onTap: () => changeImage('assets/teethlayers.png'),
+                            child: xRayImage(
+                              "assets/teethlayers.png",
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                              isAsset: true,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -81,12 +110,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("Foreign structures"),
-                          xRayImage(
-                            patient.xray[0]!.originalImage.path,
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
+                          InkWell(
+                            onTap: () => changeImage(
+                                widget.patient.xray[0]!.originalImage.path),
+                            child: xRayImage(
+                              widget.patient.xray[0]!.originalImage.path,
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -96,13 +129,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("Caries (Decay)"),
-                          xRayImage(
-                            "assets/teethlayers.png",
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
-                            isAsset: true,
+                          InkWell(
+                            onTap: () => changeImage('assets/teethlayers.png'),
+                            child: xRayImage(
+                              "assets/teethlayers.png",
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                              isAsset: true,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -112,13 +148,16 @@ class XRayResult extends StatelessWidget {
                       Column(
                         children: [
                           const Text("Bone-loss"),
-                          xRayImage(
-                            "assets/teethlayers.png",
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.20,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.20,
-                            isAsset: true,
+                          InkWell(
+                            onTap: () => changeImage('assets/teethlayers.png'),
+                            child: xRayImage(
+                              "assets/teethlayers.png",
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.20,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.20,
+                              isAsset: true,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -140,12 +179,12 @@ class XRayResult extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     child: Center(
                       child: XRayTable(
-                        data: patient,
+                        data: widget.patient,
                       ),
                     ),
                   ),
                   xRayImage(
-                    patient.xray[0]!.originalImage.path,
+                    _image,
                     imageWidth: MediaQuery.of(context).size.width * 0.40,
                     imageHeight: MediaQuery.of(context).size.height * 0.40,
                   ),
@@ -219,7 +258,8 @@ class XRayResult extends StatelessWidget {
                         Get.to(
                           () => PdfPreview(
                             maxPageWidth: 700,
-                            build: (format) => masterPDF(format, patient),
+                            build: (format) =>
+                                masterPDF(format, widget.patient),
                           ),
                         );
                       },
@@ -233,7 +273,8 @@ class XRayResult extends StatelessWidget {
                         Get.to(
                           () => PdfPreview(
                             maxPageWidth: 700,
-                            build: (format) => masterPDF(format, patient),
+                            build: (format) =>
+                                masterPDF(format, widget.patient),
                           ),
                         );
                       },
@@ -247,7 +288,8 @@ class XRayResult extends StatelessWidget {
                         Get.to(
                           () => PdfPreview(
                             maxPageWidth: 700,
-                            build: (format) => masterPDF(format, patient),
+                            build: (format) =>
+                                masterPDF(format, widget.patient),
                           ),
                         );
                       },
