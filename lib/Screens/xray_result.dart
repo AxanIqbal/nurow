@@ -18,6 +18,7 @@ class XRayResult extends StatefulWidget {
 
 class _XRayResultState extends State<XRayResult> {
   late String _image;
+  int _index = 0;
 
   @override
   void initState() {
@@ -25,9 +26,10 @@ class _XRayResultState extends State<XRayResult> {
     _image = widget.patient.xray[0]!.originalImage.path;
   }
 
-  void changeImage(String image) {
+  void changeImage(String image, int index) {
     setState(() {
       _image = image;
+      _index = index;
     });
   }
 
@@ -41,130 +43,150 @@ class _XRayResultState extends State<XRayResult> {
           children: [
             Expanded(
               flex: 1,
-              child: SingleChildScrollView(
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          const Text("original"),
-                          InkWell(
-                            onTap: () => changeImage(
-                                widget.patient.xray[0]!.originalImage.path),
-                            child: xRayImage(
-                              widget.patient.xray[0]!.originalImage.path,
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  scrollbars: false,
+                ),
+                child: SingleChildScrollView(
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            const Text("original"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                  widget.patient.xray[0]!.originalImage.path,
+                                  0),
+                              child: xRayImage(
+                                widget.patient.xray[0]!.originalImage.path,
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text("Tooth identification"),
-                          InkWell(
-                            onTap: () => changeImage('assets/teethlabel.png'),
-                            child: xRayImage(
-                              'assets/teethlabel.png',
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
-                              isAsset: true,
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text("Anatomy"),
-                          InkWell(
-                            onTap: () => changeImage('assets/teethlayers.png'),
-                            child: xRayImage(
-                              "assets/teethlayers.png",
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
-                              isAsset: true,
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Tooth identification"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                'assets/teethlabel.png',
+                                1,
+                              ),
+                              child: xRayImage(
+                                'assets/teethlabel.png',
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                                isAsset: true,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text("Foreign structures"),
-                          InkWell(
-                            onTap: () => changeImage(
-                                widget.patient.xray[0]!.originalImage.path),
-                            child: xRayImage(
-                              widget.patient.xray[0]!.originalImage.path,
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text("Caries (Decay)"),
-                          InkWell(
-                            onTap: () => changeImage('assets/teethlayers.png'),
-                            child: xRayImage(
-                              "assets/teethlayers.png",
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
-                              isAsset: true,
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Anatomy"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                'assets/teethlayers.png',
+                                2,
+                              ),
+                              child: xRayImage(
+                                "assets/teethlayers.png",
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                                isAsset: true,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text("Bone-loss"),
-                          InkWell(
-                            onTap: () => changeImage('assets/teethlayers.png'),
-                            child: xRayImage(
-                              "assets/teethlayers.png",
-                              imageHeight:
-                                  MediaQuery.of(context).size.height * 0.20,
-                              imageWidth:
-                                  MediaQuery.of(context).size.width * 0.20,
-                              isAsset: true,
+                            const SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Foreign structures"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                widget.patient.xray[0]!.originalImage.path,
+                                3,
+                              ),
+                              child: xRayImage(
+                                widget.patient.xray[0]!.originalImage.path,
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Caries (Decay)"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                'assets/teethlayers.png',
+                                4,
+                              ),
+                              child: xRayImage(
+                                "assets/teethlayers.png",
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                                isAsset: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text("Bone-loss"),
+                            InkWell(
+                              onTap: () => changeImage(
+                                'assets/teethlayers.png',
+                                5,
+                              ),
+                              child: xRayImage(
+                                "assets/teethlayers.png",
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.20,
+                                isAsset: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -188,44 +210,45 @@ class _XRayResultState extends State<XRayResult> {
                     imageWidth: MediaQuery.of(context).size.width * 0.40,
                     imageHeight: MediaQuery.of(context).size.height * 0.40,
                   ),
-                  Column(
-                    children: [
-                      const Text(
-                        "Charting",
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                  if (_index == 0)
+                    Column(
+                      children: [
+                        const Text(
+                          "Charting",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const XRayResultCharting(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const SizedBox(),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Agree"),
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.green),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Edit"),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.orange),
-                          ),
-                          const SizedBox(),
-                        ],
-                      ),
-                      // const SizedBox(),
-                    ],
-                  ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const XRayResultCharting(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const SizedBox(),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text("Agree"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.green),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text("Edit"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.orange),
+                            ),
+                            const SizedBox(),
+                          ],
+                        ),
+                        // const SizedBox(),
+                      ],
+                    ),
                   const SizedBox(),
                   const SizedBox(),
                 ],

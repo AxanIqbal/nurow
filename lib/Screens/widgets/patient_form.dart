@@ -29,8 +29,8 @@ class PatientForm extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SizedBox(
-              width: 500,
-              height: 400,
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.height * 0.4,
               child: FormBuilderImagePicker(
                 name: 'originalImage',
                 decoration: const InputDecoration(
@@ -41,13 +41,13 @@ class PatientForm extends StatelessWidget {
                 ]),
                 maxImages: 1,
                 fit: BoxFit.fill,
-                previewHeight: 400,
-                previewWidth: 500,
+                previewHeight: MediaQuery.of(context).size.height * 0.4,
+                previewWidth: MediaQuery.of(context).size.width * 0.4,
               ),
             ),
           ),
           SizedBox(
-            width: 500,
+            width: MediaQuery.of(context).size.width * 0.4,
             child: DefaultTextStyle(
               style: const TextStyle(
                 fontSize: 16,
@@ -232,9 +232,9 @@ class PatientForm extends StatelessWidget {
               backgroundColor: MaterialStateProperty.all(Colors.white),
               padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
                 (Set<MaterialState> states) {
-                  return const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 20,
+                  return EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.02,
+                    vertical: MediaQuery.of(context).size.height * 0.02,
                   );
                 },
               ),
@@ -245,6 +245,9 @@ class PatientForm extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(
+            height: 20,
+          )
         ],
       ),
     );

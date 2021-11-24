@@ -4,6 +4,7 @@ Widget xRayImage(String image,
     {double imageHeight = 400, double? imageWidth, bool isAsset = false}) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
+    curve: Curves.easeIn,
     padding: const EdgeInsets.all(10),
     height: imageHeight,
     width: imageWidth,
