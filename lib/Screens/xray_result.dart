@@ -139,9 +139,10 @@ class XRayResult extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.35,
                     child: Center(
-                        child: XRayTable(
-                      data: patient,
-                    )),
+                      child: XRayTable(
+                        data: patient,
+                      ),
+                    ),
                   ),
                   xRayImage(
                     patient.xray[0]!.originalImage.path,
@@ -183,12 +184,11 @@ class XRayResult extends StatelessWidget {
                           const SizedBox(),
                         ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
                       // const SizedBox(),
                     ],
                   ),
+                  const SizedBox(),
+                  const SizedBox(),
                 ],
               ),
             ),
