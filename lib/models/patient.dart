@@ -25,7 +25,7 @@ class Patient {
   String number;
   String? id;
   String address;
-  List<Xray?> xray;
+  List<Xray> xray;
 
   factory Patient.fromJson(Map<String, dynamic> json) => Patient(
         name: json["name"],
@@ -37,7 +37,7 @@ class Patient {
         address: json["address"],
         xray: json['xray'] != null
             ? json['xray'] is List
-                ? List<Xray?>.from(json['xray'].map((x) => Xray.fromJson(x)))
+                ? List<Xray>.from(json['xray'].map((x) => Xray.fromJson(x)))
                 : [Xray.fromJson(json['xray'])]
             : [],
       );

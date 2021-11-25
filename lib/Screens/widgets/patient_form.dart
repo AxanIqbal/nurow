@@ -5,10 +5,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
-import 'package:nurow/Screens/xray_result.dart';
+import 'package:nurow/Screens/xray_view.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 
 class PatientForm extends StatelessWidget {
   const PatientForm({
@@ -198,28 +199,40 @@ class PatientForm extends StatelessWidget {
                 log(_formKey.currentState!.value.toString());
                 // _formKey.currentState!.value['dob'] =
                 //     DateTime.parse(_formKey.currentState!.value['dob']);
-                Patient data = Patient.fromJson({
-                  ..._formKey.currentState!.value,
-                  "xray": {
-                    "radiographType": _formKey.currentState!.value['xrayLabel'],
-                    "originalImage":
-                        _formKey.currentState!.value['originalImage'],
-                    "timeStamp": DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(
-                      DateTime.now(),
+                Patient data;
+                if (patient == null) {
+                  data = Patient.fromJson({
+                    ..._formKey.currentState!.value,
+                    "xray": {
+                      "radiographType":
+                          _formKey.currentState!.value['xrayLabel'],
+                      "originalImage":
+                          _formKey.currentState!.value['originalImage'][0],
+                      "timeStamp":
+                          DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(
+                        DateTime.now(),
+                      ),
+                    }
+                  });
+                } else {
+                  patient!.xray.add(
+                    Xray(
+                      originalImage:
+                          _formKey.currentState!.value['originalImage'][0],
+                      radiographType: _formKey.currentState!.value['xrayLabel'],
+                      timeStamp: DateTime.now(),
                     ),
-                  }
-                });
+                  );
+                  data = patient!;
+                }
                 debugPrint(data.xray.toString());
                 // Get.to<NavigatorState>(() => XRayView(
                 //       data: _formKey.currentState!.value,
                 //     ));
                 locator<NavigationService>().navigateToWidget(
-                  // () => XRayView(
-                  //   data: data,
-                  //   isNew: patient == null ? true : false,
-                  // ),
-                  () => XRayResult(
-                    patient: data,
+                  () => XRayView(
+                    data: data,
+                    isNew: patient == null ? true : false,
                   ),
                 );
               } else {

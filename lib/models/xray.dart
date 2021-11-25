@@ -19,7 +19,7 @@ class Xray {
   String radiographType;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(
-        originalImage: json["originalImage"][0],
+        originalImage: json["originalImage"],
         timeStamp: DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(
           json["timeStamp"],
         ),
