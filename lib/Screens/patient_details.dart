@@ -142,12 +142,12 @@ class PatientDetailTable extends StatelessWidget {
                           cells: [
                             DataCell(
                               Text(
-                                DateFormat("dd/MM/yy")
-                                    .format(patient.xray[index]!.timeStamp),
+                                DateFormat("dd/MM/yy").format(
+                                    patient.xraySorted[index].timeStamp),
                               ),
                             ),
                             DataCell(
-                              Text(patient.xray[index]!.radiographType),
+                              Text(patient.xraySorted[index].radiographType),
                             ),
                           ],
                         ),

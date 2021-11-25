@@ -5,13 +5,19 @@ import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 import 'package:nurow/pdf/master.dart';
 import 'package:printing/printing.dart';
 
 class XRayResult extends StatefulWidget {
-  const XRayResult({Key? key, required this.patient}) : super(key: key);
+  const XRayResult({
+    Key? key,
+    required this.patient,
+    required this.currentXray,
+  }) : super(key: key);
 
   final Patient patient;
+  final Xray currentXray;
 
   @override
   State<XRayResult> createState() => _XRayResultState();
@@ -24,7 +30,7 @@ class _XRayResultState extends State<XRayResult> {
   @override
   void initState() {
     super.initState();
-    _image = widget.patient.xray[0]!.originalImage.path;
+    _image = widget.currentXray.originalImage.path;
   }
 
   void changeImage(String image, int index) {
@@ -62,10 +68,9 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("original"),
                             InkWell(
                               onTap: () => changeImage(
-                                  widget.patient.xray[0]!.originalImage.path,
-                                  0),
+                                  widget.currentXray.originalImage.path, 0),
                               child: xRayImage(
-                                widget.patient.xray[0]!.originalImage.path,
+                                widget.currentXray.originalImage.path,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -126,11 +131,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Foreign structures"),
                             InkWell(
                               onTap: () => changeImage(
-                                widget.patient.xray[0]!.originalImage.path,
+                                widget.currentXray.originalImage.path,
                                 3,
                               ),
                               child: xRayImage(
-                                widget.patient.xray[0]!.originalImage.path,
+                                widget.currentXray.originalImage.path,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -203,6 +208,7 @@ class _XRayResultState extends State<XRayResult> {
                     child: Center(
                       child: XRayTable(
                         data: widget.patient,
+                        currentXray: widget.currentXray,
                       ),
                     ),
                   ),

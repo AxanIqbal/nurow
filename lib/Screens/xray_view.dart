@@ -4,19 +4,21 @@ import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_analyse.dart';
 import 'package:nurow/Services/database.dart';
 import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
-
-import '../locator.dart';
+import 'package:nurow/models/xray.dart';
 
 class XRayView extends StatelessWidget {
   const XRayView({
     Key? key,
     required this.data,
     this.isNew = true,
+    required this.currentXray,
   }) : super(key: key);
 
   final Patient data;
   final bool isNew;
+  final Xray currentXray;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class XRayView extends StatelessWidget {
           children: [
             Center(
               child: xRayImage(
-                data.xray[0]!.originalImage.path,
+                currentXray.originalImage.path,
                 imageHeight: MediaQuery.of(context).size.height * 0.5,
                 imageWidth: MediaQuery.of(context).size.width * 0.5,
               ),
@@ -39,6 +41,7 @@ class XRayView extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.4,
               child: XRayTable(
                 data: data,
+                currentXray: currentXray,
               ),
             ),
             const SizedBox(),
@@ -82,6 +85,7 @@ class XRayView extends StatelessWidget {
                     locator<NavigationService>().navigateToWidget(
                       () => XRayAnalyse(
                         patient: data,
+                        currentXray: currentXray,
                       ),
                     );
                   },

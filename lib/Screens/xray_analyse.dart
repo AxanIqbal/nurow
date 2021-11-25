@@ -7,11 +7,17 @@ import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 
 class XRayAnalyse extends StatefulWidget {
-  const XRayAnalyse({Key? key, required this.patient}) : super(key: key);
+  const XRayAnalyse({
+    Key? key,
+    required this.patient,
+    required this.currentXray,
+  }) : super(key: key);
 
   final Patient patient;
+  final Xray currentXray;
 
   @override
   State<XRayAnalyse> createState() => _XRayAnalyseState();
@@ -45,6 +51,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
       locator<NavigationService>().navigateToWidget(
         () => XRayResult(
           patient: widget.patient,
+          currentXray: widget.currentXray,
         ),
       );
     }
@@ -64,7 +71,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 xRayImage(
-                  widget.patient.xray[0]!.originalImage.path,
+                  widget.currentXray.originalImage.path,
                   imageWidth: MediaQuery.of(context).size.width * 0.4,
                   imageHeight: MediaQuery.of(context).size.height * 0.4,
                 ),
@@ -75,6 +82,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: XRayTable(
                       data: widget.patient,
+                      currentXray: widget.currentXray,
                     ),
                   ),
                 ),

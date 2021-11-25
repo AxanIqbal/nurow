@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:intl/intl.dart';
 import 'package:nurow/Screens/xray_view.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/locator.dart';
@@ -199,29 +198,21 @@ class PatientForm extends StatelessWidget {
                 log(_formKey.currentState!.value.toString());
                 // _formKey.currentState!.value['dob'] =
                 //     DateTime.parse(_formKey.currentState!.value['dob']);
+                Xray currentXray = Xray(
+                  originalImage: _formKey.currentState!.value['originalImage']
+                      [0],
+                  radiographType: _formKey.currentState!.value['xrayLabel'],
+                  timeStamp: DateTime.now(),
+                );
                 Patient data;
                 if (patient == null) {
                   data = Patient.fromJson({
                     ..._formKey.currentState!.value,
-                    "xray": {
-                      "radiographType":
-                          _formKey.currentState!.value['xrayLabel'],
-                      "originalImage":
-                          _formKey.currentState!.value['originalImage'][0],
-                      "timeStamp":
-                          DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(
-                        DateTime.now(),
-                      ),
-                    }
+                    "xray": currentXray.toJson(),
                   });
                 } else {
                   patient!.xray.add(
-                    Xray(
-                      originalImage:
-                          _formKey.currentState!.value['originalImage'][0],
-                      radiographType: _formKey.currentState!.value['xrayLabel'],
-                      timeStamp: DateTime.now(),
-                    ),
+                    currentXray,
                   );
                   data = patient!;
                 }
@@ -232,6 +223,7 @@ class PatientForm extends StatelessWidget {
                 locator<NavigationService>().navigateToWidget(
                   () => XRayView(
                     data: data,
+                    currentXray: currentXray,
                     isNew: patient == null ? true : false,
                   ),
                 );

@@ -27,6 +27,11 @@ class Patient {
   String address;
   List<Xray> xray;
 
+  List<Xray> get xraySorted {
+    xray.sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
+    return xray;
+  }
+
   factory Patient.fromJson(Map<String, dynamic> json) => Patient(
         name: json["name"],
         dob: json["dob"] is DateTime

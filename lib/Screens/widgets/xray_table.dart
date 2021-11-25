@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 
 class XRayTable extends StatelessWidget {
-  const XRayTable({Key? key, required this.data}) : super(key: key);
+  const XRayTable({
+    Key? key,
+    required this.data,
+    required this.currentXray,
+  }) : super(key: key);
+
   final Patient data;
+  final Xray currentXray;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +64,7 @@ class XRayTable extends StatelessWidget {
                 ":",
               ),
               Text(
-                data.xray[0]!.radiographType,
+                currentXray.radiographType,
                 textAlign: TextAlign.center,
               ),
             ],
