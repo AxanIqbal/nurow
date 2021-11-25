@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
@@ -287,24 +288,16 @@ class _XRayResultState extends State<XRayResult> {
                         );
                       },
                       child: Container(
-                          width: MediaQuery.of(context).size.width * (0.1),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: const Text("Master Report PDF")),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(
-                          () => PdfPreview(
-                            maxPageWidth: 700,
-                            build: (format) =>
-                                masterPDF(format, widget.patient),
+                        width: MediaQuery.of(context).size.width * (0.1),
+                        height: MediaQuery.of(context).size.height * (0.06),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Center(
+                          child: AutoSizeText(
+                            "Master Report PDF",
+                            minFontSize: 0,
                           ),
-                        );
-                      },
-                      child: Container(
-                          width: MediaQuery.of(context).size.width * (0.1),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: const Text("Diagnostic Report PDF")),
+                        ),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -318,8 +311,36 @@ class _XRayResultState extends State<XRayResult> {
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * (0.1),
+                        height: MediaQuery.of(context).size.height * (0.06),
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Text("Disease data & Statics PDF"),
+                        child: const Center(
+                          child: AutoSizeText(
+                            "Diagnostic Report PDF",
+                            minFontSize: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(
+                          () => PdfPreview(
+                            maxPageWidth: 700,
+                            build: (format) =>
+                                masterPDF(format, widget.patient),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * (0.1),
+                        height: MediaQuery.of(context).size.height * (0.06),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Center(
+                          child: AutoSizeText(
+                            "Disease data & Statics PDF",
+                            minFontSize: 0,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(),

@@ -28,7 +28,7 @@ class PatientDetailTable extends StatelessWidget {
               height: 20,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
+              // width: MediaQuery.of(context).size.width * 0.5,
               child: DefaultTextStyle(
                 style: TextStyle(
                   fontSize: (16 / 720) * MediaQuery.of(context).size.height,
@@ -36,9 +36,9 @@ class PatientDetailTable extends StatelessWidget {
                 ),
                 child: Table(
                   columnWidths: const {
-                    0: FlexColumnWidth(4),
-                    1: FlexColumnWidth(1),
-                    2: FlexColumnWidth(4),
+                    0: FlexColumnWidth(1.5),
+                    1: FlexColumnWidth(0.5),
+                    2: FlexColumnWidth(8),
                   },
                   children: [
                     TableRow(
@@ -51,7 +51,7 @@ class PatientDetailTable extends StatelessWidget {
                         ),
                         Text(
                           patient.name,
-                          // textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                         ),
                       ],
                     ),

@@ -5,7 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
-import 'package:nurow/Screens/xray_view.dart';
+import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
@@ -194,9 +194,6 @@ class PatientForm extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              debugPrint(DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(
-                DateTime.now(),
-              ));
               if (_formKey.currentState!.saveAndValidate()) {
                 log(_formKey.currentState!.value.toString());
                 // _formKey.currentState!.value['dob'] =
@@ -217,9 +214,12 @@ class PatientForm extends StatelessWidget {
                 //       data: _formKey.currentState!.value,
                 //     ));
                 locator<NavigationService>().navigateToWidget(
-                  () => XRayView(
-                    data: data,
-                    isNew: patient == null ? true : false,
+                  // () => XRayView(
+                  //   data: data,
+                  //   isNew: patient == null ? true : false,
+                  // ),
+                  () => XRayResult(
+                    patient: data,
                   ),
                 );
               } else {
