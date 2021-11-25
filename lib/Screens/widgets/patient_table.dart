@@ -4,9 +4,9 @@ import 'package:nurow/Services/database.dart';
 import 'package:nurow/models/patient.dart';
 
 class PatientsTable extends StatelessWidget {
-  const PatientsTable({Key? key, this.handle}) : super(key: key);
+  const PatientsTable({Key? key, required this.handle}) : super(key: key);
 
-  final Function? handle;
+  final Function handle;
 
   @override
   Widget build(BuildContext context) {

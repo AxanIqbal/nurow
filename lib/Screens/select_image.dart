@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Routing/route_names.dart';
-import 'package:nurow/Screens/patient_details.dart';
 import 'package:nurow/Services/database.dart';
 import 'package:nurow/Services/navigation_service.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -339,13 +338,13 @@ class _SelectImageState extends State<SelectImage> {
                       if (isImageSelected) ...{
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AnalyseScreen(
-                                  image: imageUrl,
-                                ),
-                              ),
-                            );
+                            // Navigator.of(context).push(
+                            // MaterialPageRoute(
+                            // builder: (context) => AnalyseScreen(
+                            //   image: imageUrl,
+                            // ),
+                            // ),
+                            // );
                           },
                           child: const Text(
                             "Analyse X-Ray",

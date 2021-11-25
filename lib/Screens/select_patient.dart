@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nurow/Screens/patient_details.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
+import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/locator.dart';
+import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class SelectPatient extends StatelessWidget {
   const SelectPatient({Key? key}) : super(key: key);
+
+  void gotoDetail(Patient patient) {
+    locator<NavigationService>().navigateToWidget(
+      () => PatientDetailTable(
+        patient: patient,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +25,8 @@ class SelectPatient extends StatelessWidget {
         body: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
-            children: const [
-              Padding(
+            children: [
+              const Padding(
                 padding: EdgeInsets.symmetric(vertical: 40),
                 child: Text(
                   "Search Patient",
@@ -26,7 +38,9 @@ class SelectPatient extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.topCenter,
-                child: PatientsTable(),
+                child: PatientsTable(
+                  handle: gotoDetail,
+                ),
               ),
             ],
           ),

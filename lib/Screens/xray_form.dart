@@ -21,7 +21,7 @@ class _XRayFormState extends State<XRayForm> {
       address: 'address',
       xray: []);
 
-  handle(Patient patientX) {
+  void handle(Patient patientX) {
     patientY = patientX;
     Get.back();
     setState(() {

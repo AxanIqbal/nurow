@@ -57,7 +57,7 @@ class XRayTable extends StatelessWidget {
                 ":",
               ),
               Text(
-                data.xray[0]!.xrayLabel,
+                data.xray[0]!.radiographType,
                 textAlign: TextAlign.center,
               ),
             ],

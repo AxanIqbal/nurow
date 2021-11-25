@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
@@ -21,50 +19,39 @@ class XRayAnalyse extends StatefulWidget {
 
 class _XRayAnalyseState extends State<XRayAnalyse> {
   bool isComplete = true;
-  Timer? timer;
+  int _count = 0;
+  static const List<String> _text = [
+    'Identifying teeth and boxed',
+    '',
+    'Grading radiograph quality - done',
+    'Assessing Radiograph quality grade',
+    'Preprocessing Radiograph',
+    'Optimising image for A.I analysis',
+    'Identifying teeth',
+    'Labelling teeth',
+    'Labelling teeth',
+    'Anatomy identification',
+    'Foreign structure identification',
+    'Caries detection',
+    'BoneLevel detection',
+    'Searching for comparable Radiograph',
+    'Searching Patient record for same historical radiograph for possible subtractive imagery analysis',
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(
-      const Duration(seconds: 2),
-      (Timer t) {
-        timer?.cancel();
-        locator<NavigationService>().navigateToWidget(
-          () => XRayResult(
-            patient: widget.patient,
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
+  void counter() {
+    _count += 1;
+    setState(() {});
+    if (_count >= _text.length) {
+      locator<NavigationService>().navigateToWidget(
+        () => XRayResult(
+          patient: widget.patient,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    const List<String> _text = [
-      'Identifying teeth and boxed',
-      '',
-      'Grading radiograph quality - done',
-      'Assessing Radiograph quality grade',
-      'Preprocessing Radiograph',
-      'Optimising image for A.I analysis',
-      'Identifying teeth',
-      'Labelling teeth',
-      'Labelling teeth',
-      'Anatomy identification',
-      'Foreign structure identification',
-      'Caries detection',
-      'BoneLevel detection',
-      'Searching for comparable Radiograph',
-      'Searching Patient record for same historical radiograph for possible subtractive imagery analysis',
-    ];
-
     return Scaffold(
       backgroundColor: Colors.grey[400],
       body: Container(
@@ -110,15 +97,20 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
                     child: ListView(
                       children: [
                         const SizedBox(),
-                        ...List<Widget>.generate(
-                          _text.length,
-                          (index) => Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: TextAnimation(
-                              text: _text[index],
-                            ),
-                          ),
-                        ),
+                        ...List<Widget>.generate(_text.length, (index) {
+                          if (_count >= index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: TextAnimation(
+                                text: _text[index],
+                                counter: counter,
+                              ),
+                            );
+                          }
+                          return const Padding(
+                            padding: EdgeInsets.only(left: 5.0),
+                          );
+                        }),
                       ],
                     ),
                   ),

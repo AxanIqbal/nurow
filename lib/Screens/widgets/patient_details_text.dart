@@ -3,10 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:nurow/models/patient.dart';
 
 class PatientDetails extends StatefulWidget {
-  const PatientDetails({Key? key, required this.patients, this.handle})
+  const PatientDetails({Key? key, required this.patients, required this.handle})
       : super(key: key);
   final List<Patient> patients;
-  final Function? handle;
+  final Function handle;
 
   @override
   _PatientDetailsState createState() => _PatientDetailsState();
@@ -108,9 +108,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                   cells: <DataCell>[
                     DataCell(
                       TextButton(
-                          onPressed: () => widget.handle != null
-                              ? widget.handle!(patientFiltered[index])
-                              : null,
+                          onPressed: () =>
+                              widget.handle(patientFiltered[index]),
                           child: Text(patientFiltered[index].name)),
                     ),
                     DataCell(

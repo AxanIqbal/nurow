@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TextAnimation extends StatefulWidget {
-  const TextAnimation({Key? key, required this.text, this.textStyle})
-      : super(key: key);
+  const TextAnimation({
+    Key? key,
+    required this.text,
+    this.textStyle,
+    required this.counter,
+  }) : super(key: key);
   final String text;
   final TextStyle? textStyle;
+  final Function counter;
 
   @override
   _TextAnimationState createState() => _TextAnimationState();
@@ -28,6 +33,7 @@ class _TextAnimationState extends State<TextAnimation>
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           animationController.dispose();
+          widget.counter();
         }
       })
       ..addListener(() {
