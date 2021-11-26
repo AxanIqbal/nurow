@@ -11,10 +11,11 @@ Widget xRayImage(String image,
     decoration: BoxDecoration(
       color: Colors.white,
       image: DecorationImage(
-          image: isAsset
-              ? AssetImage(image)
-              : NetworkImage(image) as ImageProvider<Object>,
-          fit: BoxFit.fill),
+        image: isAsset
+            ? AssetImage(image)
+            : NetworkImage(image) as ImageProvider<Object>,
+        fit: BoxFit.fill,
+      ),
       border: Border.all(color: Colors.blueAccent, width: 2),
     ),
     // child: SizedBox(

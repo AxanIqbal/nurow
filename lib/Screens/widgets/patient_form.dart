@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
@@ -21,31 +19,233 @@ class PatientForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormBuilderState>();
+    const _toothSelections = [
+      "UL QUADRANT",
+      "UR QUADRANT",
+      "LL QUADRANT",
+      "LR QUADRANT",
+      "UPPER ANTERIOR REGION",
+      "LOWER ANTERIOR REGION",
+      "MANDIBULAR ARCH",
+      "MAXILLARY ARCH",
+      "UL1",
+      "UL2",
+      "UL3",
+      "UL4",
+      "UL5",
+      "UL6",
+      "UL7",
+      "UL8",
+      "UR1",
+      "UR2",
+      "UR3",
+      "UR4",
+      "UR5",
+      "UR6",
+      "UR7",
+      "UR8",
+      "LL1",
+      "LL2",
+      "LL3",
+      "LL4",
+      "LL5",
+      "LL6",
+      "LL7",
+      "LL8",
+      "LR1",
+      "LR2",
+      "LR3",
+      "LR4",
+      "LR5",
+      "LR6",
+      "LR7",
+      "LR8",
+    ];
+    const _view = [
+      "OCCLUSAL",
+      "BUCCAL",
+      "PALATAL/LINGUAL",
+    ];
     return FormBuilder(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: FormBuilderImagePicker(
-                name: 'originalImage',
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: FormBuilderImagePicker(
+                    name: 'originalImage',
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(context),
+                    ]),
+                    maxImages: 1,
+                    fit: BoxFit.fill,
+                    previewHeight: MediaQuery.of(context).size.height * 0.4,
+                    previewWidth: MediaQuery.of(context).size.width * 0.4,
+                  ),
                 ),
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(context),
-                ]),
-                maxImages: 1,
-                fit: BoxFit.fill,
-                previewHeight: MediaQuery.of(context).size.height * 0.4,
-                previewWidth: MediaQuery.of(context).size.width * 0.4,
               ),
-            ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          child: FormBuilderImagePicker(
+                            name: 'optionalImage1',
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            onChanged: (value) {
+                              _formKey.currentState!.save();
+                            },
+                            maxImages: 1,
+                            fit: BoxFit.fill,
+                            previewHeight:
+                                MediaQuery.of(context).size.height * 0.2,
+                            previewWidth:
+                                MediaQuery.of(context).size.width * 0.2,
+                          ),
+                        ),
+                      ),
+                      // if (_formKey.currentState?.value['optionalImage1'] !=
+                      //         null ||
+                      //     _formKey.currentState?.value['optionalImage1']
+                      //         is List)
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FormBuilderDropdown(
+                                name: 'ToothSelection1',
+                                // validator: FormBuilderValidators.compose([
+                                //
+                                // ]),
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                hint: const Text('Tooth Selection'),
+                                items: List<DropdownMenuItem>.from(
+                                  _toothSelections.map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FormBuilderDropdown(
+                                name: 'view1',
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                hint: const Text('View'),
+                                items: List<DropdownMenuItem>.from(
+                                  _view.map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          child: FormBuilderImagePicker(
+                            name: 'optionalImage2',
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            maxImages: 1,
+                            fit: BoxFit.fill,
+                            previewHeight:
+                                MediaQuery.of(context).size.height * 0.2,
+                            previewWidth:
+                                MediaQuery.of(context).size.width * 0.2,
+                          ),
+                        ),
+                      ),
+                      // if (_formKey.currentState?.fields['optionalImage2'] !=
+                      //     null)
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FormBuilderDropdown(
+                                name: 'ToothSelection2',
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                hint: const Text('Tooth Selection'),
+                                items: List<DropdownMenuItem>.from(
+                                  _toothSelections.map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FormBuilderDropdown(
+                                name: 'view2',
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                hint: const Text('View'),
+                                items: List<DropdownMenuItem>.from(
+                                  _view.map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
@@ -195,7 +395,7 @@ class PatientForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.saveAndValidate()) {
-                log(_formKey.currentState!.value.toString());
+                // log(_formKey.currentState!.value.toString());
                 // _formKey.currentState!.value['dob'] =
                 //     DateTime.parse(_formKey.currentState!.value['dob']);
                 Xray currentXray = Xray(
