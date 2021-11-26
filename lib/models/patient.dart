@@ -43,7 +43,9 @@ class Patient {
         xray: json['xray'] != null
             ? json['xray'] is List
                 ? List<Xray>.from(json['xray'].map((x) => Xray.fromJson(x)))
-                : [Xray.fromJson(json['xray'])]
+                : [
+                    Xray.fromJson(json['xray']),
+                  ]
             : [],
       );
 

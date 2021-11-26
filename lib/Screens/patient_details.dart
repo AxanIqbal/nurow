@@ -35,11 +35,12 @@ class PatientDetailTable extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
                 child: Table(
-                  columnWidths: const {
-                    0: FlexColumnWidth(1.5),
-                    1: FlexColumnWidth(0.5),
-                    2: FlexColumnWidth(8),
-                  },
+                  // columnWidths: const {
+                  //   0: FlexColumnWidth(1.5),
+                  //   1: FlexColumnWidth(0.5),
+                  //   2: FlexColumnWidth(8),
+                  // },
+                  defaultColumnWidth: const IntrinsicColumnWidth(),
                   children: [
                     TableRow(
                       children: [

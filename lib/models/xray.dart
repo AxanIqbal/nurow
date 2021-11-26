@@ -12,11 +12,13 @@ class Xray {
     required this.originalImage,
     required this.radiographType,
     required this.timeStamp,
+    this.optionalImages,
   });
 
   XFile originalImage;
   DateTime timeStamp;
   String radiographType;
+  List<XFile>? optionalImages;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(
         originalImage: json["originalImage"],
@@ -24,6 +26,13 @@ class Xray {
           json["timeStamp"],
         ),
         radiographType: json["radiographType"],
+        optionalImages: json['optionalImages'] != null
+            ? json['optionalImages'] is List
+                ? json['optionalImages']
+                : [
+                    json['optionalImages'],
+                  ]
+            : [],
       );
 
   Map<String, dynamic> toJson() => {

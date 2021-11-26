@@ -87,11 +87,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Tooth identification"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/teethlabel.png',
+                                'assets/tooth identification.jpg',
                                 1,
                               ),
                               child: xRayImage(
-                                'assets/teethlabel.png',
+                                'assets/tooth identification.jpg',
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -109,11 +109,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Anatomy"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/teethlayers.png',
+                                'assets/anatomy.png',
                                 2,
                               ),
                               child: xRayImage(
-                                "assets/teethlayers.png",
+                                "assets/anatomy.png",
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -131,11 +131,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Foreign structures"),
                             InkWell(
                               onTap: () => changeImage(
-                                widget.currentXray.originalImage.path,
+                                'assets/foriegn structures.png',
                                 3,
                               ),
                               child: xRayImage(
-                                widget.currentXray.originalImage.path,
+                                'assets/foriegn structures.png',
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -152,11 +152,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Caries (Decay)"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/teethlayers.png',
+                                'assets/Decay.png',
                                 4,
                               ),
                               child: xRayImage(
-                                "assets/teethlayers.png",
+                                "assets/Decay.png",
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -174,11 +174,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Bone-loss"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/teethlayers.png',
+                                'assets/bone-level.png',
                                 5,
                               ),
                               child: xRayImage(
-                                "assets/teethlayers.png",
+                                "assets/bone-level.png",
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -255,6 +255,100 @@ class _XRayResultState extends State<XRayResult> {
                         ),
                         // const SizedBox(),
                       ],
+                    )
+                  else if (_index == 4)
+                    DefaultTextStyle(
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Number of decayed teeth in image: 3",
+                          ),
+                          Text(
+                            "- Indicate higher decay risk",
+                          ),
+                          Text(
+                            "Number of restored teeth in image: 5",
+                          ),
+                          Text(
+                            "- Indicate high historical caries rate",
+                          ),
+                          Text(
+                            "% of decay identified within known hotspots:  87%",
+                          ),
+                          Text(
+                            "- Increased confidence in caries diagnosis: 96%",
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Patient clinical data ( from notes) :",
+                          ),
+                          Text(
+                            "High sugar intake",
+                          ),
+                          Text(
+                            "Irregular interdental cleaning",
+                          ),
+                        ],
+                      ),
+                    )
+                  else if (_index == 5)
+                    DefaultTextStyle(
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "CEJ reference point identified: 8 teeth",
+                          ),
+                          Text(
+                            "   -Reference point for original bone level",
+                          ),
+                          Text(
+                            "Impediments to original bone level projection 0",
+                          ),
+                          Text(
+                            "   -Indicate higher confidence in projection",
+                          ),
+                          Text(
+                            "Impediments to current bone level tracing:  0",
+                          ),
+                          Text(
+                            " -Indicate higher confidence in tracing",
+                          ),
+                          Text(
+                            "Reference marking on teeth to classify boneloss",
+                          ),
+                          Text(
+                            "  -root divided into thirds and marked",
+                          ),
+                          Text(
+                            "Confidence in findings: 98%",
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Patient clinical data ( from notes) :",
+                          ),
+                          Text(
+                            "Irregular interdental cleaning",
+                          ),
+                          Text(
+                            "-Higher risk",
+                          ),
+                          Text(
+                            "-Diabetic",
+                          ),
+                        ],
+                      ),
                     ),
                   const SizedBox(),
                   const SizedBox(),
@@ -331,10 +425,10 @@ class _XRayResultState extends State<XRayResult> {
                       onPressed: () {
                         Get.to(
                           () => PdfPreview(
-                            maxPageWidth: 700,
-                            build: (format) =>
-                                masterPDF(format, widget.patient),
-                          ),
+                              maxPageWidth: 700,
+                              build: (format) async {
+                                return await masterPDF(format, widget.patient);
+                              }),
                         );
                       },
                       child: Container(
