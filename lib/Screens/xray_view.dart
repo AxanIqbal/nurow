@@ -32,7 +32,7 @@ class XRayView extends StatelessWidget {
           children: [
             Center(
               child: xRayImage(
-                currentXray.originalImage.path,
+                NetworkImage(currentXray.originalImage.path),
                 imageHeight: MediaQuery.of(context).size.height * 0.5,
                 imageWidth: MediaQuery.of(context).size.width * 0.5,
               ),

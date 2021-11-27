@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +94,7 @@ class _PracticePatientsState extends State<PracticePatients> {
                             setState(() {
                               _chosenValue = value;
                             });
-                            print(_chosenValue);
+                            log(_chosenValue.toString());
                           },
                         ),
                       ],
@@ -146,7 +148,7 @@ class _PracticePatientsState extends State<PracticePatients> {
                             setState(() {
                               _chosenValue = value;
                             });
-                            print(_chosenValue);
+                            log(_chosenValue.toString());
                           },
                         ),
                       ],

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,7 +71,7 @@ class PagesNavBar extends StatelessWidget {
           ),
           navbarItem(
             "Audit",
-            'audit.png',
+            'assets/audit.png',
             auditPage,
             context,
           ),
@@ -95,7 +97,7 @@ class PagesNavBar extends StatelessWidget {
                 'lastLogOutTime': FieldValue.arrayUnion([Timestamp.now()])
               }).then((value) => FirebaseAuth.instance.signOut(),
                       onError: (error) {
-                print(error);
+                log(error);
               });
             },
             child: const Text(

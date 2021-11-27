@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nurow/Routing/route_names.dart';
 import 'package:nurow/Screens/audit.dart';
@@ -6,7 +8,7 @@ import 'package:nurow/Screens/select_patient.dart';
 import 'package:nurow/Screens/xray_form.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-  print('generateRoute: ${settings.name}');
+  log('generateRoute: ${settings.name}');
   switch (settings.name) {
     case analysisPage:
       return _getPageRoute(const SelectImage());

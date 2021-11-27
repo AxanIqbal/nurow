@@ -24,16 +24,16 @@ class XRayResult extends StatefulWidget {
 }
 
 class _XRayResultState extends State<XRayResult> {
-  late String _image;
+  late ImageProvider<Object> _image;
   int _index = 0;
 
   @override
   void initState() {
     super.initState();
-    _image = widget.currentXray.originalImage.path;
+    _image = NetworkImage(widget.currentXray.originalImage.path);
   }
 
-  void changeImage(String image, int index) {
+  void changeImage(ImageProvider<Object> image, int index) {
     setState(() {
       _image = image;
       _index = index;
@@ -42,6 +42,13 @@ class _XRayResultState extends State<XRayResult> {
 
   @override
   Widget build(BuildContext context) {
+    final originalImage = NetworkImage(widget.currentXray.originalImage.path);
+    const toothIdentical = AssetImage('assets/tooth identification.jpg');
+    const anatomy = AssetImage('assets/anatomy.png');
+    const foriegnStructures = AssetImage('assets/foriegn structures.png');
+    const decay = AssetImage('assets/Decay.png');
+    const boneLevel = AssetImage('assets/bone-level.png');
+
     return Scaffold(
       backgroundColor: Colors.grey[400],
       body: Padding(
@@ -67,10 +74,9 @@ class _XRayResultState extends State<XRayResult> {
                           children: [
                             const Text("original"),
                             InkWell(
-                              onTap: () => changeImage(
-                                  widget.currentXray.originalImage.path, 0),
+                              onTap: () => changeImage(originalImage, 0),
                               child: xRayImage(
-                                widget.currentXray.originalImage.path,
+                                originalImage,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -87,11 +93,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Tooth identification"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/tooth identification.jpg',
+                                toothIdentical,
                                 1,
                               ),
                               child: xRayImage(
-                                'assets/tooth identification.jpg',
+                                toothIdentical,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -109,11 +115,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Anatomy"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/anatomy.png',
+                                anatomy,
                                 2,
                               ),
                               child: xRayImage(
-                                "assets/anatomy.png",
+                                anatomy,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -131,11 +137,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Foreign structures"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/foriegn structures.png',
+                                foriegnStructures,
                                 3,
                               ),
                               child: xRayImage(
-                                'assets/foriegn structures.png',
+                                foriegnStructures,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -152,11 +158,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Caries (Decay)"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/Decay.png',
+                                decay,
                                 4,
                               ),
                               child: xRayImage(
-                                "assets/Decay.png",
+                                decay,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:
@@ -174,11 +180,11 @@ class _XRayResultState extends State<XRayResult> {
                             const Text("Bone-loss"),
                             InkWell(
                               onTap: () => changeImage(
-                                'assets/bone-level.png',
+                                boneLevel,
                                 5,
                               ),
                               child: xRayImage(
-                                "assets/bone-level.png",
+                                boneLevel,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.20,
                                 imageWidth:

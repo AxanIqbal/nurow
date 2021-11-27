@@ -4,12 +4,12 @@ import 'package:nurow/Authentication/Login/login.dart';
 import 'package:nurow/Services/auth.dart';
 
 class RegisterForm extends StatefulWidget {
-  final paddingTopForm,
+  final double paddingTopForm,
       fontSizeTextField,
       fontSizeTextFormField,
       spaceBetweenFields,
       iconFormSize;
-  final spaceBetweenFieldAndButton,
+  final double spaceBetweenFieldAndButton,
       widthButton,
       fontSizeButton,
       fontSizeForgotPassword,
@@ -17,17 +17,19 @@ class RegisterForm extends StatefulWidget {
       errorFormMessage;
 
   const RegisterForm(
-      this.paddingTopForm,
-      this.fontSizeTextField,
-      this.fontSizeTextFormField,
-      this.spaceBetweenFields,
-      this.iconFormSize,
-      this.spaceBetweenFieldAndButton,
-      this.widthButton,
-      this.fontSizeButton,
-      this.fontSizeForgotPassword,
-      this.fontSizeSnackBar,
-      this.errorFormMessage);
+    this.paddingTopForm,
+    this.fontSizeTextField,
+    this.fontSizeTextFormField,
+    this.spaceBetweenFields,
+    this.iconFormSize,
+    this.spaceBetweenFieldAndButton,
+    this.widthButton,
+    this.fontSizeButton,
+    this.fontSizeForgotPassword,
+    this.fontSizeSnackBar,
+    this.errorFormMessage, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();

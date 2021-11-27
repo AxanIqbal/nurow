@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import 'dio.dart';
@@ -28,7 +30,7 @@ class HttpServiceImpl implements HttpService {
     try {
       response = await _dio.get(url, queryParameters: parameters);
     } on DioError catch (e) {
-      print(e.message);
+      log(e.message);
       throw Exception(e.message);
     }
 
@@ -44,14 +46,13 @@ class HttpServiceImpl implements HttpService {
   initializeInterceptors() {
     _dio.interceptors.add(
       InterceptorsWrapper(onError: (error, error1) {
-        print(error.message);
+        log(error.message);
         error1.next(error);
       }, onRequest: (request, request1) {
-        print("${request.method} | ${request.path}");
+        log("${request.method} | ${request.path}");
         request1.next(request);
       }, onResponse: (response, response1) {
-        print(
-            "${response.statusCode} ${response.statusMessage} ${response.data}");
+        log("${response.statusCode} ${response.statusMessage} ${response.data}");
         response1.next(response);
       }),
     );
