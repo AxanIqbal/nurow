@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' as _get;
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/user.dart';
+import 'package:nurow/models/xray.dart';
 
 import 'dio.dart';
 import 'http.dart';
@@ -31,9 +33,23 @@ class DataService {
     return data;
   }
 
-  Future<dynamic> getXrays() async {
-    var response = await _httpService.getRequest('/getxray');
-    return response;
+  Future<List<Xray>> getAllXrays(String patientId) async {
+    var response = await _httpService
+        .getRequest('/getxray', parameters: {"patientId": patientId});
+    List<Xray> data = [];
+    try {
+      data = xraysFromJson(response.data);
+    } catch (e) {
+      _get.Get.snackbar(
+        "Error",
+        response.data.toString(),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+      return Future.error(e);
+    }
+
+    return data;
   }
 
   Future<dynamic> getXrayType(String id, String type) async {
@@ -42,9 +58,36 @@ class DataService {
     return response;
   }
 
-  Future<Response> addPatient(Map<String, dynamic> data) async {
+  Future<Patient?> addPatient(Map<String, dynamic> data) async {
     Response response = await _httpService.post('/patientdata', data);
-    return response;
+    Patient? returnData;
+    try {
+      returnData = Patient.fromJson(response.data);
+    } catch (e) {
+      _get.Get.snackbar(
+        "Error",
+        response.data.toString(),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+    }
+    return returnData;
+  }
+
+  Future<Xray?> addXray(Map<String, dynamic> data) async {
+    Response response = await _httpService.post('/addxray', data);
+    Xray? returnData;
+    try {
+      returnData = Xray.fromJson(response.data);
+    } catch (e) {
+      _get.Get.snackbar(
+        "Error",
+        response.data.toString(),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+    }
+    return returnData;
   }
 
   Future<dynamic> getPatient(String id) async {

@@ -126,52 +126,52 @@ class PatientForm extends StatelessWidget {
                       //         null ||
                       //     _formKey.currentState?.value['optionalImage1']
                       //         is List)
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: FormBuilderDropdown(
-                                name: 'ToothSelection1',
-                                // validator: FormBuilderValidators.compose([
-                                //
-                                // ]),
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                hint: const Text('Tooth Selection'),
-                                items: List<DropdownMenuItem>.from(
-                                  _toothSelections.map(
-                                    (e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e),
-                                    ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: FormBuilderDropdown(
+                              name: 'ToothSelection1',
+                              // validator: FormBuilderValidators.compose([
+                              //
+                              // ]),
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              hint: const Text('Tooth Selection'),
+                              items: List<DropdownMenuItem>.from(
+                                _toothSelections.map(
+                                  (e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: FormBuilderDropdown(
-                                name: 'view1',
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                hint: const Text('View'),
-                                items: List<DropdownMenuItem>.from(
-                                  _view.map(
-                                    (e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e),
-                                    ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: FormBuilderDropdown(
+                              name: 'view1',
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              hint: const Text('View'),
+                              items: List<DropdownMenuItem>.from(
+                                _view.map(
+                                  (e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   Row(
@@ -198,49 +198,49 @@ class PatientForm extends StatelessWidget {
                       ),
                       // if (_formKey.currentState?.fields['optionalImage2'] !=
                       //     null)
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: FormBuilderDropdown(
-                                name: 'ToothSelection2',
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                hint: const Text('Tooth Selection'),
-                                items: List<DropdownMenuItem>.from(
-                                  _toothSelections.map(
-                                    (e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e),
-                                    ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: FormBuilderDropdown(
+                              name: 'ToothSelection2',
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              hint: const Text('Tooth Selection'),
+                              items: List<DropdownMenuItem>.from(
+                                _toothSelections.map(
+                                  (e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: FormBuilderDropdown(
-                                name: 'view2',
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                                hint: const Text('View'),
-                                items: List<DropdownMenuItem>.from(
-                                  _view.map(
-                                    (e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e),
-                                    ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: FormBuilderDropdown(
+                              name: 'view2',
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              hint: const Text('View'),
+                              items: List<DropdownMenuItem>.from(
+                                _view.map(
+                                  (e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -395,21 +395,47 @@ class PatientForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.saveAndValidate()) {
-                // log(_formKey.currentState!.value.toString());
                 // _formKey.currentState!.value['dob'] =
                 //     DateTime.parse(_formKey.currentState!.value['dob']);
                 Xray currentXray = Xray(
-                  originalImage: _formKey.currentState!.value['originalImage']
-                      [0],
+                  originalImage:
+                      _formKey.currentState!.value['originalImage'][0].path,
                   radiographType: _formKey.currentState!.value['xrayLabel'],
                   timeStamp: DateTime.now(),
+                  optionalImages: [],
                 );
+                if (_formKey.currentState!.value['optionalImage1'] != null &&
+                    _formKey.currentState!.value['ToothSelection1'] != null &&
+                    _formKey.currentState!.value['view1'] != null) {
+                  currentXray.optionalImages.add(
+                    OptionalImages(
+                      toothSelections:
+                          _formKey.currentState!.value['ToothSelection1'],
+                      view: _formKey.currentState!.value['view1'],
+                      image: _formKey
+                          .currentState!.value['optionalImage1'][0].path,
+                    ),
+                  );
+                }
+                if (_formKey.currentState!.value['optionalImage2'] != null &&
+                    _formKey.currentState!.value['ToothSelection2'] != null &&
+                    _formKey.currentState!.value['view2'] != null) {
+                  currentXray.optionalImages.add(
+                    OptionalImages(
+                      toothSelections:
+                          _formKey.currentState!.value['ToothSelection2'],
+                      view: _formKey.currentState!.value['view2'],
+                      image: _formKey
+                          .currentState!.value['optionalImage2'][0].path,
+                    ),
+                  );
+                }
                 Patient data;
                 if (patient == null) {
                   data = Patient.fromJson({
                     ..._formKey.currentState!.value,
-                    "xray": currentXray.toJson(),
                   });
+                  data.xray.add(currentXray);
                 } else {
                   patient!.xray.add(
                     currentXray,
@@ -420,6 +446,8 @@ class PatientForm extends StatelessWidget {
                 // Get.to<NavigatorState>(() => XRayView(
                 //       data: _formKey.currentState!.value,
                 //     ));
+                print(data.xray[0].optionalImages[0].toJson().toString());
+                print(data.xray[0].optionalImages[1].toJson().toString());
                 locator<NavigationService>().navigateToWidget(
                   () => XRayView(
                     data: data,

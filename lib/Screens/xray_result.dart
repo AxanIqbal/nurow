@@ -30,7 +30,7 @@ class _XRayResultState extends State<XRayResult> {
   @override
   void initState() {
     super.initState();
-    _image = NetworkImage(widget.currentXray.originalImage.path);
+    _image = NetworkImage(widget.currentXray.originalImage);
   }
 
   void changeImage(ImageProvider<Object> image, int index) {
@@ -42,7 +42,7 @@ class _XRayResultState extends State<XRayResult> {
 
   @override
   Widget build(BuildContext context) {
-    final originalImage = NetworkImage(widget.currentXray.originalImage.path);
+    final originalImage = NetworkImage(widget.currentXray.originalImage);
     const toothIdentical = AssetImage('assets/tooth identification.jpg');
     const anatomy = AssetImage('assets/anatomy.png');
     const foriegnStructures = AssetImage('assets/foriegn structures.png');
@@ -421,7 +421,7 @@ class _XRayResultState extends State<XRayResult> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: const Center(
                           child: AutoSizeText(
-                            "Diagnostic Report PDF",
+                            "A.I diagnostic report",
                             minFontSize: 0,
                           ),
                         ),

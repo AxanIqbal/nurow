@@ -1,4 +1,6 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_analyse.dart';
@@ -32,7 +34,7 @@ class XRayView extends StatelessWidget {
           children: [
             Center(
               child: xRayImage(
-                NetworkImage(currentXray.originalImage.path),
+                NetworkImage(currentXray.originalImage),
                 imageHeight: MediaQuery.of(context).size.height * 0.5,
                 imageWidth: MediaQuery.of(context).size.width * 0.5,
               ),
@@ -77,48 +79,107 @@ class XRayView extends StatelessWidget {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (isNew) {
-                      await DataService().addPatient(data.toJson());
-                    }
-                    locator<NavigationService>().navigateToWidget(
-                      () => XRayAnalyse(
-                        patient: data,
-                        currentXray: currentXray,
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Analyse",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    padding:
-                        MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-                      (Set<MaterialState> states) {
-                        return const EdgeInsets.symmetric(
-                          horizontal: 40,
-                          vertical: 20,
-                        );
-                      },
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                    ),
-                  ),
+                _Button(
+                  currentXray: currentXray,
+                  isNew: isNew,
+                  data: data,
                 ),
                 const SizedBox(),
               ],
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Button extends StatefulWidget {
+  const _Button(
+      {Key? key,
+      required this.isNew,
+      required this.data,
+      required this.currentXray})
+      : super(key: key);
+
+  final bool isNew;
+  final Patient data;
+  final Xray currentXray;
+
+  @override
+  _ButtonState createState() => _ButtonState();
+}
+
+class _ButtonState extends State<_Button> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: !isLoading
+          ? () async {
+              FirebaseStorage storage = FirebaseStorage.instance;
+              setState(() {
+                isLoading = true;
+              });
+              if (widget.isNew) {
+                Patient? _x =
+                    await DataService().addPatient(widget.data.toJson());
+                if (_x != null) {
+                  widget.data.id = _x.id;
+                }
+              }
+              Reference _ref = storage
+                  .ref()
+                  .child('xrays')
+                  .child(widget.data.id ?? 'dumped')
+                  .child("${DateTime.now().toString()}.png");
+              Response bytes =
+                  await get(Uri.parse(widget.currentXray.originalImage));
+              UploadTask _task = _ref.putData(bytes.bodyBytes);
+              String _img = await (await _task).ref.getDownloadURL();
+              await DataService().addXray({
+                ...widget.currentXray.toJson(),
+                "originalImage": _img,
+                "patientId": widget.data.id,
+              });
+              setState(() {
+                isLoading = false;
+              });
+              locator<NavigationService>().navigateToWidget(
+                () => XRayAnalyse(
+                  patient: widget.data,
+                  currentXray: widget.currentXray,
+                ),
+              );
+            }
+          : null,
+      child: !isLoading
+          ? const Text(
+              "Analyse",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            )
+          : const CircularProgressIndicator(
+              color: Colors.black,
+            ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+          (Set<MaterialState> states) {
+            return const EdgeInsets.symmetric(
+              horizontal: 40,
+              vertical: 20,
+            );
+          },
+        ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
         ),
       ),
     );

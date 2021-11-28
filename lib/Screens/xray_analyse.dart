@@ -73,7 +73,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 xRayImage(
-                  NetworkImage(widget.currentXray.originalImage.path),
+                  NetworkImage(widget.currentXray.originalImage),
                   imageWidth: MediaQuery.of(context).size.width * 0.4,
                   imageHeight: MediaQuery.of(context).size.height * 0.4,
                 ),
@@ -127,81 +127,6 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
                 ),
               ),
             ),
-            // if (!isComplete)
-            //   Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //     children: [
-            //       const Divider(),
-            //       const Divider(),
-            //       const Icon(
-            //         Icons.access_time,
-            //         size: 55,
-            //       ),
-            //       ElevatedButton(
-            //         onPressed: () {},
-            //         child: const Text(
-            //           "Stop Analyse",
-            //           style: TextStyle(
-            //             color: Colors.black,
-            //             fontWeight: FontWeight.bold,
-            //             fontSize: 30,
-            //           ),
-            //         ),
-            //         style: ButtonStyle(
-            //           backgroundColor: MaterialStateProperty.all(Colors.white),
-            //           padding:
-            //               MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-            //             (Set<MaterialState> states) {
-            //               return const EdgeInsets.symmetric(
-            //                 horizontal: 40,
-            //                 vertical: 20,
-            //               );
-            //             },
-            //           ),
-            //           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //             RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(25.0),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   )
-            // else
-            //   ElevatedButton(
-            //     onPressed: () {
-            //       locator<NavigationService>().navigateToWidget(
-            //         () => XRayResult(
-            //           patient: widget.patient,
-            //         ),
-            //       );
-            //     },
-            //     child: const Text(
-            //       "Next",
-            //       style: TextStyle(
-            //         color: Colors.black,
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 30,
-            //       ),
-            //     ),
-            //     style: ButtonStyle(
-            //       backgroundColor: MaterialStateProperty.all(Colors.white),
-            //       padding:
-            //           MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-            //         (Set<MaterialState> states) {
-            //           return const EdgeInsets.symmetric(
-            //             horizontal: 40,
-            //             vertical: 20,
-            //           );
-            //         },
-            //       ),
-            //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //         RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(25.0),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
           ],
         ),
       ),

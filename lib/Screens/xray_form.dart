@@ -42,11 +42,8 @@ class _XRayFormState extends State<XRayForm> {
                 alignment: Alignment.center,
                 child: AnimatedCrossFade(
                   duration: const Duration(milliseconds: 500),
-                  firstChild: const PatientForm(
-                    key: ValueKey(1),
-                  ),
+                  firstChild: const PatientForm(),
                   secondChild: PatientForm(
-                    key: const ValueKey(2),
                     patient: patientY,
                   ),
                   crossFadeState: isNew
