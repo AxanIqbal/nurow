@@ -442,17 +442,13 @@ class PatientForm extends StatelessWidget {
                   );
                   data = patient!;
                 }
-                debugPrint(data.xray.toString());
                 // Get.to<NavigatorState>(() => XRayView(
                 //       data: _formKey.currentState!.value,
                 //     ));
-                print(data.xray[0].optionalImages[0].toJson().toString());
-                print(data.xray[0].optionalImages[1].toJson().toString());
                 locator<NavigationService>().navigateToWidget(
                   () => XRayView(
                     data: data,
                     currentXray: currentXray,
-                    isNew: patient == null ? true : false,
                   ),
                 );
               } else {

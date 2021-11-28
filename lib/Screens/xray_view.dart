@@ -28,65 +28,117 @@ class XRayView extends StatelessWidget {
       backgroundColor: Colors.grey[400],
       body: Container(
         padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Row(
           children: [
-            Center(
-              child: xRayImage(
-                NetworkImage(currentXray.originalImage),
-                imageHeight: MediaQuery.of(context).size.height * 0.5,
-                imageWidth: MediaQuery.of(context).size.width * 0.5,
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: XRayTable(
-                data: data,
-                currentXray: currentXray,
-              ),
-            ),
-            const SizedBox(),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const SizedBox(),
-                ElevatedButton(
-                  onPressed: () => locator<NavigationService>().goBack(),
-                  child: const Text(
-                    "Back",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    padding:
-                        MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
-                      (Set<MaterialState> states) {
-                        return const EdgeInsets.symmetric(
-                          horizontal: 40,
-                          vertical: 20,
-                        );
-                      },
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
+              children: List<Widget>.from(
+                currentXray.optionalImages.map(
+                  (e) => Column(
+                    children: [
+                      xRayImage(
+                        NetworkImage(e.image),
+                        imageHeight: MediaQuery.of(context).size.height * 0.2,
+                        imageWidth: MediaQuery.of(context).size.width * 0.2,
                       ),
-                    ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DefaultTextStyle(
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        child: Table(
+                          defaultColumnWidth: const IntrinsicColumnWidth(),
+                          children: [
+                            TableRow(
+                              children: [
+                                const Text("Tooth Select"),
+                                const Text(": "),
+                                Text(e.toothSelections)
+                              ],
+                            ),
+                            TableRow(
+                              children: [
+                                const Text("view"),
+                                const Text(":"),
+                                Text(e.view)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                _Button(
-                  currentXray: currentXray,
-                  isNew: isNew,
-                  data: data,
-                ),
-                const SizedBox(),
-              ],
-            )
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: xRayImage(
+                      NetworkImage(currentXray.originalImage),
+                      imageHeight: MediaQuery.of(context).size.height * 0.5,
+                      imageWidth: MediaQuery.of(context).size.width * 0.5,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: XRayTable(
+                      data: data,
+                      currentXray: currentXray,
+                    ),
+                  ),
+                  const SizedBox(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const SizedBox(),
+                      ElevatedButton(
+                        onPressed: () => locator<NavigationService>().goBack(),
+                        child: const Text(
+                          "Back",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.resolveWith<
+                              EdgeInsetsGeometry>(
+                            (Set<MaterialState> states) {
+                              return const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 20,
+                              );
+                            },
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      _Button(
+                        currentXray: currentXray,
+                        isNew: isNew,
+                        data: data,
+                      ),
+                      const SizedBox(),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
@@ -406,12 +407,13 @@ class _XRayResultState extends State<XRayResult> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final pdf = await rootBundle
+                            .load("assets/Diagnostic report.pdf");
                         Get.to(
                           () => PdfPreview(
                             maxPageWidth: 700,
-                            build: (format) =>
-                                masterPDF(format, widget.patient),
+                            build: (format) => pdf.buffer.asUint8List(),
                           ),
                         );
                       },
@@ -428,13 +430,14 @@ class _XRayResultState extends State<XRayResult> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        final pdf = await rootBundle
+                            .load("assets/Nurow Disease Data report.pdf");
                         Get.to(
                           () => PdfPreview(
-                              maxPageWidth: 700,
-                              build: (format) async {
-                                return await masterPDF(format, widget.patient);
-                              }),
+                            maxPageWidth: 700,
+                            build: (format) => pdf.buffer.asUint8List(),
+                          ),
                         );
                       },
                       child: Container(
