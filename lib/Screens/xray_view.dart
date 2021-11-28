@@ -28,117 +28,127 @@ class XRayView extends StatelessWidget {
       backgroundColor: Colors.grey[400],
       body: Container(
         padding: const EdgeInsets.all(15),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List<Widget>.from(
-                currentXray.optionalImages.map(
-                  (e) => Column(
-                    children: [
-                      xRayImage(
-                        NetworkImage(e.image),
-                        imageHeight: MediaQuery.of(context).size.height * 0.2,
-                        imageWidth: MediaQuery.of(context).size.width * 0.2,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      DefaultTextStyle(
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        child: Table(
-                          defaultColumnWidth: const IntrinsicColumnWidth(),
-                          children: [
-                            TableRow(
-                              children: [
-                                const Text("Tooth Select"),
-                                const Text(": "),
-                                Text(e.toothSelections)
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                const Text("view"),
-                                const Text(":"),
-                                Text(e.view)
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
-                    child: xRayImage(
-                      NetworkImage(currentXray.originalImage),
-                      imageHeight: MediaQuery.of(context).size.height * 0.5,
-                      imageWidth: MediaQuery.of(context).size.width * 0.5,
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: XRayTable(
-                      data: data,
-                      currentXray: currentXray,
-                    ),
-                  ),
-                  const SizedBox(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const SizedBox(),
-                      ElevatedButton(
-                        onPressed: () => locator<NavigationService>().goBack(),
-                        child: const Text(
-                          "Back",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
+                  Column(
+                    children: List<Widget>.from(
+                      currentXray.optionalImages.map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 10.0,
                           ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          padding: MaterialStateProperty.resolveWith<
-                              EdgeInsetsGeometry>(
-                            (Set<MaterialState> states) {
-                              return const EdgeInsets.symmetric(
-                                horizontal: 40,
-                                vertical: 20,
-                              );
-                            },
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
+                          child: Column(
+                            children: [
+                              xRayImage(
+                                NetworkImage(e.image),
+                                imageHeight:
+                                    MediaQuery.of(context).size.height * 0.18,
+                                imageWidth:
+                                    MediaQuery.of(context).size.width * 0.18,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              DefaultTextStyle(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.18,
+                                  child: Table(
+                                    defaultColumnWidth:
+                                        const IntrinsicColumnWidth(),
+                                    children: [
+                                      TableRow(
+                                        children: [
+                                          const Text("Tooth Select"),
+                                          const Text(": "),
+                                          Text(e.toothSelections)
+                                        ],
+                                      ),
+                                      TableRow(
+                                        children: [
+                                          const Text("view"),
+                                          const Text(": "),
+                                          Text(e.view)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      _Button(
-                        currentXray: currentXray,
-                        isNew: isNew,
-                        data: data,
-                      ),
-                      const SizedBox(),
-                    ],
-                  )
+                    ),
+                  ),
+                  xRayImage(
+                    NetworkImage(currentXray.originalImage),
+                    imageHeight: MediaQuery.of(context).size.height * 0.5,
+                    imageWidth: MediaQuery.of(context).size.width * 0.5,
+                  ),
                 ],
               ),
             ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: XRayTable(
+                data: data,
+                currentXray: currentXray,
+              ),
+            ),
+            const SizedBox(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const SizedBox(),
+                ElevatedButton(
+                  onPressed: () => locator<NavigationService>().goBack(),
+                  child: const Text(
+                    "Back",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    padding:
+                        MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                      (Set<MaterialState> states) {
+                        return const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        );
+                      },
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                  ),
+                ),
+                _Button(
+                  currentXray: currentXray,
+                  isNew: isNew,
+                  data: data,
+                ),
+                const SizedBox(),
+              ],
+            )
           ],
         ),
       ),
@@ -185,10 +195,13 @@ class _ButtonState extends State<_Button> {
                   .ref()
                   .child('xrays')
                   .child(widget.data.id ?? 'dumped')
-                  .child("${DateTime.now().toString()}.png");
+                  .child("originalImage-${DateTime.now().toString()}.png");
               Response bytes =
                   await get(Uri.parse(widget.currentXray.originalImage));
-              UploadTask _task = _ref.putData(bytes.bodyBytes);
+              UploadTask _task = _ref.putData(
+                bytes.bodyBytes,
+                SettableMetadata(contentType: 'image/jpeg'),
+              );
               String _img = await (await _task).ref.getDownloadURL();
               await DataService().addXray({
                 ...widget.currentXray.toJson(),

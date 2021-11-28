@@ -42,7 +42,7 @@ class Xray {
         "originalImage": originalImage,
         "timeStamp": DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(timeStamp),
         "radiographType": radiographType,
-        "optionalImages": optionalImages.map((e) => e.toJson()),
+        // "optionalImages": optionalImages.map((e) => e.toJson()),
       };
 }
 

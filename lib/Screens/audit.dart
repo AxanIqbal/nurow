@@ -202,76 +202,81 @@ class Audit extends StatelessWidget {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return Dialog(
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 15),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      DataTable(
-                                                        columns: const [
-                                                          DataColumn(
-                                                            label: Text(
-                                                              "last Logged In",
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 15),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        DataTable(
+                                                          columns: const [
+                                                            DataColumn(
+                                                              label: Text(
+                                                                "last Logged In",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          rows: List<
+                                                              DataRow>.generate(
+                                                            snapshot
+                                                                .data![index]
+                                                                .lastSignInTime
+                                                                .length,
+                                                            (int index2) =>
+                                                                DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .lastSignInTime[
+                                                                          index2]
+                                                                      .toString()),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                        ],
-                                                        rows: List<
-                                                            DataRow>.generate(
-                                                          snapshot
-                                                              .data![index]
-                                                              .lastSignInTime
-                                                              .length,
-                                                          (int index2) =>
-                                                              DataRow(
-                                                            cells: [
-                                                              DataCell(
-                                                                Text(snapshot
-                                                                    .data![
-                                                                        index]
-                                                                    .lastSignInTime[
-                                                                        index2]
-                                                                    .toString()),
-                                                              ),
-                                                            ],
-                                                          ),
                                                         ),
-                                                      ),
-                                                      DataTable(
-                                                        columns: const [
-                                                          DataColumn(
-                                                            label: Text(
-                                                              "last Logged Out",
+                                                        DataTable(
+                                                          columns: const [
+                                                            DataColumn(
+                                                              label: Text(
+                                                                "last Logged Out",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          rows: List<
+                                                              DataRow>.generate(
+                                                            snapshot
+                                                                .data![index]
+                                                                .lastLogOutTime
+                                                                .length,
+                                                            (int index2) =>
+                                                                DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(snapshot
+                                                                      .data![
+                                                                          index]
+                                                                      .lastLogOutTime[
+                                                                          index2]
+                                                                      .toString()),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                        ],
-                                                        rows: List<
-                                                            DataRow>.generate(
-                                                          snapshot
-                                                              .data![index]
-                                                              .lastLogOutTime
-                                                              .length,
-                                                          (int index2) =>
-                                                              DataRow(
-                                                            cells: [
-                                                              DataCell(
-                                                                Text(snapshot
-                                                                    .data![
-                                                                        index]
-                                                                    .lastLogOutTime[
-                                                                        index2]
-                                                                    .toString()),
-                                                              ),
-                                                            ],
-                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               );

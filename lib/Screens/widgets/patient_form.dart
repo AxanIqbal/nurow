@@ -449,6 +449,7 @@ class PatientForm extends StatelessWidget {
                   () => XRayView(
                     data: data,
                     currentXray: currentXray,
+                    isNew: patient == null,
                   ),
                 );
               } else {
