@@ -17,7 +17,7 @@ class XRayTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: TextStyle(
-        fontSize: (20 / 720) * MediaQuery.of(context).size.height,
+        fontSize: (16 / 720) * MediaQuery.of(context).size.height,
         fontWeight: FontWeight.bold,
       ),
       child: Table(
@@ -65,6 +65,20 @@ class XRayTable extends StatelessWidget {
               ),
               Text(
                 currentXray.radiographType,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          TableRow(
+            children: [
+              const Text(
+                "Patient Telephone",
+              ),
+              const Text(
+                ":",
+              ),
+              Text(
+                data.number,
                 textAlign: TextAlign.center,
               ),
             ],

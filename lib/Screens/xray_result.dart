@@ -1,8 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
+import 'package:nurow/Screens/widgets/xray_result/anatomy.dart';
+import 'package:nurow/Screens/widgets/xray_result/boneloss.dart';
+import 'package:nurow/Screens/widgets/xray_result/decay.dart';
+import 'package:nurow/Screens/widgets/xray_result/foreign.dart';
+import 'package:nurow/Screens/widgets/xray_result/tooth_identification.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/patient.dart';
@@ -263,100 +269,16 @@ class _XRayResultState extends State<XRayResult> {
                         // const SizedBox(),
                       ],
                     )
-                  else if (_index == 4)
-                    DefaultTextStyle(
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Number of decayed teeth in image: 3",
-                          ),
-                          Text(
-                            "- Indicate higher decay risk",
-                          ),
-                          Text(
-                            "Number of restored teeth in image: 5",
-                          ),
-                          Text(
-                            "- Indicate high historical caries rate",
-                          ),
-                          Text(
-                            "% of decay identified within known hotspots:  87%",
-                          ),
-                          Text(
-                            "- Increased confidence in caries diagnosis: 96%",
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Patient clinical data ( from notes) :",
-                          ),
-                          Text(
-                            "High sugar intake",
-                          ),
-                          Text(
-                            "Irregular interdental cleaning",
-                          ),
-                        ],
-                      ),
-                    )
-                  else if (_index == 5)
-                    DefaultTextStyle(
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "CEJ reference point identified: 8 teeth",
-                          ),
-                          Text(
-                            "   -Reference point for original bone level",
-                          ),
-                          Text(
-                            "Impediments to original bone level projection 0",
-                          ),
-                          Text(
-                            "   -Indicate higher confidence in projection",
-                          ),
-                          Text(
-                            "Impediments to current bone level tracing:  0",
-                          ),
-                          Text(
-                            " -Indicate higher confidence in tracing",
-                          ),
-                          Text(
-                            "Reference marking on teeth to classify boneloss",
-                          ),
-                          Text(
-                            "  -root divided into thirds and marked",
-                          ),
-                          Text(
-                            "Confidence in findings: 98%",
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Patient clinical data ( from notes) :",
-                          ),
-                          Text(
-                            "Irregular interdental cleaning",
-                          ),
-                          Text(
-                            "-Higher risk",
-                          ),
-                          Text(
-                            "-Diabetic",
-                          ),
-                        ],
-                      ),
-                    ),
+                  else if (_index == 1)
+                    const ToothIdentification()
+                  else if (_index == 2)
+                    const Anatomy()
+                  else if (_index == 3)
+                    const Expanded(child: Foreign())
+                  else if (_index == 4) // Caries (decay)
+                    const Expanded(child: Decay())
+                  else if (_index == 5) // Bone-Loss
+                    const BoneLoss(),
                   const SizedBox(),
                   const SizedBox(),
                 ],
@@ -371,16 +293,25 @@ class _XRayResultState extends State<XRayResult> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        Text(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
                           "Reports",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
                         ),
-                        Icon(
-                          Icons.analytics_outlined,
-                          size: 30,
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 35,
+                          child: Image.asset(
+                            'assets/Report.png',
+                            color: Colors.black,
+                            fit: BoxFit.fill,
+                          ),
                         )
                       ],
                     ),

@@ -1,36 +1,83 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:nurow/Screens/widgets/patient_form.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
+import 'package:nurow/Screens/xray_view.dart';
+import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/controller/xrayform.dart';
+import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 
-class XRayForm extends StatefulWidget {
+class XRayForm extends GetView<XrayFormController> {
   const XRayForm({Key? key}) : super(key: key);
 
-  @override
-  State<XRayForm> createState() => _XRayFormState();
-}
-
-class _XRayFormState extends State<XRayForm> {
-  bool isNew = true;
-  Patient patientY = Patient(
-      name: 'name',
-      dob: DateTime.now(),
-      number: 'number',
-      address: 'address',
-      xray: []);
+  // bool isNew = true;
+  // Patient? patient;
 
   void handle(Patient patientX) {
-    patientY = patientX;
+    controller.patient.value = patientX;
     Get.back();
-    setState(() {
-      isNew = !isNew;
-    });
+    // setState(() {
+    //   isNew = !isNew;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.put(XrayFormController());
+    // final XrayFormController pt = Get.find();
+
+    const _toothSelections = [
+      "UL QUADRANT",
+      "UR QUADRANT",
+      "LL QUADRANT",
+      "LR QUADRANT",
+      "UPPER ANTERIOR REGION",
+      "LOWER ANTERIOR REGION",
+      "MANDIBULAR ARCH",
+      "MAXILLARY ARCH",
+      "UL1",
+      "UL2",
+      "UL3",
+      "UL4",
+      "UL5",
+      "UL6",
+      "UL7",
+      "UL8",
+      "UR1",
+      "UR2",
+      "UR3",
+      "UR4",
+      "UR5",
+      "UR6",
+      "UR7",
+      "UR8",
+      "LL1",
+      "LL2",
+      "LL3",
+      "LL4",
+      "LL5",
+      "LL6",
+      "LL7",
+      "LL8",
+      "LR1",
+      "LR2",
+      "LR3",
+      "LR4",
+      "LR5",
+      "LR6",
+      "LR7",
+      "LR8",
+    ];
+    const _view = [
+      "OCCLUSAL",
+      "BUCCAL",
+      "PALATAL/LINGUAL",
+    ];
+
     return Scaffold(
       backgroundColor: Colors.grey[400],
       body: Container(
@@ -40,22 +87,522 @@ class _XRayFormState extends State<XRayForm> {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: AnimatedCrossFade(
-                  duration: const Duration(milliseconds: 500),
-                  firstChild: const PatientForm(),
-                  secondChild: PatientForm(
-                    patient: patientY,
+                child: FormBuilder(
+                  key: controller.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: FormBuilderImagePicker(
+                                name: 'originalImage',
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context),
+                                ]),
+                                maxImages: 1,
+                                fit: BoxFit.fill,
+                                previewHeight:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                previewWidth:
+                                    MediaQuery.of(context).size.width * 0.4,
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.2,
+                                      child: FormBuilderImagePicker(
+                                        name: 'optionalImage1',
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                        ),
+                                        onChanged: (value) {
+                                          controller.formKey.currentState!
+                                              .save();
+                                        },
+                                        maxImages: 1,
+                                        fit: BoxFit.fill,
+                                        previewHeight:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        previewWidth:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  // if (controller.formKey.currentState?.value['optionalImage1'] !=
+                                  //         null ||
+                                  //     controller.formKey.currentState?.value['optionalImage1']
+                                  //         is List)
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: FormBuilderDropdown(
+                                          name: 'ToothSelection1',
+                                          // validator: FormBuilderValidators.compose([
+                                          //
+                                          // ]),
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                          ),
+                                          hint: const Text('Tooth Selection'),
+                                          items: List<DropdownMenuItem>.from(
+                                            _toothSelections.map(
+                                              (e) => DropdownMenuItem(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: FormBuilderDropdown(
+                                          name: 'view1',
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                          ),
+                                          hint: const Text('View'),
+                                          items: List<DropdownMenuItem>.from(
+                                            _view.map(
+                                              (e) => DropdownMenuItem(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.2,
+                                      child: FormBuilderImagePicker(
+                                        name: 'optionalImage2',
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                        ),
+                                        maxImages: 1,
+                                        fit: BoxFit.fill,
+                                        previewHeight:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        previewWidth:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  // if (controller.formKey.currentState?.fields['optionalImage2'] !=
+                                  //     null)
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: FormBuilderDropdown(
+                                          name: 'ToothSelection2',
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                          ),
+                                          hint: const Text('Tooth Selection'),
+                                          items: List<DropdownMenuItem>.from(
+                                            _toothSelections.map(
+                                              (e) => DropdownMenuItem(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: FormBuilderDropdown(
+                                          name: 'view2',
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(),
+                                          ),
+                                          hint: const Text('View'),
+                                          items: List<DropdownMenuItem>.from(
+                                            _view.map(
+                                              (e) => DropdownMenuItem(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: DefaultTextStyle(
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          child: Table(
+                            columnWidths: const {
+                              0: FlexColumnWidth(1),
+                              1: FlexColumnWidth(2),
+                            },
+                            children: [
+                              TableRow(
+                                children: [
+                                  const TableCell(
+                                    verticalAlignment:
+                                        TableCellVerticalAlignment.middle,
+                                    child: Text("Radiograph Type:"),
+                                  ),
+                                  TableCell(
+                                    verticalAlignment:
+                                        TableCellVerticalAlignment.middle,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: FormBuilderTextField(
+                                        name: 'xrayLabel',
+                                        validator:
+                                            FormBuilderValidators.compose(
+                                          [
+                                            FormBuilderValidators.required(
+                                                context),
+                                            FormBuilderValidators.minLength(
+                                                context, 3),
+                                          ],
+                                        ),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const TableCell(
+                                      verticalAlignment:
+                                          TableCellVerticalAlignment.middle,
+                                      child: Text("Patient Name:")),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Obx(
+                                      () => FormBuilderTextField(
+                                        name: 'name',
+                                        enabled:
+                                            controller.patient.value == null,
+                                        initialValue:
+                                            controller.patient.value?.name,
+                                        validator:
+                                            FormBuilderValidators.compose(
+                                          [
+                                            FormBuilderValidators.required(
+                                                context),
+                                            FormBuilderValidators.minLength(
+                                                context, 3),
+                                          ],
+                                        ),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const TableCell(
+                                      verticalAlignment:
+                                          TableCellVerticalAlignment.middle,
+                                      child: Text("Patient Address:")),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Obx(
+                                      () => FormBuilderTextField(
+                                        name: 'address',
+                                        enabled:
+                                            controller.patient.value == null,
+                                        initialValue:
+                                            controller.patient.value?.address,
+                                        validator:
+                                            FormBuilderValidators.compose(
+                                          [
+                                            FormBuilderValidators.required(
+                                                context),
+                                            FormBuilderValidators.minLength(
+                                                context, 3),
+                                          ],
+                                        ),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const TableCell(
+                                    verticalAlignment:
+                                        TableCellVerticalAlignment.middle,
+                                    child: Text("Patient Telephone:"),
+                                  ),
+                                  TableCell(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Obx(
+                                        () => FormBuilderTextField(
+                                          name: 'number',
+                                          enabled:
+                                              controller.patient.value == null,
+                                          initialValue:
+                                              controller.patient.value?.number,
+                                          validator:
+                                              FormBuilderValidators.compose(
+                                            [
+                                              FormBuilderValidators.required(
+                                                  context),
+                                              FormBuilderValidators.minLength(
+                                                  context, 3)
+                                            ],
+                                          ),
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  const TableCell(
+                                      verticalAlignment:
+                                          TableCellVerticalAlignment.middle,
+                                      child: Text("Patient Date Of Birth:")),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Obx(
+                                      () => FormBuilderDateTimePicker(
+                                        name: 'dob',
+                                        enabled:
+                                            controller.patient.value == null,
+                                        initialValue:
+                                            controller.patient.value?.dob,
+                                        inputType: InputType.date,
+                                        validator:
+                                            FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(
+                                              context)
+                                        ]),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (controller.formKey.currentState!
+                              .saveAndValidate()) {
+                            // controller.formKey.currentState!.value['dob'] =
+                            //     DateTime.parse(controller.formKey.currentState!.value['dob']);
+                            Xray currentXray = Xray(
+                              originalImage: controller.formKey.currentState!
+                                  .value['originalImage'][0].path,
+                              radiographType: controller
+                                  .formKey.currentState!.value['xrayLabel'],
+                              timeStamp: DateTime.now(),
+                              optionalImages: [],
+                            );
+                            if (controller.formKey.currentState!
+                                        .value['optionalImage1'] !=
+                                    null &&
+                                controller.formKey.currentState!
+                                        .value['ToothSelection1'] !=
+                                    null &&
+                                controller
+                                        .formKey.currentState!.value['view1'] !=
+                                    null) {
+                              currentXray.optionalImages.add(
+                                OptionalImages(
+                                  toothSelections: controller.formKey
+                                      .currentState!.value['ToothSelection1'],
+                                  view: controller
+                                      .formKey.currentState!.value['view1'],
+                                  image: controller.formKey.currentState!
+                                      .value['optionalImage1'][0].path,
+                                ),
+                              );
+                            }
+                            if (controller.formKey.currentState!
+                                        .value['optionalImage2'] !=
+                                    null &&
+                                controller.formKey.currentState!
+                                        .value['ToothSelection2'] !=
+                                    null &&
+                                controller
+                                        .formKey.currentState!.value['view2'] !=
+                                    null) {
+                              currentXray.optionalImages.add(
+                                OptionalImages(
+                                  toothSelections: controller.formKey
+                                      .currentState!.value['ToothSelection2'],
+                                  view: controller
+                                      .formKey.currentState!.value['view2'],
+                                  image: controller.formKey.currentState!
+                                      .value['optionalImage2'][0].path,
+                                ),
+                              );
+                            }
+                            Patient data;
+                            if (controller.patient.value == null) {
+                              data = Patient.fromJson({
+                                ...controller.formKey.currentState!.value,
+                              });
+                              data.xray.add(currentXray);
+                            } else {
+                              controller.patient.value!.xray.add(
+                                currentXray,
+                              );
+                              data = controller.patient.value!;
+                            }
+                            locator<NavigationService>().navigateToWidget(
+                              () => XRayView(
+                                data: data,
+                                currentXray: currentXray,
+                                isNew: controller.patient.value == null,
+                              ),
+                            );
+                          } else {
+                            debugPrint("validation failed");
+                            debugPrint(controller.formKey.currentState!.value
+                                .toString());
+                          }
+                        },
+                        child: const Text(
+                          "Next",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.resolveWith<
+                              EdgeInsetsGeometry>(
+                            (Set<MaterialState> states) {
+                              return EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.02,
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.02,
+                              );
+                            },
+                          ),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
                   ),
-                  crossFadeState: isNew
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(
                   onPressed: () {
-                    if (isNew) {
+                    if (controller.patient.value == null) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => Dialog(
@@ -70,12 +617,14 @@ class _XRayFormState extends State<XRayForm> {
                         ),
                       );
                     } else {
-                      setState(() {
-                        isNew = !isNew;
-                      });
+                      controller.patient.value = null;
                     }
                   },
-                  child: Text(isNew ? 'Already exist?' : 'Create new?'),
+                  child: Obx(
+                    () => Text(controller.patient.value == null
+                        ? 'Already exist?'
+                        : 'Create new?'),
+                  ),
                 ),
               )
             ],

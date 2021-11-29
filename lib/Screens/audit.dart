@@ -136,171 +136,160 @@ class Audit extends StatelessWidget {
                 SizedBox(
                   height: sizingInformation.isMobile ? 40 : 15,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SizedBox(
-                    height: height * 0.7,
-                    child: SingleChildScrollView(
-                      child: FutureBuilder<List<User>>(
-                        future: DataService().getUserLogs(),
-                        builder: (context, snapshot) {
-                          // print(snapshot.data);
+                SizedBox(
+                  height: height * 0.7,
+                  child: FutureBuilder<List<User>>(
+                    future: DataService().getUserLogs(),
+                    builder: (context, snapshot) {
+                      // print(snapshot.data);
 
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return SingleChildScrollView(
-                              child: SizedBox(
-                                height: sizingInformation.isDesktop
-                                    ? height * 0.8
-                                    : height * 0.9,
-                                width: width * .8,
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox(
+                          height: sizingInformation.isDesktop
+                              ? height * 0.8
+                              : height * 0.9,
+                          width: width * .8,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        // List<User> data = List<User>.from(snapshot
+                        //     .data!.data!
+                        //     .map((e) => User.fromJson(e)));
+                        // List<UserModel> data = snapshot.data.data;
+                        return DataTable(
+                          columns: const [
+                            DataColumn(
+                              label: Text(
+                                "User Name",
                               ),
-                            );
-                          }
-
-                          if (snapshot.connectionState ==
-                                  ConnectionState.done &&
-                              snapshot.hasData) {
-                            // List<User> data = List<User>.from(snapshot
-                            //     .data!.data!
-                            //     .map((e) => User.fromJson(e)));
-                            // List<UserModel> data = snapshot.data.data;
-                            return DataTable(
-                              columns: const [
-                                DataColumn(
-                                  label: Text(
-                                    "User Name",
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    "Created on",
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: Text(
-                                    "Last Login",
-                                  ),
-                                ),
-                              ],
-                              rows: List<DataRow>.generate(
-                                snapshot.data!.length,
-                                (int index) => DataRow(
-                                  cells: [
-                                    DataCell(
-                                        Text(snapshot.data![index].userName)),
-                                    DataCell(Text(snapshot
-                                        .data![index].creationTime
-                                        .toString())),
-                                    DataCell(
-                                      TextButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  child: Container(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 15),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        DataTable(
-                                                          columns: const [
-                                                            DataColumn(
-                                                              label: Text(
-                                                                "last Logged In",
-                                                              ),
-                                                            ),
-                                                          ],
-                                                          rows: List<
-                                                              DataRow>.generate(
-                                                            snapshot
-                                                                .data![index]
-                                                                .lastSignInTime
-                                                                .length,
-                                                            (int index2) =>
-                                                                DataRow(
-                                                              cells: [
-                                                                DataCell(
-                                                                  Text(snapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .lastSignInTime[
-                                                                          index2]
-                                                                      .toString()),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        DataTable(
-                                                          columns: const [
-                                                            DataColumn(
-                                                              label: Text(
-                                                                "last Logged Out",
-                                                              ),
-                                                            ),
-                                                          ],
-                                                          rows: List<
-                                                              DataRow>.generate(
-                                                            snapshot
-                                                                .data![index]
-                                                                .lastLogOutTime
-                                                                .length,
-                                                            (int index2) =>
-                                                                DataRow(
-                                                              cells: [
-                                                                DataCell(
-                                                                  Text(snapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .lastLogOutTime[
-                                                                          index2]
-                                                                      .toString()),
-                                                                ),
-                                                              ],
-                                                            ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                "Created on",
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                "Last Login",
+                              ),
+                            ),
+                          ],
+                          rows: List<DataRow>.generate(
+                            snapshot.data!.length,
+                            (int index) => DataRow(
+                              cells: [
+                                DataCell(Text(snapshot.data![index].userName)),
+                                DataCell(Text(snapshot.data![index].creationTime
+                                    .toString())),
+                                DataCell(
+                                  TextButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    child: DataTable(
+                                                      columns: const [
+                                                        DataColumn(
+                                                          label: Text(
+                                                            "last Logged In",
                                                           ),
                                                         ),
                                                       ],
+                                                      rows: List<
+                                                          DataRow>.generate(
+                                                        snapshot
+                                                            .data![index]
+                                                            .lastSignInTime
+                                                            .length,
+                                                        (int index2) => DataRow(
+                                                          cells: [
+                                                            DataCell(
+                                                              Text(snapshot
+                                                                  .data![index]
+                                                                  .lastSignInTime[
+                                                                      index2]
+                                                                  .toString()),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              );
-                                            },
+                                                  SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    child: DataTable(
+                                                      columns: const [
+                                                        DataColumn(
+                                                          label: Text(
+                                                            "last Logged Out",
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      rows: List<
+                                                          DataRow>.generate(
+                                                        snapshot
+                                                            .data![index]
+                                                            .lastLogOutTime
+                                                            .length,
+                                                        (int index2) => DataRow(
+                                                          cells: [
+                                                            DataCell(
+                                                              Text(snapshot
+                                                                  .data![index]
+                                                                  .lastLogOutTime[
+                                                                      index2]
+                                                                  .toString()),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           );
                                         },
-                                        child: const Text('View'),
-                                      ),
-                                    ),
-                                  ],
+                                      );
+                                    },
+                                    child: const Text('View'),
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          return SizedBox(
-                            height: height * 0.7,
-                            width: width * .8,
-                            child: const Center(
-                              child: Text("None"),
+                              ],
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
+                        );
+                      }
+                      return SizedBox(
+                        height: height * 0.7,
+                        width: width * .8,
+                        child: const Center(
+                          child: Text("None"),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

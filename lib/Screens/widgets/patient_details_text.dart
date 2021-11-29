@@ -93,11 +93,6 @@ class _PatientDetailsState extends State<PatientDetails> {
                 ),
                 DataColumn(
                   label: Text(
-                    'Patient No.',
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
                     'Telephone',
                   ),
                 ),
@@ -120,9 +115,6 @@ class _PatientDetailsState extends State<PatientDetails> {
                     ),
                     DataCell(
                       Text(patientFiltered[index].address),
-                    ),
-                    DataCell(
-                      Text(patientFiltered[index].id ?? ''),
                     ),
                     DataCell(
                       Text(patientFiltered[index].number),

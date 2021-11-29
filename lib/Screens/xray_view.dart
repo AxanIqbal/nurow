@@ -65,24 +65,12 @@ class XRayView extends StatelessWidget {
                                 child: SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.18,
-                                  child: Table(
-                                    defaultColumnWidth:
-                                        const IntrinsicColumnWidth(),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      TableRow(
-                                        children: [
-                                          const Text("Tooth Select"),
-                                          const Text(": "),
-                                          Text(e.toothSelections)
-                                        ],
-                                      ),
-                                      TableRow(
-                                        children: [
-                                          const Text("view"),
-                                          const Text(": "),
-                                          Text(e.view)
-                                        ],
-                                      ),
+                                      Text(e.toothSelections),
+                                      Text(e.view)
                                     ],
                                   ),
                                 ),
