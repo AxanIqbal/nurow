@@ -162,13 +162,30 @@ class _Button extends StatefulWidget {
 
 class _ButtonState extends State<_Button> {
   bool isLoading = false;
+  FirebaseStorage storage = FirebaseStorage.instance;
+
+  Future<String> _uploadAndGetUrl(String image, String path) async {
+    Reference _ref = storage
+        .ref()
+        .child('xrays')
+        .child(widget.data.id ?? 'dumped')
+        .child(path);
+    Response bytes = await get(
+      Uri.parse(image),
+    );
+    UploadTask _task = _ref.putData(
+      bytes.bodyBytes,
+      SettableMetadata(contentType: 'image/jpeg'),
+    );
+    String _img = await (await _task).ref.getDownloadURL();
+    return _img;
+  }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: !isLoading
           ? () async {
-              FirebaseStorage storage = FirebaseStorage.instance;
               setState(() {
                 isLoading = true;
               });
@@ -179,23 +196,30 @@ class _ButtonState extends State<_Button> {
                   widget.data.id = _x.id;
                 }
               }
-              Reference _ref = storage
-                  .ref()
-                  .child('xrays')
-                  .child(widget.data.id ?? 'dumped')
-                  .child("originalImage-${DateTime.now().toString()}.png");
-              Response bytes =
-                  await get(Uri.parse(widget.currentXray.originalImage));
-              UploadTask _task = _ref.putData(
-                bytes.bodyBytes,
-                SettableMetadata(contentType: 'image/jpeg'),
+              String _orig = await _uploadAndGetUrl(
+                widget.currentXray.originalImage,
+                "originalImage-${DateTime.now().toString()}.png",
               );
-              String _img = await (await _task).ref.getDownloadURL();
-              await DataService().addXray({
+              var _post = {
                 ...widget.currentXray.toJson(),
-                "originalImage": _img,
+                "originalImage": _orig,
                 "patientId": widget.data.id,
-              });
+              };
+              if (widget.currentXray.optionalImages.isNotEmpty) {
+                _post["optionalImages"] = [];
+                for (var element in widget.currentXray.optionalImages) {
+                  String _op = await _uploadAndGetUrl(
+                    element.image,
+                    "optional-${DateTime.now().toString()}.png",
+                  );
+                  _post["optionalImages"].add({
+                    "view": element.view,
+                    "toothSelections": element.toothSelections,
+                    "image": _op,
+                  });
+                }
+              }
+              await DataService().addXray(_post);
               setState(() {
                 isLoading = false;
               });

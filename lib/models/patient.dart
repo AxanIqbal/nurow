@@ -28,7 +28,7 @@ class Patient {
   List<Xray> xray;
 
   List<Xray> get xraySorted {
-    xray.sort((a, b) => a.timeStamp.compareTo(b.timeStamp));
+    xray.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
     return xray;
   }
 

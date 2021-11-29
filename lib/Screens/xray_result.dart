@@ -204,6 +204,33 @@ class _XRayResultState extends State<XRayResult> {
                             ),
                           ],
                         ),
+                        ...List<Widget>.generate(
+                          widget.currentXray.optionalImages.length,
+                          (index) => Column(
+                            children: [
+                              Text("Optional Image ${index + 1}"),
+                              InkWell(
+                                onTap: () => changeImage(
+                                  NetworkImage(widget
+                                      .currentXray.optionalImages[index].image),
+                                  index + 6,
+                                ),
+                                child: xRayImage(
+                                  NetworkImage(widget
+                                      .currentXray.optionalImages[index].image),
+                                  imageHeight:
+                                      MediaQuery.of(context).size.height * 0.20,
+                                  imageWidth:
+                                      MediaQuery.of(context).size.width * 0.20,
+                                  isAsset: true,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -278,7 +305,34 @@ class _XRayResultState extends State<XRayResult> {
                   else if (_index == 4) // Caries (decay)
                     const Expanded(child: Decay())
                   else if (_index == 5) // Bone-Loss
-                    const BoneLoss(),
+                    const BoneLoss()
+                  else if (_index == 6 || _index == 7)
+                    DefaultTextStyle(
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      child: Table(
+                        defaultColumnWidth: const IntrinsicColumnWidth(),
+                        children: [
+                          TableRow(
+                            children: [
+                              const Text("Tooth Selection"),
+                              const Text(": "),
+                              Text(widget.currentXray.optionalImages[_index - 6]
+                                  .toothSelections),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              const Text("View"),
+                              const Text(": "),
+                              Text(widget
+                                  .currentXray.optionalImages[_index - 6].view),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   const SizedBox(),
                   const SizedBox(),
                 ],
