@@ -17,6 +17,9 @@ class TextTable extends StatelessWidget {
           (index) => DataColumn(
             label: Text(
               column[index],
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

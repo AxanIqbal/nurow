@@ -34,9 +34,11 @@ class PagesNavBar extends StatelessWidget {
         children: [
           Center(
             child: SizedBox(
-              height: 100,
-              width: 100,
-              child: Image.network("https://i.ibb.co/bzyPjVc/X-Icon.png"),
+              width: 150,
+              child: Image.asset(
+                'assets/nurrow logo.png',
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           navbarItem(

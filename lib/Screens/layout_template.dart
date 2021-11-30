@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nurow/Routing/route_names.dart';
 import 'package:nurow/Routing/router.dart';
 import 'package:nurow/Screens/widgets/PagesNavbar/nav_bar.dart';
 import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/controller/auth.dart';
 import 'package:nurow/locator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -18,7 +16,6 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
-    Get.put(AuthController());
     return ResponsiveBuilder(
       builder: (context, sizingInformation) => Scaffold(
         backgroundColor: Colors.grey[400],

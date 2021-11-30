@@ -45,7 +45,7 @@ class _SelectImageState extends State<SelectImage> {
                   Text(
                     isImageSelected
                         ? "Confirm Selection"
-                        : "Please Select a X-Ray to continue",
+                        : "Please Select a Radiograph to continue",
                     style: const TextStyle(
                         fontFamily: "Poppins",
                         color: Colors.white,

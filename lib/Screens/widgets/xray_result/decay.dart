@@ -41,23 +41,29 @@ class Decay extends StatelessWidget {
               Text(
                 " (Indicate higher decay risk)",
               ),
+              SizedBox(
+                height: 8,
+              ),
               Text(
                 "\u2022 Number of restored teeth in image: 5",
               ),
               Text(
                 " (Indicate high historical caries rate)",
               ),
+              SizedBox(
+                height: 8,
+              ),
               Text(
                 "\u2022 % of decay identified within known hotspots:  87%",
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text(
                 "\u2022 Overall confidence in caries diagnosis: 96%",
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text(
                 "Adjunctive clinical data from patient notes",

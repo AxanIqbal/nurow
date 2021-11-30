@@ -20,19 +20,15 @@ class PatientDetailTable extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Patient Detail",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
-            ),
             const SizedBox(
               height: 20,
               width: double.infinity,
             ),
-            SizedBox(
-              // width: MediaQuery.of(context).size.width * 0.5,
+            Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              padding: const EdgeInsets.only(
+                left: 20,
+              ),
               child: DefaultTextStyle(
                 style: TextStyle(
                   fontSize: (16 / 720) * MediaQuery.of(context).size.height,
@@ -170,6 +166,7 @@ class PatientDetailTable extends StatelessWidget {
                                             patient: patient,
                                             currentXray:
                                                 patient.xraySorted[index],
+                                            isBack: true,
                                           ),
                                         );
                                       },

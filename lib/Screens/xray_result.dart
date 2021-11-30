@@ -11,6 +11,8 @@ import 'package:nurow/Screens/widgets/xray_result/foreign.dart';
 import 'package:nurow/Screens/widgets/xray_result/tooth_identification.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
+import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 import 'package:nurow/pdf/master.dart';
@@ -21,10 +23,12 @@ class XRayResult extends StatefulWidget {
     Key? key,
     required this.patient,
     required this.currentXray,
+    this.isBack,
   }) : super(key: key);
 
   final Patient patient;
   final Xray currentXray;
+  final bool? isBack;
 
   @override
   State<XRayResult> createState() => _XRayResultState();
@@ -58,6 +62,21 @@ class _XRayResultState extends State<XRayResult> {
 
     return Scaffold(
       backgroundColor: Colors.grey[400],
+      floatingActionButton: widget.isBack != null && widget.isBack == true
+          ? Transform.translate(
+              offset: const Offset(-40, 0),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  locator<NavigationService>().goBack();
+                },
+                backgroundColor: Colors.black,
+                label: const Text(
+                  "Back",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            )
+          : null,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
@@ -243,8 +262,9 @@ class _XRayResultState extends State<XRayResult> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  Container(
                     width: MediaQuery.of(context).size.width * 0.35,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(
                       child: XRayTable(
                         data: widget.patient,
@@ -252,10 +272,39 @@ class _XRayResultState extends State<XRayResult> {
                       ),
                     ),
                   ),
-                  xRayImage(
-                    _image,
-                    imageWidth: MediaQuery.of(context).size.width * 0.40,
-                    imageHeight: MediaQuery.of(context).size.height * 0.40,
+                  Column(
+                    children: [
+                      if (_index == 6 || _index == 7)
+                        DefaultTextStyle(
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          child: Table(
+                            defaultColumnWidth: const IntrinsicColumnWidth(),
+                            children: [
+                              TableRow(
+                                children: [
+                                  Text(widget
+                                      .currentXray
+                                      .optionalImages[_index - 6]
+                                      .toothSelections),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  Text(widget.currentXray
+                                      .optionalImages[_index - 6].view),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      xRayImage(
+                        _image,
+                        imageWidth: MediaQuery.of(context).size.width * 0.40,
+                        imageHeight: MediaQuery.of(context).size.height * 0.40,
+                      ),
+                    ],
                   ),
                   if (_index == 0)
                     Column(
@@ -307,30 +356,14 @@ class _XRayResultState extends State<XRayResult> {
                   else if (_index == 5) // Bone-Loss
                     const BoneLoss()
                   else if (_index == 6 || _index == 7)
-                    DefaultTextStyle(
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      child: Table(
-                        defaultColumnWidth: const IntrinsicColumnWidth(),
-                        children: [
-                          TableRow(
-                            children: [
-                              const Text("Tooth Selection"),
-                              const Text(": "),
-                              Text(widget.currentXray.optionalImages[_index - 6]
-                                  .toothSelections),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              const Text("View"),
-                              const Text(": "),
-                              Text(widget
-                                  .currentXray.optionalImages[_index - 6].view),
-                            ],
-                          ),
-                        ],
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: const Text(
+                        "Nurow is currently working on intra oral image detection to combine with radiographic diagnosis to improve outcomes",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   const SizedBox(),

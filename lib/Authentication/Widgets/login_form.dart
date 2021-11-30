@@ -153,7 +153,8 @@ class _LoginFormState extends State<LoginForm> {
                   // ignore: deprecated_member_use
                   FlatButton(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     padding: EdgeInsets.fromLTRB(
                         widget.widthButton, 15, widget.widthButton, 15),
                     color: Colors.white,

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:nurow/Authentication/Login/login.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -13,16 +12,16 @@ class AuthController extends GetxController {
     super.onReady();
     firebaseUser = Rxn<User>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    if (user == null) {
-      // userProfile = null;
-      Get.offAll(() => const LoginPage(),routeName: '/LoginPage');
-    } else {
-      // Get.offAll(() => HomeLayout());
-    }
-  }
-
+  // _setInitialScreen(User? user) {
+  //   if (user == null) {
+  //     // userProfile = null;
+  //     // Get.offAll(() => const LoginPage(),routeName: '/LoginPage');
+  //     Get.offAllNamed('/Login');
+  //   } else {
+  //     // Get.offAll(() => HomeLayout());
+  //   }
+  // }
 }

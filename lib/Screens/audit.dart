@@ -161,123 +161,133 @@ class Audit extends StatelessWidget {
                         //     .data!.data!
                         //     .map((e) => User.fromJson(e)));
                         // List<UserModel> data = snapshot.data.data;
-                        return DataTable(
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                "User Name",
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                "Created on",
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                "Last Login",
-                              ),
-                            ),
-                          ],
-                          rows: List<DataRow>.generate(
-                            snapshot.data!.length,
-                            (int index) => DataRow(
-                              cells: [
-                                DataCell(Text(snapshot.data![index].userName)),
-                                DataCell(Text(snapshot.data![index].creationTime
-                                    .toString())),
-                                DataCell(
-                                  TextButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    child: DataTable(
-                                                      columns: const [
-                                                        DataColumn(
-                                                          label: Text(
-                                                            "last Logged In",
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      rows: List<
-                                                          DataRow>.generate(
-                                                        snapshot
-                                                            .data![index]
-                                                            .lastSignInTime
-                                                            .length,
-                                                        (int index2) => DataRow(
-                                                          cells: [
-                                                            DataCell(
-                                                              Text(snapshot
-                                                                  .data![index]
-                                                                  .lastSignInTime[
-                                                                      index2]
-                                                                  .toString()),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    child: DataTable(
-                                                      columns: const [
-                                                        DataColumn(
-                                                          label: Text(
-                                                            "last Logged Out",
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      rows: List<
-                                                          DataRow>.generate(
-                                                        snapshot
-                                                            .data![index]
-                                                            .lastLogOutTime
-                                                            .length,
-                                                        (int index2) => DataRow(
-                                                          cells: [
-                                                            DataCell(
-                                                              Text(snapshot
-                                                                  .data![index]
-                                                                  .lastLogOutTime[
-                                                                      index2]
-                                                                  .toString()),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: const Text('View'),
-                                  ),
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: DataTable(
+                            columns: const [
+                              DataColumn(
+                                label: Text(
+                                  "User Name",
                                 ),
-                              ],
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "Created on",
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "Last Login",
+                                ),
+                              ),
+                            ],
+                            rows: List<DataRow>.generate(
+                              snapshot.data!.length,
+                              (int index) => DataRow(
+                                cells: [
+                                  DataCell(
+                                      Text(snapshot.data![index].userName)),
+                                  DataCell(Text(snapshot
+                                      .data![index].creationTime
+                                      .toString())),
+                                  DataCell(
+                                    TextButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 15),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      child: DataTable(
+                                                        columns: const [
+                                                          DataColumn(
+                                                            label: Text(
+                                                              "last Logged In",
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        rows: List<
+                                                            DataRow>.generate(
+                                                          snapshot
+                                                              .data![index]
+                                                              .lastSignInTime
+                                                              .length,
+                                                          (int index2) =>
+                                                              DataRow(
+                                                            cells: [
+                                                              DataCell(
+                                                                Text(snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .lastSignInTime[
+                                                                        index2]
+                                                                    .toString()),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      child: DataTable(
+                                                        columns: const [
+                                                          DataColumn(
+                                                            label: Text(
+                                                              "last Logged Out",
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        rows: List<
+                                                            DataRow>.generate(
+                                                          snapshot
+                                                              .data![index]
+                                                              .lastLogOutTime
+                                                              .length,
+                                                          (int index2) =>
+                                                              DataRow(
+                                                            cells: [
+                                                              DataCell(
+                                                                Text(snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .lastLogOutTime[
+                                                                        index2]
+                                                                    .toString()),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: const Text('View'),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

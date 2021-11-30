@@ -9,9 +9,10 @@ class XRayResultCharting extends StatelessWidget {
       color: Colors.white,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.2,
+        padding: const EdgeInsets.symmetric(horizontal: 5.0),
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/charting.jpeg'), fit: BoxFit.fill),
+              image: AssetImage('assets/charting.png'), fit: BoxFit.fill),
         ),
         // padding: const EdgeInsets.all(10),
         // child: Column(

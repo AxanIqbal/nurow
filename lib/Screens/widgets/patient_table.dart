@@ -23,9 +23,11 @@ class PatientsTable extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              return PatientDetails(
-                patients: snapshot.data!,
-                handle: handle,
+              return Center(
+                child: PatientDetails(
+                  patients: snapshot.data!,
+                  handle: handle,
+                ),
               );
             } else {
               return const Center(

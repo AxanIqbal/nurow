@@ -2,8 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Authentication/Login/login.dart';
+import 'package:nurow/Authentication/Register/register.dart';
 import 'package:nurow/Screens/layout_template.dart';
+import 'package:nurow/controller/auth.dart';
 import 'package:nurow/locator.dart';
+import 'package:nurow/middleware/auth.dart';
 
 // import 'package:nurow/Screens/select_image.dart';
 
@@ -11,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await Firebase.initializeApp();
+  Get.put(AuthController(), permanent: true);
   runApp(const MyApp());
 }
 
@@ -29,9 +34,23 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],
-      home: const Center(
-        child: HomeLayout(),
-      ),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomeLayout(), middlewares: [
+          AuthMiddleware(),
+        ]),
+        GetPage(
+          name: '/Login',
+          page: () => const LoginPage(),
+        ),
+        GetPage(
+          name: '/Register',
+          page: () => const RegisterPage(),
+        ),
+      ],
+      // home: const Center(
+      //   child: HomeLayout(),
+      // ),
     );
   }
 }
