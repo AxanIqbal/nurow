@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:nurow/Authentication/Login/login.dart';
 import 'package:nurow/Authentication/Register/register.dart';
 import 'package:nurow/Screens/layout_template.dart';
+import 'package:nurow/Screens/loading.dart';
 import 'package:nurow/controller/auth.dart';
 import 'package:nurow/locator.dart';
 import 'package:nurow/middleware/auth.dart';
-
 // import 'package:nurow/Screens/select_image.dart';
 
 void main() async {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
       ],
-      initialRoute: '/',
+      initialRoute: '/init',
       getPages: [
         GetPage(name: '/', page: () => const HomeLayout(), middlewares: [
           AuthMiddleware(),
@@ -42,10 +42,16 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/Login',
           page: () => const LoginPage(),
+          middlewares: [AuthReverseMiddleware()],
         ),
         GetPage(
           name: '/Register',
           page: () => const RegisterPage(),
+          middlewares: [AuthReverseMiddleware()],
+        ),
+        GetPage(
+          name: '/init',
+          page: () => const Loading(),
         ),
       ],
       // home: const Center(

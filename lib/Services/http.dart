@@ -24,8 +24,6 @@ class HttpServiceImpl implements HttpService {
   @override
   Future<Response> getRequest(String url,
       {Map<String, dynamic>? parameters}) async {
-    // TODO: implement getRequest
-
     Response response;
     try {
       response = await _dio.get(url, queryParameters: parameters);

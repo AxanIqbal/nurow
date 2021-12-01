@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -6,22 +8,57 @@ class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   Rxn<User> firebaseUser = Rxn<User>();
   RxBool isLoggedIn = false.obs;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void onReady() {
     super.onReady();
     firebaseUser = Rxn<User>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
-    // ever(firebaseUser, _setInitialScreen);
+    ever(firebaseUser, _setInitialScreen);
   }
 
-  // _setInitialScreen(User? user) {
-  //   if (user == null) {
-  //     // userProfile = null;
-  //     // Get.offAll(() => const LoginPage(),routeName: '/LoginPage');
-  //     Get.offAllNamed('/Login');
-  //   } else {
-  //     // Get.offAll(() => HomeLayout());
-  //   }
-  // }
+  void signInEntry({String? displayName}) {
+    firestore
+        .collection('users')
+        .doc(displayName ?? firebaseUser.value!.displayName)
+        .update(
+      {
+        'lastSignInTime': FieldValue.arrayUnion([Timestamp.now()])
+      },
+    ).onError(
+      (error, stackTrace) => Get.snackbar(
+        "Error",
+        error.toString(),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> signOutEntry() async {
+    await firestore
+        .collection('users')
+        .doc(firebaseUser.value!.displayName)
+        .update({
+      'lastLogOutTime': FieldValue.arrayUnion([Timestamp.now()])
+    }).then((value) => FirebaseAuth.instance.signOut(), onError: (error) {
+      Get.snackbar(
+        "Error",
+        error.toString(),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      );
+    });
+  }
+
+  _setInitialScreen(User? user) {
+    if (user == null) {
+      isLoggedIn.value = false;
+      Get.offAllNamed('/Login');
+    } else {
+      isLoggedIn.value = true;
+      Get.offAllNamed('/');
+    }
+  }
 }

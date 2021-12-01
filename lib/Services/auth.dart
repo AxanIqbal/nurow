@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nurow/Authentication/Login/login.dart';
-import 'package:nurow/Screens/layout_template.dart';
+import 'package:nurow/controller/auth.dart';
 
 class Authentication {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  AuthController autho = AuthController.instance;
 
   Future<dynamic> registerWithEmail(
       {required String email,
@@ -16,6 +16,7 @@ class Authentication {
       required String userName,
       required BuildContext context}) async {
     var userDoc = await firestore.collection("users").doc(userName).get();
+
     if (password.length > 6) {
       if (!userDoc.exists) {
         try {
@@ -134,23 +135,15 @@ class Authentication {
   Future<dynamic> signInWithEmail(
       {required String email,
       required String password,
-      required BuildContext context}) async {
+      required BuildContext context,}) async {
     try {
       UserCredential cred = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       // print(cred.user);
       if (cred.user!.emailVerified) {
-        await firestore.collection('users').doc(cred.user!.displayName).update({
-          'lastSignInTime': FieldValue.arrayUnion([Timestamp.now()])
-        });
-        Get.offAll(() => const HomeLayout(), routeName: '/');
-        // Navigator.of(context).pop();
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => SelectImage(),
-        //   ),
-        // );
-
+        autho.signInEntry(displayName: cred.user!.displayName);
         return true;
       } else {
         showDialog(

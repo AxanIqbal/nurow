@@ -259,12 +259,11 @@ class _XRayResultState extends State<XRayResult> {
             Expanded(
               flex: 3,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.35,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Center(
                       child: XRayTable(
                         data: widget.patient,
@@ -305,6 +304,9 @@ class _XRayResultState extends State<XRayResult> {
                         imageHeight: MediaQuery.of(context).size.height * 0.40,
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 10.0,
                   ),
                   if (_index == 0)
                     Column(

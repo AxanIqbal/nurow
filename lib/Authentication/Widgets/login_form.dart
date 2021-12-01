@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nurow/Authentication/Register/register.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Services/auth.dart';
 
 class LoginForm extends StatefulWidget {
@@ -185,12 +185,7 @@ class _LoginFormState extends State<LoginForm> {
                   SizedBox(height: heightSize * 0.02),
                   InkWell(
                       onTap: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterPage(),
-                          ),
-                        );
+                        Get.toNamed('/Register');
                       },
                       child: RichText(
                         text: TextSpan(

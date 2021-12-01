@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nurow/Routing/route_names.dart';
 import 'package:nurow/Services/navigation_service.dart';
+import 'package:nurow/controller/auth.dart';
 import 'package:nurow/locator.dart';
 
 class PagesNavBar extends StatelessWidget {
@@ -91,16 +88,7 @@ class PagesNavBar extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              debugPrint(FirebaseAuth.instance.currentUser!.displayName);
-              FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser!.displayName)
-                  .update({
-                'lastLogOutTime': FieldValue.arrayUnion([Timestamp.now()])
-              }).then((value) => FirebaseAuth.instance.signOut(),
-                      onError: (error) {
-                log(error);
-              });
+              await AuthController.instance.signOutEntry();
             },
             child: const Text(
               "Logout",
