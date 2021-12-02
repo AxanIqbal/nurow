@@ -62,21 +62,21 @@ class _XRayResultState extends State<XRayResult> {
 
     return Scaffold(
       backgroundColor: Colors.grey[400],
-      floatingActionButton: widget.isBack != null && widget.isBack == true
-          ? Transform.translate(
-              offset: const Offset(-40, 0),
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  locator<NavigationService>().goBack();
-                },
-                backgroundColor: Colors.black,
-                label: const Text(
-                  "Back",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            )
-          : null,
+      // floatingActionButton: widget.isBack != null && widget.isBack == true
+      //     ? Transform.translate(
+      //         offset: const Offset(-40, 0),
+      //         child: FloatingActionButton.extended(
+      //           onPressed: () {
+      //             locator<NavigationService>().goBack();
+      //           },
+      //           backgroundColor: Colors.black,
+      //           label: const Text(
+      //             "Back",
+      //             style: TextStyle(color: Colors.white),
+      //           ),
+      //         ),
+      //       )
+      //     : null,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
@@ -378,102 +378,130 @@ class _XRayResultState extends State<XRayResult> {
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 30),
                 color: Colors.grey[350],
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: Stack(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Text(
-                          "Reports",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Reports",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: 35,
+                              child: Image.asset(
+                                'assets/Report.png',
+                                color: Colors.black,
+                                fit: BoxFit.fill,
+                              ),
+                            )
+                          ],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(
+                              () => PdfPreview(
+                                maxPageWidth: 700,
+                                build: (format) =>
+                                    masterPDF(format, widget.patient),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * (0.1),
+                            height: MediaQuery.of(context).size.height * (0.06),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: const Center(
+                              child: AutoSizeText(
+                                "Master Report PDF",
+                                minFontSize: 0,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: 35,
-                          child: Image.asset(
-                            'assets/Report.png',
-                            color: Colors.black,
-                            fit: BoxFit.fill,
+                        ElevatedButton(
+                          onPressed: () async {
+                            final pdf = await rootBundle
+                                .load("assets/Diagnostic report.pdf");
+                            Get.to(
+                              () => PdfPreview(
+                                maxPageWidth: 700,
+                                build: (format) => pdf.buffer.asUint8List(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * (0.1),
+                            height: MediaQuery.of(context).size.height * (0.06),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: const Center(
+                              child: AutoSizeText(
+                                "A.I diagnostic report",
+                                minFontSize: 0,
+                              ),
+                            ),
                           ),
-                        )
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final pdf = await rootBundle
+                                .load("assets/Nurow Disease Data report.pdf");
+                            Get.to(
+                              () => PdfPreview(
+                                maxPageWidth: 700,
+                                build: (format) => pdf.buffer.asUint8List(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * (0.1),
+                            height: MediaQuery.of(context).size.height * (0.06),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: const Center(
+                              child: AutoSizeText(
+                                "Disease data & Statics PDF",
+                                minFontSize: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(),
+                        const SizedBox(),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(
-                          () => PdfPreview(
-                            maxPageWidth: 700,
-                            build: (format) =>
-                                masterPDF(format, widget.patient),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Transform.translate(
+                        offset: const Offset(0, -30),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            locator<NavigationService>().goBack();
+                          },
+                          child: const Text(
+                            "Back",
+                            style: TextStyle(color: Colors.white),
                           ),
-                        );
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * (0.1),
-                        height: MediaQuery.of(context).size.height * (0.06),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Center(
-                          child: AutoSizeText(
-                            "Master Report PDF",
-                            minFontSize: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final pdf = await rootBundle
-                            .load("assets/Diagnostic report.pdf");
-                        Get.to(
-                          () => PdfPreview(
-                            maxPageWidth: 700,
-                            build: (format) => pdf.buffer.asUint8List(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * (0.1),
-                        height: MediaQuery.of(context).size.height * (0.06),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Center(
-                          child: AutoSizeText(
-                            "A.I diagnostic report",
-                            minFontSize: 0,
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black,
+                            padding: const EdgeInsets.all(20.0),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20.0),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final pdf = await rootBundle
-                            .load("assets/Nurow Disease Data report.pdf");
-                        Get.to(
-                          () => PdfPreview(
-                            maxPageWidth: 700,
-                            build: (format) => pdf.buffer.asUint8List(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * (0.1),
-                        height: MediaQuery.of(context).size.height * (0.06),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Center(
-                          child: AutoSizeText(
-                            "Disease data & Statics PDF",
-                            minFontSize: 0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(),
-                    const SizedBox(),
+                    )
                   ],
                 ),
               ),

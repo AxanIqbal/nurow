@@ -22,7 +22,7 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           const NavDrawerHeader(),
           const SizedBox(height: 60),
-          const DrawerItem(
+          DrawerItem(
             title: 'LOGIN',
             icon: Icons.login,
             navigationPath: LoginPage(),

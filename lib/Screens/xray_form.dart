@@ -88,7 +88,7 @@ class XRayForm extends GetView<XrayFormController> {
               Align(
                 alignment: Alignment.center,
                 child: FormBuilder(
-                  key: controller.formKey,
+                  key: controller.formKey.value,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -138,8 +138,35 @@ class XRayForm extends GetView<XrayFormController> {
                                           border: InputBorder.none,
                                         ),
                                         onChanged: (value) {
-                                          controller.formKey.currentState!
-                                              .save();
+                                          if (value?.isEmpty ?? false) {
+                                            controller.opt1.value = false;
+                                            if (controller.formKey.value
+                                                        .currentState!.fields[
+                                                    'ToothSelection1'] !=
+                                                null) {
+                                              controller
+                                                  .formKey
+                                                  .value
+                                                  .currentState!
+                                                  .fields['ToothSelection1']!
+                                                  .reset();
+                                            }
+                                            if (controller
+                                                    .formKey
+                                                    .value
+                                                    .currentState!
+                                                    .fields['view1'] !=
+                                                null) {
+                                              controller
+                                                  .formKey
+                                                  .value
+                                                  .currentState!
+                                                  .fields['view1']!
+                                                  .reset();
+                                            }
+                                          } else {
+                                            controller.opt1.value = true;
+                                          }
                                         },
                                         maxImages: 1,
                                         fit: BoxFit.fill,
@@ -152,9 +179,9 @@ class XRayForm extends GetView<XrayFormController> {
                                       ),
                                     ),
                                   ),
-                                  // if (controller.formKey.currentState?.value['optionalImage1'] !=
+                                  // if (controller.formKey.value.currentState?.value['optionalImage1'] !=
                                   //         null ||
-                                  //     controller.formKey.currentState?.value['optionalImage1']
+                                  //     controller.formKey.value.currentState?.value['optionalImage1']
                                   //         is List)
                                   Column(
                                     children: [
@@ -162,22 +189,32 @@ class XRayForm extends GetView<XrayFormController> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.15,
-                                        child: FormBuilderDropdown(
-                                          name: 'ToothSelection1',
-                                          // validator: FormBuilderValidators.compose([
-                                          //
-                                          // ]),
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                          ),
-                                          hint: const Text('Tooth Selection'),
-                                          items: List<DropdownMenuItem>.from(
-                                            _toothSelections.map(
-                                              (e) => DropdownMenuItem(
-                                                value: e,
-                                                child: Text(e),
+                                        child: Obx(
+                                          () => FormBuilderDropdown(
+                                            name: 'ToothSelection1',
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            hint: const Text('Tooth Selection'),
+                                            items: List<DropdownMenuItem>.from(
+                                              _toothSelections.map(
+                                                (e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ),
                                               ),
                                             ),
+                                            validator: controller.opt1.value
+                                                ? FormBuilderValidators
+                                                    .compose([
+                                                    FormBuilderValidators
+                                                        .required(
+                                                      context,
+                                                      errorText:
+                                                          "Tooth Selection is Required",
+                                                    ),
+                                                  ])
+                                                : null,
                                           ),
                                         ),
                                       ),
@@ -188,17 +225,30 @@ class XRayForm extends GetView<XrayFormController> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.15,
-                                        child: FormBuilderDropdown(
-                                          name: 'view1',
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                          ),
-                                          hint: const Text('View'),
-                                          items: List<DropdownMenuItem>.from(
-                                            _view.map(
-                                              (e) => DropdownMenuItem(
-                                                value: e,
-                                                child: Text(e),
+                                        child: Obx(
+                                          () => FormBuilderDropdown(
+                                            name: 'view1',
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: controller.opt1.value
+                                                ? FormBuilderValidators
+                                                    .compose([
+                                                    FormBuilderValidators
+                                                        .required(
+                                                      context,
+                                                      errorText:
+                                                          "View is Required",
+                                                    ),
+                                                  ])
+                                                : null,
+                                            hint: const Text('View'),
+                                            items: List<DropdownMenuItem>.from(
+                                              _view.map(
+                                                (e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -233,10 +283,41 @@ class XRayForm extends GetView<XrayFormController> {
                                         previewWidth:
                                             MediaQuery.of(context).size.width *
                                                 0.2,
+                                        onChanged: (value) {
+                                          if (value?.isEmpty ?? false) {
+                                            controller.opt2.value = false;
+                                            if (controller.formKey.value
+                                                        .currentState!.fields[
+                                                    'ToothSelection2'] !=
+                                                null) {
+                                              controller
+                                                  .formKey
+                                                  .value
+                                                  .currentState!
+                                                  .fields['ToothSelection2']!
+                                                  .reset();
+                                            }
+                                            if (controller
+                                                    .formKey
+                                                    .value
+                                                    .currentState!
+                                                    .fields['view2'] !=
+                                                null) {
+                                              controller
+                                                  .formKey
+                                                  .value
+                                                  .currentState!
+                                                  .fields['view2']!
+                                                  .reset();
+                                            }
+                                          } else {
+                                            controller.opt2.value = true;
+                                          }
+                                        },
                                       ),
                                     ),
                                   ),
-                                  // if (controller.formKey.currentState?.fields['optionalImage2'] !=
+                                  // if (controller.formKey.value.currentState?.fields['optionalImage2'] !=
                                   //     null)
                                   Column(
                                     children: [
@@ -244,17 +325,30 @@ class XRayForm extends GetView<XrayFormController> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.15,
-                                        child: FormBuilderDropdown(
-                                          name: 'ToothSelection2',
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                          ),
-                                          hint: const Text('Tooth Selection'),
-                                          items: List<DropdownMenuItem>.from(
-                                            _toothSelections.map(
-                                              (e) => DropdownMenuItem(
-                                                value: e,
-                                                child: Text(e),
+                                        child: Obx(
+                                          () => FormBuilderDropdown(
+                                            name: 'ToothSelection2',
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            hint: const Text('Tooth Selection'),
+                                            validator: controller.opt2.value
+                                                ? FormBuilderValidators
+                                                    .compose([
+                                                    FormBuilderValidators
+                                                        .required(
+                                                      context,
+                                                      errorText:
+                                                          "Tooth Selection is Required",
+                                                    ),
+                                                  ])
+                                                : null,
+                                            items: List<DropdownMenuItem>.from(
+                                              _toothSelections.map(
+                                                (e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -267,17 +361,30 @@ class XRayForm extends GetView<XrayFormController> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.15,
-                                        child: FormBuilderDropdown(
-                                          name: 'view2',
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                          ),
-                                          hint: const Text('View'),
-                                          items: List<DropdownMenuItem>.from(
-                                            _view.map(
-                                              (e) => DropdownMenuItem(
-                                                value: e,
-                                                child: Text(e),
+                                        child: Obx(
+                                          () => FormBuilderDropdown(
+                                            name: 'view2',
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: controller.opt2.value
+                                                ? FormBuilderValidators
+                                                    .compose([
+                                                    FormBuilderValidators
+                                                        .required(
+                                                      context,
+                                                      errorText:
+                                                          "View is Required",
+                                                    ),
+                                                  ])
+                                                : null,
+                                            hint: const Text('View'),
+                                            items: List<DropdownMenuItem>.from(
+                                              _view.map(
+                                                (e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -484,54 +591,54 @@ class XRayForm extends GetView<XrayFormController> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if (controller.formKey.currentState!
+                          if (controller.formKey.value.currentState!
                               .saveAndValidate()) {
-                            // controller.formKey.currentState!.value['dob'] =
-                            //     DateTime.parse(controller.formKey.currentState!.value['dob']);
+                            // controller.formKey.value.currentState!.value['dob'] =
+                            //     DateTime.parse(controller.formKey.value.currentState!.value['dob']);
                             Xray currentXray = Xray(
-                              originalImage: controller.formKey.currentState!
-                                  .value['originalImage'][0].path,
-                              radiographType: controller
-                                  .formKey.currentState!.value['xrayLabel'],
+                              originalImage: controller.formKey.value
+                                  .currentState!.value['originalImage'][0].path,
+                              radiographType: controller.formKey.value
+                                  .currentState!.value['xrayLabel'],
                               timeStamp: DateTime.now(),
                               optionalImages: [],
                             );
-                            if (controller.formKey.currentState!
+                            if (controller.formKey.value.currentState!
                                         .value['optionalImage1'] !=
                                     null &&
-                                controller.formKey.currentState!
+                                controller.formKey.value.currentState!
                                         .value['ToothSelection1'] !=
                                     null &&
-                                controller
-                                        .formKey.currentState!.value['view1'] !=
+                                controller.formKey.value.currentState!
+                                        .value['view1'] !=
                                     null) {
                               currentXray.optionalImages.add(
                                 OptionalImages(
-                                  toothSelections: controller.formKey
+                                  toothSelections: controller.formKey.value
                                       .currentState!.value['ToothSelection1'],
-                                  view: controller
-                                      .formKey.currentState!.value['view1'],
-                                  image: controller.formKey.currentState!
+                                  view: controller.formKey.value.currentState!
+                                      .value['view1'],
+                                  image: controller.formKey.value.currentState!
                                       .value['optionalImage1'][0].path,
                                 ),
                               );
                             }
-                            if (controller.formKey.currentState!
+                            if (controller.formKey.value.currentState!
                                         .value['optionalImage2'] !=
                                     null &&
-                                controller.formKey.currentState!
+                                controller.formKey.value.currentState!
                                         .value['ToothSelection2'] !=
                                     null &&
-                                controller
-                                        .formKey.currentState!.value['view2'] !=
+                                controller.formKey.value.currentState!
+                                        .value['view2'] !=
                                     null) {
                               currentXray.optionalImages.add(
                                 OptionalImages(
-                                  toothSelections: controller.formKey
+                                  toothSelections: controller.formKey.value
                                       .currentState!.value['ToothSelection2'],
-                                  view: controller
-                                      .formKey.currentState!.value['view2'],
-                                  image: controller.formKey.currentState!
+                                  view: controller.formKey.value.currentState!
+                                      .value['view2'],
+                                  image: controller.formKey.value.currentState!
                                       .value['optionalImage2'][0].path,
                                 ),
                               );
@@ -539,7 +646,7 @@ class XRayForm extends GetView<XrayFormController> {
                             Patient data;
                             if (controller.patient.value == null) {
                               data = Patient.fromJson({
-                                ...controller.formKey.currentState!.value,
+                                ...controller.formKey.value.currentState!.value,
                               });
                               data.xray.add(currentXray);
                             } else {
@@ -557,7 +664,8 @@ class XRayForm extends GetView<XrayFormController> {
                             );
                           } else {
                             debugPrint("validation failed");
-                            debugPrint(controller.formKey.currentState!.value
+                            debugPrint(controller
+                                .formKey.value.currentState!.value
                                 .toString());
                           }
                         },

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nurow/Authentication/Login/login.dart';
+import 'package:get/get.dart';
 import 'package:nurow/controller/auth.dart';
 
 class Authentication {
@@ -54,10 +54,11 @@ class Authentication {
               );
             },
           );
-          Navigator.of(context).pop();
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-          );
+          Get.offAllNamed('/Login');
+          // Navigator.of(context).pop();
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(builder: (context) => LoginPage()),
+          // );
           return true;
         } catch (e) {
           showDialog(
@@ -132,10 +133,11 @@ class Authentication {
     }
   }
 
-  Future<dynamic> signInWithEmail(
-      {required String email,
-      required String password,
-      required BuildContext context,}) async {
+  Future<dynamic> signInWithEmail({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
     try {
       UserCredential cred = await auth.signInWithEmailAndPassword(
         email: email,

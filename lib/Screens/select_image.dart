@@ -42,18 +42,6 @@ class _SelectImageState extends State<SelectImage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    isImageSelected
-                        ? "Confirm Selection"
-                        : "Please Select a Radiograph to continue",
-                    style: const TextStyle(
-                        fontFamily: "Poppins",
-                        color: Colors.white,
-                        fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   SizedBox(
                     height: 200,
                     child: Center(

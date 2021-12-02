@@ -27,7 +27,7 @@ class NavbarDesktop extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const NavbarItem(
+              NavbarItem(
                 title: 'LOGIN',
                 navigationPath: LoginPage(),
               ),

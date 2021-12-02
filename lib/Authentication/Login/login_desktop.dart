@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Authentication/Widgets/login_form.dart';
 
-class DesktopMode extends StatefulWidget {
+class DesktopMode extends StatelessWidget {
   const DesktopMode({Key? key}) : super(key: key);
 
-  @override
-  _DesktopModeState createState() => _DesktopModeState();
-}
-
-class _DesktopModeState extends State<DesktopMode> {
   @override
   Widget build(BuildContext context) {
     final double widthSize = MediaQuery.of(context).size.width;

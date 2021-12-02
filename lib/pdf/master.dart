@@ -132,8 +132,10 @@ Future<Uint8List> masterPDF(PdfPageFormat format, Patient patient) async {
       build: (context) => pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          pw.Text('Patient Summary : ${patient.name}',
-              style: pw.Theme.of(context).header0),
+          pw.Text(
+            'Patient Summary',
+            style: pw.Theme.of(context).header0,
+          ),
           pw.SizedBox(height: 40),
           pw.Text("Name: ${patient.name}"),
           pw.Text(

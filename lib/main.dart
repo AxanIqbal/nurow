@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ]),
         GetPage(
           name: '/Login',
-          page: () => const LoginPage(),
+          page: () => LoginPage(),
           middlewares: [AuthReverseMiddleware()],
         ),
         GetPage(

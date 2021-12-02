@@ -6,7 +6,9 @@ import 'package:nurow/models/patient.dart';
 class XrayFormController extends GetxController {
   static XrayFormController instance = Get.find();
   Rxn<Patient?> patient = Rxn<Patient?>(null);
-  final formKey = GlobalKey<FormBuilderState>();
+  final formKey = GlobalKey<FormBuilderState>().obs;
+  RxBool opt1 = RxBool(false);
+  RxBool opt2 = RxBool(false);
 
   @override
   void onReady() {
@@ -15,9 +17,9 @@ class XrayFormController extends GetxController {
   }
 
   _updateForms(Patient? patient) {
-    formKey.currentState!.fields['name']!.didChange(patient?.name);
-    formKey.currentState!.fields['address']!.didChange(patient?.address);
-    formKey.currentState!.fields['number']!.didChange(patient?.number);
-    formKey.currentState!.fields['dob']!.didChange(patient?.dob);
+    formKey.value.currentState!.fields['name']!.didChange(patient?.name);
+    formKey.value.currentState!.fields['address']!.didChange(patient?.address);
+    formKey.value.currentState!.fields['number']!.didChange(patient?.number);
+    formKey.value.currentState!.fields['dob']!.didChange(patient?.dob);
   }
 }
