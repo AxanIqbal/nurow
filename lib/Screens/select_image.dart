@@ -45,10 +45,11 @@ class _SelectImageState extends State<SelectImage> {
                   SizedBox(
                     height: 200,
                     child: Center(
-                        child: isImageSelected
-                            ? selectedImage(height, width, imageUrl, context)
-                            : Image.network(
-                                'https://i.ibb.co/bzyPjVc/X-Icon.png')),
+                      child: isImageSelected
+                          ? selectedImage(height, width, imageUrl, context)
+                          : Image.network(
+                              'https://i.ibb.co/bzyPjVc/X-Icon.png'),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,

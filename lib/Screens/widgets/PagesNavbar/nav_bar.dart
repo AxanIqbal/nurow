@@ -47,7 +47,7 @@ class PagesNavBar extends StatelessWidget {
           navbarItem(
             "Subtractive Imagery",
             'assets/subtractive imagery.png',
-            "",
+            subAnalysisPage,
             context,
           ),
           navbarItem(

@@ -6,6 +6,8 @@ const String contactRoute = "contact";
 
 const String analysisPage = "selectImage";
 
+const String subAnalysisPage = "selectSubAnalysis";
+
 const String patientDetailsPage = "patientsSelect";
 
 const String auditPage = "audit";

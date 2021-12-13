@@ -98,7 +98,7 @@ class _XRayResultState extends State<XRayResult> {
                       children: [
                         Column(
                           children: [
-                            const Text("original"),
+                            const Text("Original"),
                             InkWell(
                               onTap: () => changeImage(originalImage, 0),
                               child: xRayImage(
