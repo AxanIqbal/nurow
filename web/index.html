@@ -45,10 +45,6 @@
   <link rel="stylesheet" type="text/css" href="splash/style.css">
 </head>
 <body style="position: fixed; inset: 0px; overflow: hidden; padding: 0px; margin: 0px; user-select: none; touch-action: none; font: 14px sans-serif; color: red;">
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
   <script type="text/javascript">
     pdfjsLib.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js";
@@ -68,17 +64,6 @@
       scriptTag.src = 'main.dart.js';
       scriptTag.type = 'application/javascript';
       document.body.append(scriptTag);
-      var firebaseConfig = {
-        apiKey: "AIzaSyBPVv7RNZW0JEDlV3r9V9YbiAaaozHk5gk",
-        authDomain: "nurowai.firebaseapp.com",
-        projectId: "nurowai",
-        storageBucket: "nurowai.appspot.com",
-        messagingSenderId: "658864643652",
-        appId: "1:658864643652:web:572d6a00c2209730ee6611",
-        measurementId: "G-XMXCBW0VRX"
-      };
-
-      firebase.initializeApp(firebaseConfig);
     }
 
     if ('serviceWorker' in navigator) {

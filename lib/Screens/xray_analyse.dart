@@ -24,7 +24,6 @@ class XRayAnalyse extends StatefulWidget {
 }
 
 class _XRayAnalyseState extends State<XRayAnalyse> {
-  bool isComplete = true;
   int _count = 0;
   static const List<String> _text = [
     'Identifying teeth and boxed',

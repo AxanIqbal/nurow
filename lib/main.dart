@@ -8,6 +8,7 @@ import 'package:nurow/Screens/loading.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Services/database.dart';
 import 'package:nurow/controller/auth.dart';
+import 'package:nurow/firebase_options.dart';
 import 'package:nurow/middleware/auth.dart';
 
 import 'Screens/Substrative/select.dart';
@@ -18,7 +19,9 @@ import 'Screens/select_patient.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(AuthController(), permanent: true);
   Get.lazyPut<DataService>(() => DataService());
   runApp(const MyApp());

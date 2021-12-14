@@ -26,12 +26,19 @@ class AuthController extends GetxController {
       {
         'lastSignInTime': FieldValue.arrayUnion([Timestamp.now()])
       },
-    ).onError(
-      (error, stackTrace) => Get.snackbar(
+    ).then(
+      (value) => Get.snackbar(
+        "Success",
+        "Updated the Last Logged In Time",
+        backgroundColor: Colors.green,
+        snackPosition: SnackPosition.BOTTOM,
+      ),
+      onError: (error) => Get.snackbar(
         "Error",
         error.toString(),
         backgroundColor: Colors.red,
         duration: const Duration(seconds: 2),
+        snackPosition: SnackPosition.BOTTOM,
       ),
     );
   }
@@ -42,14 +49,16 @@ class AuthController extends GetxController {
         .doc(firebaseUser.value!.displayName)
         .update({
       'lastLogOutTime': FieldValue.arrayUnion([Timestamp.now()])
-    }).then((value) => FirebaseAuth.instance.signOut(), onError: (error) {
-      Get.snackbar(
+    }).then(
+      (value) => FirebaseAuth.instance.signOut(),
+      onError: (error) => Get.snackbar(
         "Error",
         error.toString(),
         backgroundColor: Colors.red,
         duration: const Duration(seconds: 2),
-      );
-    });
+        snackPosition: SnackPosition.BOTTOM,
+      ),
+    );
   }
 
   _setInitialScreen(User? user) {

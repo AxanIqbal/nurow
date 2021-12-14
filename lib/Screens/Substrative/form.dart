@@ -5,7 +5,7 @@ import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/models/patient.dart';
 
-import 'analyse.dart';
+import 'analyse_view.dart';
 import 'controller/form_controller.dart';
 
 class SubForm extends GetView<SubFormController> {
@@ -45,7 +45,7 @@ class SubForm extends GetView<SubFormController> {
                   final xray1 = controller.xray1.value!;
                   // Get.delete(tag: 'SubForm');
                   Get.to(
-                    () => SubAnalyse(
+                    () => SubAnalyseView(
                       patient: patient,
                       xray1: xray1,
                       xray2: xray,
