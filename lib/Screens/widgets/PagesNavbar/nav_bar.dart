@@ -1,9 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Routing/route_names.dart';
-import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/controller/auth.dart';
-import 'package:nurow/locator.dart';
 
 class PagesNavBar extends StatelessWidget {
   const PagesNavBar({Key? key}) : super(key: key);
@@ -128,7 +127,13 @@ Widget navbarItem(
   return ListTile(
     // mainAxisSize: MainAxisSize.min,
     // mainAxisAlignment: MainAxisAlignment.center,
-    onTap: () => locator<NavigationService>().navigateTo(routeName),
+    onTap: () {
+      if (routeName == 'selectImage') {
+        Get.offAllNamed('/');
+        return;
+      }
+      Get.offAllNamed("/$routeName");
+    },
     contentPadding: const EdgeInsets.only(left: 10.0),
     // horizontalTitleGap: 1.0,
     dense: true,

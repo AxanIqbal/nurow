@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/database.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -13,8 +13,7 @@ class PatientDetailTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
+    return CustomScaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         child: Column(
@@ -160,8 +159,7 @@ class PatientDetailTable extends StatelessWidget {
                                             .xraySorted[index].timeStamp),
                                       ),
                                       onPressed: () {
-                                        locator<NavigationService>()
-                                            .navigateToWidget(
+                                        Get.to(
                                           () => XRayResult(
                                             patient: patient,
                                             currentXray:
@@ -208,7 +206,7 @@ class PatientDetailTable extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
               child: ElevatedButton(
-                onPressed: () => locator<NavigationService>().goBack(),
+                onPressed: () => Get.back(),
                 child: const Text(
                   "Back",
                   style: TextStyle(

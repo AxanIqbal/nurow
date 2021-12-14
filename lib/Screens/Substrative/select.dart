@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/Substrative/form.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
+
+import 'bindings/subform_binding.dart';
 
 class SelectSubAnalysis extends GetResponsiveView {
   SelectSubAnalysis({Key? key}) : super(key: key);
@@ -34,12 +34,13 @@ class SelectSubAnalysis extends GetResponsiveView {
                 "Subtractive analysis",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
               SizedBox(
                 height: 200,
                 child: Center(
@@ -47,7 +48,7 @@ class SelectSubAnalysis extends GetResponsiveView {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,8 +86,9 @@ class SelectSubAnalysis extends GetResponsiveView {
                   ),
                   TextButton(
                     onPressed: () => {
-                      locator<NavigationService>().navigateToWidget(
+                      Get.to(
                         () => const SubForm(),
+                        binding: SubFormBinding(),
                       )
                     },
                     child: const Text(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nurow/Screens/patient_details.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -10,7 +9,7 @@ class SelectPatient extends StatelessWidget {
   const SelectPatient({Key? key}) : super(key: key);
 
   void gotoDetail(Patient patient) {
-    locator<NavigationService>().navigateToWidget(
+    Get.to(
       () => PatientDetailTable(
         patient: patient,
       ),

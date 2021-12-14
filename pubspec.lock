@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.4"
   fake_async:
     dependency: transitive
     description:
@@ -301,13 +294,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.8"
-  get_it:
-    dependency: "direct main"
-    description:
-      name: get_it
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "7.2.0"
   html:
     dependency: transitive
     description:

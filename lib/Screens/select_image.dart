@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nurow/Routing/route_names.dart';
+import 'package:get/get.dart';
+import 'package:nurow/Screens/xray_form.dart';
 import 'package:nurow/Services/database.dart';
-import 'package:nurow/Services/navigation_service.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
-import '../locator.dart';
 
 class SelectImage extends StatefulWidget {
   const SelectImage({Key? key}) : super(key: key);
@@ -243,15 +241,13 @@ class _SelectImageState extends State<SelectImage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          width: 15,
+                        ),
                       },
-                      const SizedBox(
-                        width: 15,
-                      ),
                       if (!isImageSelected) ...{
                         TextButton(
-                          onPressed: () => {
-                            locator<NavigationService>().navigateTo(xRayForm)
-                          },
+                          onPressed: () => Get.to(() => const XRayForm()),
                           child: const Text(
                             "Upload X-Ray",
                             style: TextStyle(
@@ -320,10 +316,10 @@ class _SelectImageState extends State<SelectImage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          width: 15,
+                        ),
                       },
-                      const SizedBox(
-                        width: 15,
-                      ),
                       if (isImageSelected) ...{
                         TextButton(
                           onPressed: () {

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_result.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -50,7 +50,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
     _count += 1;
     setState(() {});
     if (_count >= _text.length) {
-      locator<NavigationService>().navigateToWidget(
+      Get.to(
         () => XRayResult(
           patient: widget.patient,
           currentXray: widget.currentXray,
@@ -61,8 +61,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
+    return CustomScaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(

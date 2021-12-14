@@ -34,12 +34,10 @@ dependencies:
   firebase_auth: ^3.2.0
   firebase_core: ^1.10.0
   font_awesome_flutter: ^9.1.0
-  get_it: null
   responsive_builder: ^0.4.1
   shared_preferences: ^2.0.7
   video_player: null
   get: ^4.3.8
-  dio: ^4.0.1
   flutter_form_builder: ^7.0.0
   image_picker: ^0.8.4+4
   form_builder_image_picker: ^2.0.0

@@ -13,11 +13,13 @@ class MultiForm extends StatelessWidget {
     required this.formKey,
     required this.title,
     required this.onPress,
+    this.radiograph,
   }) : super(key: key);
 
   final String title;
   final Rx<GlobalKey<FormBuilderState>> formKey;
   final void Function(Xray) onPress;
+  final String? radiograph;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,8 @@ class MultiForm extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: FormBuilderTextField(
                                 name: 'xrayLabel',
+                                enabled: radiograph == null,
+                                initialValue: radiograph,
                                 validator: FormBuilderValidators.compose(
                                   [
                                     FormBuilderValidators.required(context),
@@ -137,7 +141,7 @@ class MultiForm extends StatelessWidget {
                           const TableCell(
                               verticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              child: Text("Patient Address:")),
+                              child: Text("Address:")),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
@@ -167,7 +171,7 @@ class MultiForm extends StatelessWidget {
                           const TableCell(
                             verticalAlignment:
                                 TableCellVerticalAlignment.middle,
-                            child: Text("Patient Telephone:"),
+                            child: Text("Telephone:"),
                           ),
                           TableCell(
                             child: Padding(
@@ -202,7 +206,7 @@ class MultiForm extends StatelessWidget {
                           const TableCell(
                               verticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              child: Text("Patient Date Of Birth:")),
+                              child: Text("Date Of Birth:")),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
@@ -229,7 +233,7 @@ class MultiForm extends StatelessWidget {
                           const TableCell(
                               verticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              child: Text("Date Radiograph taken:")),
+                              child: Text("Date of radiograph:")),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),

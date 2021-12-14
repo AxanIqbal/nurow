@@ -11,7 +11,6 @@ class SubFormController extends GetxController {
   final formKey2 = GlobalKey<FormBuilderState>().obs;
   RxBool first = RxBool(true);
   Rxn<Xray> xray1 = Rxn<Xray>();
-  Rxn<Xray> xray2 = Rxn<Xray>();
 
   @override
   void onReady() {

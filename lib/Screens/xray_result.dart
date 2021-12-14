@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_result/anatomy.dart';
 import 'package:nurow/Screens/widgets/xray_result/boneloss.dart';
@@ -11,8 +12,6 @@ import 'package:nurow/Screens/widgets/xray_result/foreign.dart';
 import 'package:nurow/Screens/widgets/xray_result/tooth_identification.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 import 'package:nurow/pdf/master.dart';
@@ -60,8 +59,7 @@ class _XRayResultState extends State<XRayResult> {
     const decay = AssetImage('assets/Decay.png');
     const boneLevel = AssetImage('assets/bone-level.png');
 
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
+    return CustomScaffold(
       // floatingActionButton: widget.isBack != null && widget.isBack == true
       //     ? Transform.translate(
       //         offset: const Offset(-40, 0),
@@ -484,7 +482,7 @@ class _XRayResultState extends State<XRayResult> {
                         offset: const Offset(0, -30),
                         child: ElevatedButton(
                           onPressed: () {
-                            locator<NavigationService>().goBack();
+                            Get.back();
                           },
                           child: const Text(
                             "Back",

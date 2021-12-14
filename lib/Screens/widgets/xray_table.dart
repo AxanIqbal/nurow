@@ -8,10 +8,12 @@ class XRayTable extends StatelessWidget {
     Key? key,
     required this.data,
     required this.currentXray,
+    this.secondXray,
   }) : super(key: key);
 
   final Patient data;
   final Xray currentXray;
+  final Xray? secondXray;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,21 @@ class XRayTable extends StatelessWidget {
               ),
             ],
           ),
+          if (secondXray != null)
+            TableRow(
+              children: [
+                const Text(
+                  "Dates",
+                ),
+                const Text(
+                  ":",
+                ),
+                Text(
+                  "${DateFormat("dd/MM/yyy").format(currentXray.timeStamp).toString()}-${DateFormat("dd/MM/yyy").format(secondXray!.timeStamp).toString()}",
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
         ],
       ),
     );

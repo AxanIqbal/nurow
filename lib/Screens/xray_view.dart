@@ -1,12 +1,12 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Screens/xray_analyse.dart';
 import 'package:nurow/Services/database.dart';
-import 'package:nurow/Services/navigation_service.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -24,8 +24,7 @@ class XRayView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
+    return CustomScaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -102,7 +101,7 @@ class XRayView extends StatelessWidget {
               children: [
                 const SizedBox(),
                 ElevatedButton(
-                  onPressed: () => locator<NavigationService>().goBack(),
+                  onPressed: () => Get.back(),
                   child: const Text(
                     "Back",
                     style: TextStyle(
@@ -170,7 +169,7 @@ class _ButtonState extends State<_Button> {
         .child('xrays')
         .child(widget.data.id ?? 'dumped')
         .child(path);
-    Response bytes = await get(
+    http.Response bytes = await http.get(
       Uri.parse(image),
     );
     UploadTask _task = _ref.putData(
@@ -223,7 +222,7 @@ class _ButtonState extends State<_Button> {
               setState(() {
                 isLoading = false;
               });
-              locator<NavigationService>().navigateToWidget(
+              Get.to(
                 () => XRayAnalyse(
                   patient: widget.data,
                   currentXray: widget.currentXray,

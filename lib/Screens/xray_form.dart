@@ -3,11 +3,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/Screens/xray_view.dart';
-import 'package:nurow/Services/navigation_service.dart';
 import 'package:nurow/controller/xrayform.dart';
-import 'package:nurow/locator.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -20,9 +19,6 @@ class XRayForm extends GetView<XrayFormController> {
   void handle(Patient patientX) {
     controller.patient.value = patientX;
     Get.back();
-    // setState(() {
-    //   isNew = !isNew;
-    // });
   }
 
   @override
@@ -78,8 +74,7 @@ class XRayForm extends GetView<XrayFormController> {
       "PALATAL/LINGUAL",
     ];
 
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
+    return CustomScaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Center(
@@ -655,7 +650,7 @@ class XRayForm extends GetView<XrayFormController> {
                               );
                               data = controller.patient.value!;
                             }
-                            locator<NavigationService>().navigateToWidget(
+                            Get.to(
                               () => XRayView(
                                 data: data,
                                 currentXray: currentXray,

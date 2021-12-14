@@ -2,25 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nurow/Routing/route_names.dart';
-import 'package:nurow/Screens/Substrative/select.dart';
-import 'package:nurow/Screens/audit.dart';
 import 'package:nurow/Screens/select_image.dart';
-import 'package:nurow/Screens/select_patient.dart';
 import 'package:nurow/Screens/xray_form.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   log('generateRoute: ${settings.name}');
   switch (settings.name) {
-    case analysisPage:
-      return _getPageRoute(const SelectImage());
-    case patientDetailsPage:
-      return _getPageRoute(const SelectPatient());
-    case auditPage:
-      return _getPageRoute(const Audit());
     case xRayForm:
       return _getPageRoute(const XRayForm());
-    case subAnalysisPage:
-      return _getPageRoute(SelectSubAnalysis());
     // case xRayView:
     //   return _getPageRoute(const XRayView(data: data));
     default:
