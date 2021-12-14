@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:nurow/Authentication/Login/login.dart';
 import 'package:nurow/Screens/LandingPage/Widgets/navbar_items.dart';
 import 'package:nurow/Screens/LandingPage/Widgets/navbar_logo.dart';
