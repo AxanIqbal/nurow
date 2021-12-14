@@ -13,19 +13,25 @@ class SubFormController extends GetxController {
   Rxn<Xray> xray1 = Rxn<Xray>();
 
   @override
+  void onClose() {
+    super.onClose();
+    patient.value = null;
+  }
+
+  @override
   void onReady() {
     super.onReady();
     ever(patient, _updateForms);
   }
 
   _updateForms(Patient? patient) {
-    formKey.value.currentState!.fields['name']!.didChange(patient?.name);
-    formKey.value.currentState!.fields['address']!.didChange(patient?.address);
-    formKey.value.currentState!.fields['number']!.didChange(patient?.number);
-    formKey.value.currentState!.fields['dob']!.didChange(patient?.dob);
-    formKey2.value.currentState!.fields['name']!.didChange(patient?.name);
-    formKey2.value.currentState!.fields['address']!.didChange(patient?.address);
-    formKey2.value.currentState!.fields['number']!.didChange(patient?.number);
-    formKey2.value.currentState!.fields['dob']!.didChange(patient?.dob);
+    formKey.value.currentState?.fields['name']?.didChange(patient?.name);
+    formKey.value.currentState?.fields['address']?.didChange(patient?.address);
+    formKey.value.currentState?.fields['number']?.didChange(patient?.number);
+    formKey.value.currentState?.fields['dob']?.didChange(patient?.dob);
+    formKey2.value.currentState?.fields['name']?.didChange(patient?.name);
+    formKey2.value.currentState?.fields['address']?.didChange(patient?.address);
+    formKey2.value.currentState?.fields['number']?.didChange(patient?.number);
+    formKey2.value.currentState?.fields['dob']?.didChange(patient?.dob);
   }
 }

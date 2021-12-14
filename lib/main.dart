@@ -15,7 +15,6 @@ import 'Screens/Substrative/select.dart';
 import 'Screens/audit.dart';
 import 'Screens/select_image.dart';
 import 'Screens/select_patient.dart';
-// import 'package:nurow/Screens/select_image.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

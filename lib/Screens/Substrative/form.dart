@@ -49,6 +49,7 @@ class SubForm extends GetView<SubFormController> {
                       patient: patient,
                       xray1: xray1,
                       xray2: xray,
+                      isNew: true,
                     ),
                   );
                 },
