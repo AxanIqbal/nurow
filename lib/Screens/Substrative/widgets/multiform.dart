@@ -266,9 +266,11 @@ class MultiForm extends StatelessWidget {
                       timeStamp: formKey.value.currentState!.value['timeStamp'],
                       optionalImages: [],
                     );
-                    controller.patient.value = Patient.fromJson({
-                      ...formKey.value.currentState!.value,
-                    });
+                    if (controller.isNew.value == true) {
+                      controller.patient.value = Patient.fromJson({
+                        ...formKey.value.currentState!.value,
+                      });
+                    }
                     // var _patient = patient ??
                     //     Patient.fromJson({
                     //       ...formKey.value.currentState!.value,

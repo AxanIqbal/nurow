@@ -15,6 +15,7 @@ class SubForm extends GetView<SubFormController> {
   Widget build(BuildContext context) {
     void handle(Patient patientX) {
       controller.patient.value = patientX;
+      controller.isNew.value = false;
       Get.back();
     }
 
@@ -49,7 +50,7 @@ class SubForm extends GetView<SubFormController> {
                       patient: patient,
                       xray1: xray1,
                       xray2: xray,
-                      isNew: true,
+                      isNew: controller.isNew.value,
                     ),
                   );
                 },
@@ -80,6 +81,7 @@ class SubForm extends GetView<SubFormController> {
                   );
                 } else {
                   controller.patient.value = null;
+                  controller.isNew.value = true;
                 }
               },
               child: Obx(
