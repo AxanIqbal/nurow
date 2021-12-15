@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nurow/Screens/Substrative/bindings/report_binding.dart';
+import 'package:nurow/Screens/Substrative/report.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
@@ -24,7 +27,23 @@ class SubAnalyse extends StatefulWidget {
 class _SubAnalyseState extends State<SubAnalyse> {
   int _count = 0;
   static const List<String> _text = [
-    'Identifying teeth and boxed',
+    'Radiograph 1:',
+    '',
+    'Grading radiograph quality - ',
+    'Assessing Radiograph quality grade - ',
+    'Preprocessing Radiograph - ',
+    'Optimising image for A.I analysis - ',
+    'Identifying teeth - ',
+    'Labelling teeth - ',
+    'Labelling teeth - ',
+    'Anatomy identification - ',
+    'Foreign structure identification - ',
+    'Caries detection - ',
+    'BoneLevel detection - ',
+    'Searching for comparable Radiograph - ',
+    'Searching Patient record for same historical radiograph for possible subtractive imagery analysis - ',
+    '',
+    'Radiograph 2:',
     '',
     'Grading radiograph quality - ',
     'Assessing Radiograph quality grade - ',
@@ -47,12 +66,14 @@ class _SubAnalyseState extends State<SubAnalyse> {
     _count += 1;
     setState(() {});
     if (_count >= _text.length) {
-      // Get.to(
-      //       () => XRayResult(
-      //     patient: widget.patient,
-      //     currentXray: widget.currentXray,
-      //   ),
-      // );
+      Get.to(
+        () => SubReport(
+          patient: widget.patient,
+          xray1: widget.xray1,
+          xray2: widget.xray2,
+        ),
+        binding: SubReportBinding(),
+      );
     }
   }
 

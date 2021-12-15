@@ -475,30 +475,31 @@ class _XRayResultState extends State<XRayResult> {
                         const SizedBox(),
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Transform.translate(
-                        offset: const Offset(0, -30),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text(
-                            "Back",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            padding: const EdgeInsets.all(20.0),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20.0),
+                    if (widget.isBack != null && widget.isBack == true)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Transform.translate(
+                          offset: const Offset(0, -30),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text(
+                              "Back",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.black,
+                              padding: const EdgeInsets.all(20.0),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20.0),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    )
+                      )
                   ],
                 ),
               ),

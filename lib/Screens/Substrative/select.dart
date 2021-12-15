@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Screens/Substrative/bindings/subform_binding.dart';
 import 'package:nurow/Screens/Substrative/form.dart';
-
-import 'bindings/subform_binding.dart';
 
 class SelectSubAnalysis extends GetResponsiveView {
   SelectSubAnalysis({Key? key}) : super(key: key);
@@ -85,11 +84,11 @@ class SelectSubAnalysis extends GetResponsiveView {
                     width: 15,
                   ),
                   TextButton(
-                    onPressed: () => {
+                    onPressed: () {
                       Get.to(
                         () => const SubForm(),
                         binding: SubFormBinding(),
-                      )
+                      );
                     },
                     child: const Text(
                       "Upload X-Ray",
