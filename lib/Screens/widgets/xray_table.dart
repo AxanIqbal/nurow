@@ -39,7 +39,7 @@ class XRayTable extends StatelessWidget {
               ),
               Text(
                 data.name,
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -53,7 +53,7 @@ class XRayTable extends StatelessWidget {
               ),
               Text(
                 DateFormat("dd/MM/yyy").format(data.dob).toString(),
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -67,21 +67,21 @@ class XRayTable extends StatelessWidget {
               ),
               Text(
                 currentXray.radiographType,
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ],
           ),
           TableRow(
             children: [
               const Text(
-                "Patient Telephone",
+                "Patient Number",
               ),
               const Text(
                 ":",
               ),
               Text(
                 data.number,
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -95,8 +95,8 @@ class XRayTable extends StatelessWidget {
                   ":",
                 ),
                 Text(
-                  "${DateFormat("dd/MM/yyy").format(currentXray.timeStamp).toString()}-${DateFormat("dd/MM/yyy").format(secondXray!.timeStamp).toString()}",
-                  textAlign: TextAlign.center,
+                  "${DateFormat("dd/MM/yyy").format(currentXray.timeStamp).toString()} - ${DateFormat("dd/MM/yyy").format(secondXray!.timeStamp).toString()}",
+                  // textAlign: TextAlign.center,
                 ),
               ],
             ),

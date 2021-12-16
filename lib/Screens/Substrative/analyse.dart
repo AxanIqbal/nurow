@@ -6,19 +6,17 @@ import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/patient.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/subtraction.dart';
 
 class SubAnalyse extends StatefulWidget {
   const SubAnalyse({
     Key? key,
     required this.patient,
-    required this.xray1,
-    required this.xray2,
+    required this.subXray,
   }) : super(key: key);
 
   final Patient patient;
-  final Xray xray1;
-  final Xray xray2;
+  final SubtractionXray subXray;
 
   @override
   State<SubAnalyse> createState() => _SubAnalyseState();
@@ -69,8 +67,7 @@ class _SubAnalyseState extends State<SubAnalyse> {
       Get.to(
         () => SubReport(
           patient: widget.patient,
-          xray1: widget.xray1,
-          xray2: widget.xray2,
+          subXray: widget.subXray,
         ),
         binding: SubReportBinding(),
       );
@@ -92,7 +89,7 @@ class _SubAnalyseState extends State<SubAnalyse> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: XRayTable(
                   data: widget.patient,
-                  currentXray: widget.xray1,
+                  currentXray: widget.subXray.xrays[0],
                 ),
               ),
             ),

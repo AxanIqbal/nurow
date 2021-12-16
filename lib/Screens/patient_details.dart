@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nurow/Screens/Substrative/bindings/report_binding.dart';
+import 'package:nurow/Screens/Substrative/report.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/database.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/subtraction.dart';
 import 'package:nurow/models/xray.dart';
 
 class PatientDetailTable extends StatelessWidget {
@@ -100,108 +104,255 @@ class PatientDetailTable extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Card(
-              color: Colors.grey[400],
-              child: FutureBuilder<List<Xray>>(
-                future: DataService().getAllXrays(patient.id!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                      width: 400,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                      patient.xray = [];
-                      for (var xray in snapshot.data!) {
-                        patient.xray.add(xray);
-                      }
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: DataTable(
-                            columns: [
-                              const DataColumn(
-                                label: Text(
-                                  "Date",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: const Text(
-                                    "Radiograph Type",
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                "Analysed Radiographs",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Card(
+                color: Colors.grey[400],
+                child: FutureBuilder<List<Xray>>(
+                  future: DataService().getAllXrays(patient.id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox(
+                        width: 400,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        patient.xray = [];
+                        for (var xray in snapshot.data!) {
+                          patient.xray.add(xray);
+                        }
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: DataTable(
+                              columns: [
+                                const DataColumn(
+                                  label: Text(
+                                    "Date",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                            rows: List<DataRow>.generate(
-                              patient.xray.length,
-                              (index) => DataRow(
-                                cells: [
-                                  DataCell(
-                                    TextButton(
-                                      child: Text(
-                                        DateFormat("dd/MM/yy").format(patient
-                                            .xraySorted[index].timeStamp),
-                                      ),
-                                      onPressed: () {
-                                        Get.to(
-                                          () => XRayResult(
-                                            patient: patient,
-                                            currentXray:
-                                                patient.xraySorted[index],
-                                            isBack: true,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        patient
-                                            .xraySorted[index].radiographType,
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: const Text(
+                                      "Radiograph Type",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
-                                ],
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(
+                                patient.xray.length,
+                                (index) => DataRow(
+                                  cells: [
+                                    DataCell(
+                                      TextButton(
+                                        child: Text(
+                                          DateFormat("dd/MM/yy").format(patient
+                                              .xraySorted[index].timeStamp),
+                                        ),
+                                        onPressed: () {
+                                          Get.to(
+                                            () => XRayResult(
+                                              patient: patient,
+                                              currentXray:
+                                                  patient.xraySorted[index],
+                                              isBack: true,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    DataCell(
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Text(
+                                          patient
+                                              .xraySorted[index].radiographType,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    } else {
-                      return const Center(
-                        child: Text("No Data Available"),
-                      );
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("No Data Available"),
+                        );
+                      }
                     }
-                  }
-                  return const Expanded(
-                    child: Center(
-                      child: Text(
-                        "Something Went Wrong?",
+                    return const Expanded(
+                      child: Center(
+                        child: Text(
+                          "Something Went Wrong?",
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-            const Spacer(),
+            const SizedBox(
+              height: 10,
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                "Subtractive Analysis",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Card(
+                color: Colors.grey[400],
+                child: FutureBuilder<QuerySnapshot<SubtractionXray>>(
+                  future: FirebaseFirestore.instance
+                      .collection('patients')
+                      .doc(patient.id!)
+                      .collection('subtractions')
+                      .withConverter<SubtractionXray>(
+                        fromFirestore: (snapshot, options) =>
+                            SubtractionXray.fromJson(snapshot.data()!),
+                        toFirestore: (value, options) => value.toJson(),
+                      )
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox(
+                        width: 400,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                        patient.subXray = [];
+                        for (var subXray in snapshot.data!.docs) {
+                          patient.subXray.add(subXray.data());
+                        }
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: DataTable(
+                              columns: [
+                                const DataColumn(
+                                  label: Text(
+                                    "Date",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: const Text(
+                                      "Radiograph Type",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(
+                                patient.subXray.length,
+                                (index) => DataRow(
+                                  cells: [
+                                    DataCell(
+                                      TextButton(
+                                        child: Text(
+                                          DateFormat("dd/MM/yy").format(
+                                              patient.subXray[index].timeStamp),
+                                        ),
+                                        onPressed: () {
+                                          Get.to(
+                                            () => SubReport(
+                                              patient: patient,
+                                              subXray: patient.subXray[index],
+                                              isBack: true,
+                                            ),
+                                            binding: SubReportBinding(),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    DataCell(
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Text(
+                                          patient.subXray[index].radiographType,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("No Data Available"),
+                        );
+                      }
+                    }
+                    return const Expanded(
+                      child: Center(
+                        child: Text(
+                          "Something Went Wrong?",
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),

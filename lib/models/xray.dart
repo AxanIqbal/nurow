@@ -15,11 +15,12 @@ class Xray {
     required this.radiographType,
     required this.timeStamp,
     required this.optionalImages,
+    this.id,
   });
 
-  String originalImage;
+  String originalImage, radiographType;
   DateTime timeStamp;
-  String radiographType;
+  String? id;
   List<OptionalImages> optionalImages;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/Services/database.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/subtraction.dart';
 import 'package:nurow/models/xray.dart';
 
 class SubAnalyseView extends StatelessWidget {
@@ -61,7 +63,7 @@ class SubAnalyseView extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      'RadioGraph 1',
+                      'RadioGraph',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -120,7 +122,7 @@ class SubAnalyseView extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      'RadioGraph 2',
+                      'RadioGraph',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -271,40 +273,76 @@ class _ButtonState extends State<_Button> {
                   widget.data.id = _x.id;
                 }
               }
-              for (var xray in [widget.xray1, widget.xray2]) {
-                String _orig = await _uploadAndGetUrl(
-                  xray.originalImage,
-                  "originalImage-${DateTime.now().toString()}.png",
-                );
-                var _post = {
-                  ...xray.toJson(),
-                  "originalImage": _orig,
-                  "patientId": widget.data.id,
-                };
-                if (xray.optionalImages.isNotEmpty) {
-                  _post["optionalImages"] = [];
-                  for (var element in xray.optionalImages) {
-                    String _op = await _uploadAndGetUrl(
-                      element.image,
-                      "optional-${DateTime.now().toString()}.png",
-                    );
-                    _post["optionalImages"].add({
-                      "view": element.view,
-                      "toothSelections": element.toothSelections,
-                      "image": _op,
-                    });
-                  }
-                }
-                await DataService().addXray(_post);
-              }
+
+              String _orig1 = await _uploadAndGetUrl(
+                widget.xray1.originalImage,
+                "subtraction-${widget.xray1.radiographType}-${DateTime.now().toString()}.png",
+              );
+              String _orig2 = await _uploadAndGetUrl(
+                widget.xray2.originalImage,
+                "subtraction-${widget.xray1.radiographType}-${DateTime.now().toString()}.png",
+              );
+
+              await FirebaseFirestore.instance
+                  .collection('patients')
+                  .doc(widget.data.id!)
+                  .collection('subtractions')
+                  .add(
+                {
+                  'timeStamp': DateFormat('EEE, dd MMM yyyy hh:mm:ss')
+                      .format(Timestamp.now().toDate()),
+                  'radiographType': widget.xray1.radiographType,
+                  'xrays': [
+                    {
+                      ...widget.xray1.toJson(),
+                      "originalImage": _orig1,
+                    },
+                    {
+                      ...widget.xray2.toJson(),
+                      "originalImage": _orig2,
+                    },
+                  ],
+                },
+              );
+
+              // for (var xray in [widget.xray1, widget.xray2]) {
+              //   String _orig = await _uploadAndGetUrl(
+              //     xray.originalImage,
+              //     "originalImage-${DateTime.now().toString()}.png",
+              //   );
+              //   var _post = {
+              //     ...xray.toJson(),
+              //     "originalImage": _orig,
+              //     "patientId": widget.data.id,
+              //   };
+              //   if (xray.optionalImages.isNotEmpty) {
+              //     _post["optionalImages"] = [];
+              //     for (var element in xray.optionalImages) {
+              //       String _op = await _uploadAndGetUrl(
+              //         element.image,
+              //         "optional-${DateTime.now().toString()}.png",
+              //       );
+              //       _post["optionalImages"].add({
+              //         "view": element.view,
+              //         "toothSelections": element.toothSelections,
+              //         "image": _op,
+              //       });
+              //     }
+              //   }
+              //   await DataService().addXray(_post);
+              // }
+              final subXray = SubtractionXray(
+                xrays: [widget.xray1, widget.xray2],
+                timeStamp: Timestamp.now().toDate(),
+                radiographType: widget.xray1.radiographType,
+              );
               setState(() {
                 isLoading = false;
               });
               Get.to(
                 () => SubAnalyse(
                   patient: widget.data,
-                  xray1: widget.xray1,
-                  xray2: widget.xray2,
+                  subXray: subXray,
                 ),
               );
               // locator<NavigationService>().navigateToWidget(

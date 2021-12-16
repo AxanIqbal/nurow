@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+import 'package:nurow/models/subtraction.dart';
 import 'package:nurow/models/xray.dart';
 
 Patient patientFromJson(String str) => Patient.fromJson(json.decode(str));
@@ -17,6 +18,7 @@ class Patient {
     required this.number,
     required this.address,
     required this.xray,
+    required this.subXray,
     this.id,
   });
 
@@ -26,6 +28,7 @@ class Patient {
   String? id;
   String address;
   List<Xray> xray;
+  List<SubtractionXray> subXray;
 
   List<Xray> get xraySorted {
     xray.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
@@ -45,6 +48,14 @@ class Patient {
                 ? List<Xray>.from(json['xray'].map((x) => Xray.fromJson(x)))
                 : [
                     Xray.fromJson(json['xray']),
+                  ]
+            : [],
+        subXray: json['subXray'] != null
+            ? json['subXray'] is List
+                ? List<SubtractionXray>.from(
+                    json['subXray'].map((x) => SubtractionXray.fromJson(x)))
+                : [
+                    SubtractionXray.fromJson(json['xray']),
                   ]
             : [],
       );

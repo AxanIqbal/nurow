@@ -8,26 +8,26 @@ import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/patient.dart';
-import 'package:nurow/models/xray.dart';
+import 'package:nurow/models/subtraction.dart';
 import 'package:nurow/pdf/master.dart';
 import 'package:printing/printing.dart';
 
 class SubReport extends GetView<SubReportController> {
   const SubReport({
     required this.patient,
-    required this.xray1,
-    required this.xray2,
+    required this.subXray,
     this.isBack,
     Key? key,
   }) : super(key: key);
+
   final Patient patient;
-  final Xray xray1, xray2;
+  final SubtractionXray subXray;
   final bool? isBack;
 
   @override
   Widget build(BuildContext context) {
-    final xray1Image = NetworkImage(xray1.originalImage);
-    final xray2Image = NetworkImage(xray2.originalImage);
+    final xray1Image = NetworkImage(subXray.xrays[0].originalImage);
+    final xray2Image = NetworkImage(subXray.xrays[1].originalImage);
     const subtractive = AssetImage('assets/subtractive.png');
     return CustomScaffold(
       body: Padding(
@@ -127,7 +127,7 @@ class SubReport extends GetView<SubReportController> {
                     child: Center(
                       child: XRayTable(
                         data: patient,
-                        currentXray: xray1,
+                        currentXray: subXray.xrays[0],
                       ),
                     ),
                   ),
@@ -166,7 +166,7 @@ class SubReport extends GetView<SubReportController> {
                                       const Text("Type"),
                                       const Text(":"),
                                       Text(
-                                        xray1.radiographType,
+                                        subXray.radiographType,
                                         textAlign: TextAlign.center,
                                       ),
                                     ],
@@ -177,7 +177,7 @@ class SubReport extends GetView<SubReportController> {
                                       const Text(":"),
                                       Text(
                                         DateFormat("dd/MM/yyy")
-                                            .format(xray1.timeStamp)
+                                            .format(subXray.xrays[0].timeStamp)
                                             .toString(),
                                         textAlign: TextAlign.center,
                                       ),
@@ -201,7 +201,7 @@ class SubReport extends GetView<SubReportController> {
                                       const Text("Type"),
                                       const Text(":"),
                                       Text(
-                                        xray2.radiographType,
+                                        subXray.radiographType,
                                         textAlign: TextAlign.center,
                                       ),
                                     ],
@@ -212,7 +212,7 @@ class SubReport extends GetView<SubReportController> {
                                       const Text(":"),
                                       Text(
                                         DateFormat("dd/MM/yyy")
-                                            .format(xray2.timeStamp)
+                                            .format(subXray.xrays[1].timeStamp)
                                             .toString(),
                                         textAlign: TextAlign.center,
                                       ),
