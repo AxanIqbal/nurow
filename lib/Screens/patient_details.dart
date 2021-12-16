@@ -140,7 +140,7 @@ class PatientDetailTable extends StatelessWidget {
                           patient.xray.add(xray);
                         }
                         return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.vertical,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: DataTable(
@@ -271,7 +271,7 @@ class PatientDetailTable extends StatelessWidget {
                           patient.subXray.add(subXray.data());
                         }
                         return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.vertical,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: DataTable(
