@@ -9,7 +9,7 @@ import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/subtraction.dart';
-import 'package:nurow/pdf/master.dart';
+import 'package:nurow/pdf/sub_master.dart';
 import 'package:printing/printing.dart';
 
 class SubReport extends GetView<SubReportController> {
@@ -351,7 +351,11 @@ class SubReport extends GetView<SubReportController> {
                             Get.to(
                               () => PdfPreview(
                                 maxPageWidth: 700,
-                                build: (format) => masterPDF(format, patient),
+                                build: (format) => subMasterPDF(
+                                  format,
+                                  patient,
+                                  subXray,
+                                ),
                               ),
                             );
                           },

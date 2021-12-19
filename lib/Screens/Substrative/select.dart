@@ -115,9 +115,9 @@ class SelectSubAnalysis extends GetResponsiveView {
                         },
                       ),
                     ),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
