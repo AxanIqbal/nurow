@@ -107,7 +107,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                     ),
                     DataColumn(
                       label: Text(
-                        'Telephone',
+                        'Record Number',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

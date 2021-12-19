@@ -73,7 +73,7 @@ class PatientDetailTable extends StatelessWidget {
                     TableRow(
                       children: [
                         const Text(
-                          "Patient Telephone",
+                          "Record Number",
                         ),
                         const Text(
                           ": ",

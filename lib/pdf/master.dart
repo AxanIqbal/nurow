@@ -142,7 +142,7 @@ Future<Uint8List> masterPDF(PdfPageFormat format, Patient patient) async {
             "Date Of Birth: ${DateFormat("dd-MMM-yyyy").format(patient.dob).toString()}",
           ),
           pw.Text("Address: ${patient.address}"),
-          pw.Text("Telephone: ${patient.number}"),
+          pw.Text("Number: ${patient.number}"),
         ],
       ),
     ),

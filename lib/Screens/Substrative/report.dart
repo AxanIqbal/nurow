@@ -46,7 +46,9 @@ class SubReport extends GetView<SubReportController> {
                   children: [
                     Column(
                       children: [
-                        const Text("Subtractive"),
+                        const Text(
+                          "Subtractive",
+                        ),
                         InkWell(
                           onTap: () => controller.changeImage(subtractive, 0),
                           child: xRayImage(
@@ -111,11 +113,29 @@ class SubReport extends GetView<SubReportController> {
                         ),
                         child: Obx(() {
                           if (controller.index.value == 0) {
-                            return const Text('Subtractive');
+                            return const Text(
+                              'Subtractive analysis',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
                           } else if (controller.index.value == 1) {
-                            return const Text('Radiograph 1');
+                            return const Text(
+                              'Radiograph 1',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
                           } else {
-                            return const Text('Radiograph 2');
+                            return const Text(
+                              'Radiograph 2',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
                           }
                         }),
                       ),
@@ -137,91 +157,156 @@ class SubReport extends GetView<SubReportController> {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
-                      child: Column(
-                        children: [
-                          xRayImage(
-                            controller.image.value,
-                            imageWidth:
-                                MediaQuery.of(context).size.width * 0.40,
-                            imageHeight:
-                                MediaQuery.of(context).size.height * 0.40,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          if (controller.index.value == 0)
-                            const Text('Analysis summary: text TBC')
-                          else if (controller.index.value == 1)
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Table(
-                                columnWidths: const {
-                                  0: FlexColumnWidth(3),
-                                  1: FlexColumnWidth(1),
-                                  2: FlexColumnWidth(3),
-                                },
-                                children: [
-                                  TableRow(
-                                    children: [
-                                      const Text("Type"),
-                                      const Text(":"),
-                                      Text(
-                                        subXray.radiographType,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      const Text("Date"),
-                                      const Text(":"),
-                                      Text(
-                                        DateFormat("dd/MM/yyy")
-                                            .format(subXray.xrays[0].timeStamp)
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          else
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Table(
-                                columnWidths: const {
-                                  0: FlexColumnWidth(3),
-                                  1: FlexColumnWidth(1),
-                                  2: FlexColumnWidth(3),
-                                },
-                                children: [
-                                  TableRow(
-                                    children: [
-                                      const Text("Type"),
-                                      const Text(":"),
-                                      Text(
-                                        subXray.radiographType,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      const Text("Date"),
-                                      const Text(":"),
-                                      Text(
-                                        DateFormat("dd/MM/yyy")
-                                            .format(subXray.xrays[1].timeStamp)
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        child: Column(
+                          children: [
+                            xRayImage(
+                              controller.image.value,
+                              imageWidth:
+                                  MediaQuery.of(context).size.width * 0.40,
+                              imageHeight:
+                                  MediaQuery.of(context).size.height * 0.40,
                             ),
-                        ],
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            if (controller.index.value == 0)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      'Time lapse between images: ${subXray.xrays[1].timeStamp.difference(subXray.xrays[0].timeStamp).inHours / 24} days'),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                      'Comparative image discrepancy: 18%'),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text('Caries LL6: +11%'),
+                                  const Text('Caries LL7: + 4%'),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text('Bone-level change average: 0.4%'),
+                                ],
+                              )
+                            else if (controller.index.value == 1)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.25,
+                                    child: Table(
+                                      columnWidths: const {
+                                        0: FlexColumnWidth(3),
+                                        1: FlexColumnWidth(1),
+                                        2: FlexColumnWidth(3),
+                                      },
+                                      children: [
+                                        TableRow(
+                                          children: [
+                                            const Text("Type"),
+                                            const Text(":"),
+                                            Text(
+                                              subXray.radiographType,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: [
+                                            const Text("Date"),
+                                            const Text(":"),
+                                            Text(
+                                              DateFormat("dd/MM/yyy")
+                                                  .format(subXray
+                                                      .xrays[0].timeStamp)
+                                                  .toString(),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Caries detected: LL6, LL5, UL4',
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    'Generalised mild horizontal boneloss 30% sites',
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              )
+                            else
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.25,
+                                    child: Table(
+                                      columnWidths: const {
+                                        0: FlexColumnWidth(3),
+                                        1: FlexColumnWidth(1),
+                                        2: FlexColumnWidth(3),
+                                      },
+                                      children: [
+                                        TableRow(
+                                          children: [
+                                            const Text("Type"),
+                                            const Text(":"),
+                                            Text(
+                                              subXray.radiographType,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: [
+                                            const Text("Date"),
+                                            const Text(":"),
+                                            Text(
+                                              DateFormat("dd/MM/yyy")
+                                                  .format(subXray
+                                                      .xrays[1].timeStamp)
+                                                  .toString(),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Text(
+                                    'Caries detected: LL6, LL5, UL4',
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    'Generalised mild horizontal boneloss 30% sites',
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -276,7 +361,7 @@ class SubReport extends GetView<SubReportController> {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: const Center(
                               child: AutoSizeText(
-                                "Master Report PDF",
+                                "Comparative report PDF",
                                 minFontSize: 0,
                               ),
                             ),

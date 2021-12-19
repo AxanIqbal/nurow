@@ -514,7 +514,7 @@ class XRayForm extends GetView<XrayFormController> {
                                   const TableCell(
                                     verticalAlignment:
                                         TableCellVerticalAlignment.middle,
-                                    child: Text("Patient Telephone:"),
+                                    child: Text("Record Number:"),
                                   ),
                                   TableCell(
                                     child: Padding(

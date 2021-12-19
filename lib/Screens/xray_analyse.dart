@@ -24,24 +24,27 @@ class XRayAnalyse extends StatefulWidget {
 
 class _XRayAnalyseState extends State<XRayAnalyse> {
   int _count = 0;
-  static const List<String> _text = [
-    'Identifying teeth and boxed',
-    '',
-    'Grading radiograph quality - ',
-    'Assessing Radiograph quality grade - ',
-    'Preprocessing Radiograph - ',
-    'Optimising image for A.I analysis - ',
-    'Identifying teeth - ',
-    'Labelling teeth - ',
-    'Labelling teeth - ',
-    'Anatomy identification - ',
-    'Foreign structure identification - ',
-    'Caries detection - ',
-    'BoneLevel detection - ',
-    'Searching for comparable Radiograph - ',
-    'Searching Patient record for same historical radiograph for possible subtractive imagery analysis - ',
-    '',
-    '',
+  static final List<List> _text = [
+    ['Identifying teeth and boxed', () {}],
+    ['', () {}],
+    ['Grading radiograph quality - ', () {}],
+    ['Assessing Radiograph quality grade - ', () {}],
+    ['Preprocessing Radiograph - ', () {}],
+    ['Optimising image for A.I analysis - ', () {}],
+    ['Identifying teeth - ', () {}],
+    ['Labelling teeth - ', () {}],
+    ['Labelling teeth - ', () {}],
+    ['Anatomy identification - ', () {}],
+    ['Foreign structure identification - ', () {}],
+    ['Caries detection - ', () {}],
+    ['BoneLevel detection - ', () {}],
+    ['Searching for comparable Radiograph - ', () {}],
+    [
+      'Searching Patient record for same historical radiograph for possible subtractive imagery analysis - ',
+      () {}
+    ],
+    ['', () {}],
+    ['', () {}],
   ];
 
   void counter() {
@@ -109,7 +112,8 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
                             return Padding(
                               padding: const EdgeInsets.only(left: 5.0),
                               child: TextAnimation(
-                                text: _text[index],
+                                text: _text[index][0],
+                                waitFunction: _text[index][1],
                                 counter: counter,
                               ),
                             );

@@ -8,11 +8,13 @@ class TextAnimation extends StatefulWidget {
     required this.text,
     this.textStyle,
     required this.counter,
+    required this.waitFunction,
   }) : super(key: key);
+
   final String text;
   final TextStyle? textStyle;
-  final Function counter;
-
+  final VoidCallback counter;
+  final Function waitFunction;
   @override
   _TextAnimationState createState() => _TextAnimationState();
 }
@@ -21,8 +23,9 @@ class _TextAnimationState extends State<TextAnimation>
     with TickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<int> _characterCount;
-  bool _isAnimationDone = false;
-  bool _isAnimationDoneAfter = false;
+  bool _isAnimationDone = false,
+      _isAnimationDoneAfter = false,
+      _isWaitFunctionDone = false;
   late Timer _isLoadingTimer;
 
   @override
@@ -35,14 +38,23 @@ class _TextAnimationState extends State<TextAnimation>
     _characterCount = StepTween(begin: 0, end: widget.text.length).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeIn),
     )
-      ..addStatusListener((status) {
+      ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
           animationController.dispose();
           _isAnimationDone = true;
-          _isLoadingTimer = Timer(const Duration(milliseconds: 500), () {
-            _isAnimationDoneAfter = true;
-          });
+          var _date1 = DateTime.now();
+          await widget.waitFunction();
+          _isWaitFunctionDone = true;
+          final diff = DateTime.now().difference(_date1).inMilliseconds;
+          var _date2 = 500 - diff;
           widget.counter();
+          if (_date2 > 0) {
+            _isLoadingTimer = Timer(Duration(milliseconds: _date2), () {
+              _isAnimationDoneAfter = true;
+            });
+          } else {
+            _isAnimationDoneAfter = true;
+          }
         }
       })
       ..addListener(() {
@@ -74,7 +86,7 @@ class _TextAnimationState extends State<TextAnimation>
               ),
             ),
             if (_isAnimationDone && text != '' && text[text.length - 1] == ' ')
-              if (_isAnimationDoneAfter)
+              if (_isAnimationDoneAfter && _isWaitFunctionDone)
                 const Text("done")
               else
                 const SizedBox(

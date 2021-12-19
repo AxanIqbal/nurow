@@ -74,7 +74,7 @@ class XRayTable extends StatelessWidget {
           TableRow(
             children: [
               const Text(
-                "Patient Number",
+                "Record Number",
               ),
               const Text(
                 ":",
