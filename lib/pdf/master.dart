@@ -129,20 +129,36 @@ Future<Uint8List> masterPDF(PdfPageFormat format, Patient patient) async {
 
   doc.addPage(
     pw.Page(
-      build: (context) => pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
+      build: (context) => pw.Table(
+        columnWidths: const {
+          0: pw.FlexColumnWidth(2),
+          1: pw.FlexColumnWidth(4),
+        },
         children: [
-          pw.Text(
-            'Patient Summary',
-            style: pw.Theme.of(context).header0,
+          pw.TableRow(
+            children: [
+              pw.Text('Name:'),
+              pw.Text(patient.name),
+            ],
           ),
-          pw.SizedBox(height: 40),
-          pw.Text("Name: ${patient.name}"),
-          pw.Text(
-            "Date Of Birth: ${DateFormat("dd-MMM-yyyy").format(patient.dob).toString()}",
+          pw.TableRow(
+            children: [
+              pw.Text('Date Of Birth:'),
+              pw.Text(DateFormat("dd-MMM-yyyy").format(patient.dob).toString()),
+            ],
           ),
-          pw.Text("Address: ${patient.address}"),
-          pw.Text("Number: ${patient.number}"),
+          pw.TableRow(
+            children: [
+              pw.Text('Address:'),
+              pw.Text(patient.address),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Text('Telephone:'),
+              pw.Text(patient.number),
+            ],
+          ),
         ],
       ),
     ),

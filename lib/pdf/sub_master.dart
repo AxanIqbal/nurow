@@ -151,7 +151,7 @@ Future<Uint8List> subMasterPDF(
               ),
               pw.TableRow(
                 children: [
-                  pw.Text('Number:'),
+                  pw.Text('Telephone:'),
                   pw.Text(patient.number),
                 ],
               ),
