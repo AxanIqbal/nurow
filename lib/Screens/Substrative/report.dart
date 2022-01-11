@@ -26,9 +26,9 @@ class SubReport extends GetView<SubReportController> {
 
   @override
   Widget build(BuildContext context) {
-    final xray1Image = NetworkImage(subXray.xrays[0].originalImage);
-    final xray2Image = NetworkImage(subXray.xrays[1].originalImage);
-    const subtractive = AssetImage('assets/subtractive.png');
+    final xray1Image = subXray.xrays[0].originalImage;
+    final xray2Image = subXray.xrays[1].originalImage;
+    const subtractive = 'assets/subtractive.png';
     return CustomScaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),

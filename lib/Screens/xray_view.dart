@@ -47,7 +47,7 @@ class XRayView extends StatelessWidget {
                           child: Column(
                             children: [
                               xRayImage(
-                                NetworkImage(e.image),
+                                e.image,
                                 imageHeight:
                                     MediaQuery.of(context).size.height * 0.18,
                                 imageWidth:
@@ -81,7 +81,7 @@ class XRayView extends StatelessWidget {
                     ),
                   ),
                   xRayImage(
-                    NetworkImage(currentXray.originalImage),
+                    currentXray.originalImage,
                     imageHeight: MediaQuery.of(context).size.height * 0.5,
                     imageWidth: MediaQuery.of(context).size.width * 0.5,
                   ),

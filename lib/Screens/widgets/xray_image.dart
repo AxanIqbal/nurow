@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Widget xRayImage(ImageProvider<Object> image,
+Widget xRayImage(String image,
     {double imageHeight = 400, double? imageWidth, bool isAsset = false}) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
@@ -11,7 +12,9 @@ Widget xRayImage(ImageProvider<Object> image,
     decoration: BoxDecoration(
       color: Colors.white,
       image: DecorationImage(
-        image: image,
+        image: GetUtils.isURL(image)
+            ? NetworkImage(image)
+            : AssetImage(image) as ImageProvider<Object>,
         fit: BoxFit.fill,
       ),
       border: Border.all(color: Colors.blueAccent, width: 2),

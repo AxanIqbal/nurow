@@ -121,7 +121,7 @@ Future<Uint8List> masterPDF(PdfPageFormat format, Patient patient) async {
           ),
           pw.Text(
             DateFormat("dd MMM yyyy").format(DateTime.now()).toString(),
-          )
+          ),
         ],
       ),
     ),

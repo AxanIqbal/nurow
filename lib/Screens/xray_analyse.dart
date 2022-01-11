@@ -73,7 +73,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 xRayImage(
-                  NetworkImage(widget.currentXray.originalImage),
+                  widget.currentXray.originalImage,
                   imageWidth: MediaQuery.of(context).size.width * 0.4,
                   imageHeight: MediaQuery.of(context).size.height * 0.4,
                 ),

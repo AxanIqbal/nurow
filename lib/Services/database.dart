@@ -104,6 +104,7 @@ class DataService extends GetConnect {
 
   Future<List<Patient>> getAllPatients() async {
     Response response = await get('http://185.132.38.189:3928/api/patientdata');
+    debugPrint(response.toString());
     debugPrint(response.bodyString);
     final data = patientsFromJson(response.body);
     return data;

@@ -120,9 +120,10 @@ class _PatientDetailsState extends State<PatientDetails> {
                       cells: <DataCell>[
                         DataCell(
                           TextButton(
-                              onPressed: () =>
-                                  widget.handle(patientFiltered[index]),
-                              child: Text(patientFiltered[index].name)),
+                            onPressed: () =>
+                                widget.handle(patientFiltered[index]),
+                            child: Text(patientFiltered[index].name),
+                          ),
                         ),
                         DataCell(
                           Text(

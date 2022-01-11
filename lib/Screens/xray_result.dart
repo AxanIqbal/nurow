@@ -33,16 +33,16 @@ class XRayResult extends StatefulWidget {
 }
 
 class _XRayResultState extends State<XRayResult> {
-  late ImageProvider<Object> _image;
+  late String _image;
   int _index = 0;
 
   @override
   void initState() {
     super.initState();
-    _image = NetworkImage(widget.currentXray.originalImage);
+    _image = widget.currentXray.originalImage;
   }
 
-  void changeImage(ImageProvider<Object> image, int index) {
+  void changeImage(String image, int index) {
     setState(() {
       _image = image;
       _index = index;
@@ -51,12 +51,12 @@ class _XRayResultState extends State<XRayResult> {
 
   @override
   Widget build(BuildContext context) {
-    final originalImage = NetworkImage(widget.currentXray.originalImage);
-    const toothIdentical = AssetImage('assets/tooth identification.jpg');
-    const anatomy = AssetImage('assets/anatomy.png');
-    const foriegnStructures = AssetImage('assets/foriegn structures.png');
-    const decay = AssetImage('assets/Decay.png');
-    const boneLevel = AssetImage('assets/bone-level.png');
+    final originalImage = widget.currentXray.originalImage;
+    const toothIdentical = 'assets/tooth identification.jpg';
+    String anatomy = widget.currentXray.anatomy ?? 'assets/anatomy.png';
+    String foriegnStructures = 'assets/foriegn structures.png';
+    String decay = 'assets/Decay.png';
+    String boneLevel = widget.currentXray.boneloss ?? 'assets/bone-level.png';
 
     return CustomScaffold(
       // floatingActionButton: widget.isBack != null && widget.isBack == true
@@ -227,13 +227,13 @@ class _XRayResultState extends State<XRayResult> {
                               Text("Optional Image ${index + 1}"),
                               InkWell(
                                 onTap: () => changeImage(
-                                  NetworkImage(widget
-                                      .currentXray.optionalImages[index].image),
+                                  widget
+                                      .currentXray.optionalImages[index].image,
                                   index + 6,
                                 ),
                                 child: xRayImage(
-                                  NetworkImage(widget
-                                      .currentXray.optionalImages[index].image),
+                                  widget
+                                      .currentXray.optionalImages[index].image,
                                   imageHeight:
                                       MediaQuery.of(context).size.height * 0.20,
                                   imageWidth:
@@ -404,7 +404,19 @@ class _XRayResultState extends State<XRayResult> {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            ByteData pdf;
+                            if (widget.currentXray.report != null) {
+                              pdf = await rootBundle
+                                  .load(widget.currentXray.report!);
+                              Get.to(
+                                () => PdfPreview(
+                                  maxPageWidth: 700,
+                                  build: (format) => pdf.buffer.asUint8List(),
+                                ),
+                              );
+                            }
+
                             Get.to(
                               () => PdfPreview(
                                 maxPageWidth: 700,

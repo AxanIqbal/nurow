@@ -52,7 +52,7 @@ class SubAnalyseView extends StatelessWidget {
                 Column(
                   children: [
                     xRayImage(
-                      NetworkImage(xray1.originalImage),
+                      xray1.originalImage,
                       imageWidth: MediaQuery.of(context).size.width * 0.3,
                       imageHeight: MediaQuery.of(context).size.height * 0.3,
                     ),
@@ -111,7 +111,7 @@ class SubAnalyseView extends StatelessWidget {
                 Column(
                   children: [
                     xRayImage(
-                      NetworkImage(xray2.originalImage),
+                      xray2.originalImage,
                       imageWidth: MediaQuery.of(context).size.width * 0.3,
                       imageHeight: MediaQuery.of(context).size.height * 0.3,
                     ),
