@@ -52,9 +52,11 @@ class _XRayResultState extends State<XRayResult> {
   @override
   Widget build(BuildContext context) {
     final originalImage = widget.currentXray.originalImage;
-    const toothIdentical = 'assets/tooth identification.jpg';
+    String toothIdentical =
+        widget.currentXray.labelled ?? 'assets/tooth identification.jpg';
     String anatomy = widget.currentXray.anatomy ?? 'assets/anatomy.png';
-    String foriegnStructures = 'assets/foriegn structures.png';
+    String foriegnStructures =
+        widget.currentXray.annotated ?? 'assets/foriegn structures.png';
     String decay = 'assets/Decay.png';
     String boneLevel = widget.currentXray.boneloss ?? 'assets/bone-level.png';
 
