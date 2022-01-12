@@ -3,7 +3,9 @@ import 'package:nurow/Screens/widgets/text_table.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
 
 class Foreign extends StatelessWidget {
-  const Foreign({Key? key}) : super(key: key);
+  const Foreign({Key? key, required this.image}) : super(key: key);
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,9 @@ class Foreign extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const XRayResultCharting(),
+              XRayResultCharting(
+                image: image,
+              ),
               const SizedBox(
                 height: 10,
               ),

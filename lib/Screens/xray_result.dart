@@ -57,8 +57,9 @@ class _XRayResultState extends State<XRayResult> {
     String anatomy = widget.currentXray.anatomy ?? 'assets/anatomy.png';
     String foriegnStructures =
         widget.currentXray.annotated ?? 'assets/foriegn structures.png';
-    String decay = 'assets/Decay.png';
+    String decay = widget.currentXray.caries ?? 'assets/Decay.png';
     String boneLevel = widget.currentXray.boneloss ?? 'assets/bone-level.png';
+    String charting = widget.currentXray.charting ?? 'assets/charting.png';
 
     return CustomScaffold(
       // floatingActionButton: widget.isBack != null && widget.isBack == true
@@ -320,7 +321,9 @@ class _XRayResultState extends State<XRayResult> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const XRayResultCharting(),
+                        XRayResultCharting(
+                          image: charting,
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -351,7 +354,10 @@ class _XRayResultState extends State<XRayResult> {
                   else if (_index == 2)
                     const Anatomy()
                   else if (_index == 3)
-                    const Expanded(child: Foreign())
+                    Expanded(
+                        child: Foreign(
+                      image: charting,
+                    ))
                   else if (_index == 4) // Caries (decay)
                     const Expanded(child: Decay())
                   else if (_index == 5) // Bone-Loss

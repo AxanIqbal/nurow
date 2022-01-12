@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class XRayResultCharting extends StatelessWidget {
-  const XRayResultCharting({Key? key}) : super(key: key);
+  const XRayResultCharting({Key? key, required this.image}) : super(key: key);
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +12,8 @@ class XRayResultCharting extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * 0.2,
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/charting.png'), fit: BoxFit.fill),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
         ),
         // padding: const EdgeInsets.all(10),
         // child: Column(

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 Xray xrayFromJson(String str) => Xray.fromJson(json.decode(str));
@@ -11,24 +10,25 @@ List<Xray> xraysFromJson(List data) =>
 String xrayToJson(Xray data) => json.encode(data.toJson());
 
 class Xray {
-  Xray({
-    required this.originalImage,
-    required this.radiographType,
-    required this.timeStamp,
-    required this.optionalImages,
-    this.id,
-    this.anatomy,
-    this.boneloss,
-    this.annotated,
-    this.labelled,
-    this.report,
-  });
+  Xray(
+      {required this.originalImage,
+      required this.radiographType,
+      required this.timeStamp,
+      required this.optionalImages,
+      this.id,
+      this.anatomy,
+      this.boneloss,
+      this.annotated,
+      this.labelled,
+      this.report,
+      this.caries,
+      this.charting});
 
   String originalImage, radiographType;
   DateTime timeStamp;
   String? id;
   List<OptionalImages> optionalImages;
-  String? anatomy, boneloss, labelled, annotated, report;
+  String? anatomy, boneloss, labelled, annotated, report, caries, charting;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(
         originalImage: json["originalImage"],
