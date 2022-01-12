@@ -16,10 +16,11 @@ class XRayView extends StatelessWidget {
     required this.data,
     this.isNew = true,
     required this.currentXray,
+    this.skip = false,
   }) : super(key: key);
 
   final Patient data;
-  final bool isNew;
+  final bool isNew, skip;
   final Xray currentXray;
 
   @override
@@ -132,6 +133,7 @@ class XRayView extends StatelessWidget {
                   currentXray: currentXray,
                   isNew: isNew,
                   data: data,
+                  skip: skip,
                 ),
                 const SizedBox(),
               ],
@@ -144,14 +146,15 @@ class XRayView extends StatelessWidget {
 }
 
 class _Button extends StatefulWidget {
-  const _Button(
-      {Key? key,
-      required this.isNew,
-      required this.data,
-      required this.currentXray})
-      : super(key: key);
+  const _Button({
+    Key? key,
+    required this.isNew,
+    required this.data,
+    required this.currentXray,
+    required this.skip,
+  }) : super(key: key);
 
-  final bool isNew;
+  final bool isNew, skip;
   final Patient data;
   final Xray currentXray;
 
@@ -185,6 +188,15 @@ class _ButtonState extends State<_Button> {
     return ElevatedButton(
       onPressed: !isLoading
           ? () async {
+              if (widget.skip) {
+                Get.to(
+                  () => XRayAnalyse(
+                    patient: widget.data,
+                    currentXray: widget.currentXray,
+                  ),
+                );
+              }
+
               setState(() {
                 isLoading = true;
               });

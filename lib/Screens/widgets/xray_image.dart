@@ -12,7 +12,7 @@ Widget xRayImage(String image,
     decoration: BoxDecoration(
       color: Colors.white,
       image: DecorationImage(
-        image: GetUtils.isURL(image)
+        image: GetUtils.isURL(image) || GetUtils.hasMatch(image, 'blob:')
             ? NetworkImage(image)
             : AssetImage(image) as ImageProvider<Object>,
         fit: BoxFit.fill,

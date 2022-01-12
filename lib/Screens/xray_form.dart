@@ -699,6 +699,7 @@ class XRayForm extends GetView<XrayFormController> {
                                 data: data,
                                 currentXray: currentXray,
                                 isNew: controller.patient.value == null,
+                                skip: controller.currentXray.value != null,
                               ),
                             );
                           } else {
