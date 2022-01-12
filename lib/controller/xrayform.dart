@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:nurow/models/patient.dart';
+import 'package:nurow/models/xray.dart';
 
 class XrayFormController extends GetxController {
   static XrayFormController instance = Get.find();
   Rxn<Patient?> patient = Rxn<Patient?>(null);
+  Rxn<Xray?> currentXray = Rxn<Xray?>(null);
   final formKey = GlobalKey<FormBuilderState>().obs;
   RxBool opt1 = RxBool(false);
   RxBool opt2 = RxBool(false);

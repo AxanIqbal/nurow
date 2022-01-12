@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
-import 'package:nurow/Screens/xray_analyse.dart';
 import 'package:nurow/Screens/xray_form.dart';
-import 'package:nurow/Screens/xray_view.dart';
 import 'package:nurow/Services/constants.dart';
-import 'package:nurow/Services/database.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -52,7 +49,7 @@ class SelectImage extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () async {
-                          var result = await showDialog(
+                          showDialog(
                             context: context,
                             builder: (context) {
                               return Dialog(
@@ -77,8 +74,15 @@ class SelectImage extends StatelessWidget {
                                                     children: [
                                                       TextButton(
                                                           onPressed: () {
+                                                            // Get.to(
+                                                            //   () => XRayAnalyse(
+                                                            //     patient:
+                                                            //         patient,
+                                                            //     currentXray: e,
+                                                            //   ),
+                                                            // );
                                                             Get.to(
-                                                              () => XRayAnalyse(
+                                                              () => XRayForm(
                                                                 patient:
                                                                     patient,
                                                                 currentXray: e,

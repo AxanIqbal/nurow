@@ -11,20 +11,28 @@ import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
 class XRayForm extends GetView<XrayFormController> {
-  const XRayForm({Key? key}) : super(key: key);
+  const XRayForm({Key? key, this.patient, this.currentXray}) : super(key: key);
 
   // bool isNew = true;
-  // Patient? patient;
+  final Patient? patient;
+  final Xray? currentXray;
 
-  void handle(Patient patientX) {
+  void handle(Patient patientX, {bool goBack = true, Xray? currentXray}) {
     controller.patient.value = patientX;
-    Get.back();
+    if (currentXray != null) {
+      controller.currentXray.value = currentXray;
+    }
+    if (goBack) {
+      Get.back();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     Get.put(XrayFormController());
-    // final XrayFormController pt = Get.find();
+    if (patient != null) {
+      handle(patient!, goBack: false, currentXray: currentXray);
+    }
 
     const _toothSelections = [
       "UL QUADRANT",
@@ -96,20 +104,41 @@ class XRayForm extends GetView<XrayFormController> {
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.4,
-                              child: FormBuilderImagePicker(
-                                name: 'originalImage',
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
+                              child: Obx(
+                                () => FormBuilderImagePicker(
+                                  name: 'originalImage',
+                                  enabled: controller.currentXray.value == null,
+                                  initialValue:
+                                      controller.currentXray.value != null
+                                          ? ([
+                                              GetUtils.isURL(controller
+                                                      .currentXray
+                                                      .value!
+                                                      .originalImage)
+                                                  ? NetworkImage(controller
+                                                      .currentXray
+                                                      .value!
+                                                      .originalImage)
+                                                  : AssetImage(controller
+                                                          .currentXray
+                                                          .value!
+                                                          .originalImage)
+                                                      as ImageProvider<Object>
+                                            ])
+                                          : null,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: FormBuilderValidators.compose([
+                                    FormBuilderValidators.required(context),
+                                  ]),
+                                  maxImages: 1,
+                                  fit: BoxFit.fill,
+                                  previewHeight:
+                                      MediaQuery.of(context).size.height * 0.4,
+                                  previewWidth:
+                                      MediaQuery.of(context).size.width * 0.4,
                                 ),
-                                validator: FormBuilderValidators.compose([
-                                  FormBuilderValidators.required(context),
-                                ]),
-                                maxImages: 1,
-                                fit: BoxFit.fill,
-                                previewHeight:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                previewWidth:
-                                    MediaQuery.of(context).size.width * 0.4,
                               ),
                             ),
                           ),
@@ -418,21 +447,33 @@ class XRayForm extends GetView<XrayFormController> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
-                                      child: FormBuilderTextField(
-                                        name: 'xrayLabel',
-                                        validator:
-                                            FormBuilderValidators.compose(
-                                          [
-                                            FormBuilderValidators.required(
-                                                context),
-                                            FormBuilderValidators.minLength(
-                                                context, 3),
-                                          ],
-                                        ),
-                                        decoration: const InputDecoration(
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 10),
+                                      child: Obx(
+                                        () => FormBuilderTextField(
+                                          name: 'xrayLabel',
+                                          enabled:
+                                              controller.currentXray.value ==
+                                                  null,
+                                          initialValue:
+                                              controller.currentXray.value !=
+                                                      null
+                                                  ? controller.currentXray
+                                                      .value!.radiographType
+                                                  : null,
+                                          validator:
+                                              FormBuilderValidators.compose(
+                                            [
+                                              FormBuilderValidators.required(
+                                                  context),
+                                              FormBuilderValidators.minLength(
+                                                  context, 3),
+                                            ],
+                                          ),
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 10),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -591,8 +632,11 @@ class XRayForm extends GetView<XrayFormController> {
                             // controller.formKey.value.currentState!.value['dob'] =
                             //     DateTime.parse(controller.formKey.value.currentState!.value['dob']);
                             Xray currentXray = Xray(
-                              originalImage: controller.formKey.value
-                                  .currentState!.value['originalImage'][0].path,
+                              originalImage: controller.currentXray.value !=
+                                      null
+                                  ? controller.currentXray.value!.originalImage
+                                  : controller.formKey.value.currentState!
+                                      .value['originalImage'][0].path,
                               radiographType: controller.formKey.value
                                   .currentState!.value['xrayLabel'],
                               timeStamp: DateTime.now(),
