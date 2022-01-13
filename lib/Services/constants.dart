@@ -439,22 +439,110 @@ Check additional views if available!''',
       anatomy: XrayCategory(
         description: 'description',
         image: 'assets/Normal_30 anatomy.png',
+        table: [
+          ['UL4', 'E,D,P', ''],
+          ['UL5', 'E,D,P,CEJ', ''],
+          ['UL6', 'E,D,P,CEJ', ''],
+          ['UL7', 'E,D,P,CEJ', ''],
+          ['UL8', 'E,D,P,CEJ', 'Over erupted'],
+          ['LL4', 'E,D,P,CEJ', ''],
+          ['LL5', 'E,D,P,CEJ', ''],
+          ['LL6', 'E,D,P,CEJ', ''],
+          ['LL7', 'E,D,P,CEJ', ''],
+          ['LL8', 'E', 'Horizontal impaction'],
+        ],
       ),
       annotated: XrayCategory(
         description: 'description',
         image: 'assets/Normal 30 annotated.JPG',
+        table: [
+          ['UL4', '', 'Caries, Cervical burnout'],
+          ['UL5', '', ''],
+          ['UL6', '', 'Cervical burnout/Caries'],
+          ['UL7', '', ''],
+          ['UL8', '', 'Over erupted'],
+          ['LL4', '', ''],
+          ['LL5', '', ''],
+          ['LL6', '', 'Cervical burnout'],
+          ['LL7', '', 'Cervical burnout'],
+          ['LL8', '', 'Horizontal impaction'],
+        ],
       ),
       boneloss: XrayCategory(
         description: 'description',
         image: 'assets/Normal_30 boneloss.png',
+        data: {
+          'Diagnosis':
+              '''Good Crestal levels - Within accepted normal region''',
+          'Data': '''10 teeth identified on original image
+
+Number of CEJ reference point identified: 16
+(Reference point for original bone level)
+
+Impediments to original bone level projection: (Adjusted confidence in the projection)
+7 Overlapping teeth on image.
+
+Overall Confidence in findings: 97%''',
+          'Adjunctive': '''Patient Risk Factors: 
+SH: Smoker 10/day 
+MH: Nil
+OH regime: ETBx2, Daily Floss'''
+        },
       ),
       labelled: XrayCategory(
         description: 'description',
         image: 'assets/Normal_30-labelled.png',
+        table: [
+          ['UL4', 'Full', '99%'],
+          ['UL5', 'Full', '100%'],
+          ['UL6', 'Full', '100%'],
+          ['UL7', 'Full', '100%'],
+          ['UL8', 'Partial', '96%'],
+          ['LL4', 'Partial', '93%'],
+          ['LL5', 'Full', '100%'],
+          ['LL6', 'Full', '100%'],
+          ['LL7', 'Full', '100%'],
+          ['LL8', 'Partial', '96%'],
+        ],
       ),
       caries: XrayCategory(
         description: 'description',
         image: 'assets/Normal 30 caries.JPG',
+        data: {
+          'Data': '''10 teeth identified on original image
+Number of potential decayed teeth in the image: 2
+Number of restored teeth in the image: 0
+0 % restored teeth on image (historical risk) [Fillings: Unrestored teeth]''',
+          'Adjunctive': '''Patient Risk factors: 
+Medical History: NIL
+Diet: Average Sugar Frequency 
+OH regime: ETBx2, Daily floss'''
+        },
+        table: [
+          [
+            'UL5',
+            'Occlusal',
+            'Dentine',
+            '''Irregular shaped radiolucency.
+Average sugar frequency reported. ''',
+            '''Check additional views if available!
+Visual assessment.
+0% image restoration rate ''',
+            '11%',
+          ],
+          [
+            'UL6',
+            'Proximal',
+            'Dentine',
+            '''Irregular shaped radiolucency''',
+            '''Knife edge shape of enamel intact at CEJ.
+Close to alveolar bone.
+0% image restoration rate.
+Daily interdental cleaning reported.
+Image overlap''',
+            '11%',
+          ],
+        ],
       ),
       charting: 'assets/Charting Normal_30.png',
       report: 'assets/Report Radiograph Normal_30 PDF.pdf',
