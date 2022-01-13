@@ -6,7 +6,6 @@ import 'package:nurow/Authentication/Login/login.dart';
 import 'package:nurow/Authentication/Register/register.dart';
 import 'package:nurow/Screens/loading.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
-import 'package:nurow/Services/database.dart';
 import 'package:nurow/controller/auth.dart';
 import 'package:nurow/firebase_options.dart';
 import 'package:nurow/middleware/auth.dart';
@@ -22,7 +21,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(AuthController(), permanent: true);
-  Get.lazyPut<DataService>(() => DataService());
+  // Get.lazyPut<DataService>(() => DataService());
   runApp(const MyApp());
 }
 

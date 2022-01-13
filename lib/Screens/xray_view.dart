@@ -195,6 +195,7 @@ class _ButtonState extends State<_Button> {
                     currentXray: widget.currentXray,
                   ),
                 );
+                return;
               }
 
               setState(() {

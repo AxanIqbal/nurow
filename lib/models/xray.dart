@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+import 'package:nurow/models/optional_images.dart';
+import 'package:nurow/models/xray_category.dart';
 
 Xray xrayFromJson(String str) => Xray.fromJson(json.decode(str));
 
@@ -10,25 +12,26 @@ List<Xray> xraysFromJson(List data) =>
 String xrayToJson(Xray data) => json.encode(data.toJson());
 
 class Xray {
-  Xray(
-      {required this.originalImage,
-      required this.radiographType,
-      required this.timeStamp,
-      required this.optionalImages,
-      this.id,
-      this.anatomy,
-      this.boneloss,
-      this.annotated,
-      this.labelled,
-      this.report,
-      this.caries,
-      this.charting});
+  Xray({
+    required this.originalImage,
+    required this.radiographType,
+    required this.timeStamp,
+    required this.optionalImages,
+    this.id,
+    this.anatomy,
+    this.boneloss,
+    this.annotated,
+    this.labelled,
+    this.report,
+    this.caries,
+    this.charting,
+  });
 
   String originalImage, radiographType;
   DateTime timeStamp;
-  String? id;
+  String? id, charting, report;
   List<OptionalImages> optionalImages;
-  String? anatomy, boneloss, labelled, annotated, report, caries, charting;
+  XrayCategory? anatomy, boneloss, labelled, annotated, caries;
 
   factory Xray.fromJson(Map<String, dynamic> json) => Xray(
         originalImage: json["originalImage"],
@@ -51,36 +54,5 @@ class Xray {
         "timeStamp": DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(timeStamp),
         "radiographType": radiographType,
         // "optionalImages": optionalImages.map((e) => e.toJson()),
-      };
-}
-
-List<OptionalImages> optionalImagesFromJson(String str) =>
-    List<OptionalImages>.from(
-        json.decode(str).map((x) => OptionalImages.fromJson(x)));
-
-String optionalImagesToJson(List<OptionalImages> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class OptionalImages {
-  OptionalImages({
-    required this.toothSelections,
-    required this.view,
-    required this.image,
-  });
-
-  String toothSelections;
-  String view;
-  String image;
-
-  factory OptionalImages.fromJson(Map<String, dynamic> json) => OptionalImages(
-        toothSelections: json["toothSelections"],
-        view: json["view"],
-        image: json["image"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "toothSelections": toothSelections,
-        "view": view,
-        "image": image,
       };
 }

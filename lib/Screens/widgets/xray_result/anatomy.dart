@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/text_table.dart';
+import 'package:nurow/models/xray_category.dart';
 
 class Anatomy extends StatelessWidget {
-  const Anatomy({Key? key}) : super(key: key);
+  const Anatomy({Key? key, this.anatomy}) : super(key: key);
+
+  final XrayCategory? anatomy;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,9 @@ class Anatomy extends StatelessWidget {
         "Nil",
       ]
     ];
-    return const TextTable(column: _column, row: _row);
+    return TextTable(
+      column: _column,
+      row: anatomy?.table ?? _row,
+    );
   }
 }

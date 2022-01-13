@@ -53,12 +53,13 @@ class _XRayResultState extends State<XRayResult> {
   Widget build(BuildContext context) {
     final originalImage = widget.currentXray.originalImage;
     String toothIdentical =
-        widget.currentXray.labelled ?? 'assets/tooth identification.jpg';
-    String anatomy = widget.currentXray.anatomy ?? 'assets/anatomy.png';
+        widget.currentXray.labelled?.image ?? 'assets/tooth identification.jpg';
+    String anatomy = widget.currentXray.anatomy?.image ?? 'assets/anatomy.png';
     String foriegnStructures =
-        widget.currentXray.annotated ?? 'assets/foriegn structures.png';
-    String decay = widget.currentXray.caries ?? 'assets/Decay.png';
-    String boneLevel = widget.currentXray.boneloss ?? 'assets/bone-level.png';
+        widget.currentXray.annotated?.image ?? 'assets/foriegn structures.png';
+    String decay = widget.currentXray.caries?.image ?? 'assets/Decay.png';
+    String boneLevel =
+        widget.currentXray.boneloss?.image ?? 'assets/bone-level.png';
     String charting = widget.currentXray.charting ?? 'assets/charting.png';
 
     return CustomScaffold(
@@ -352,16 +353,28 @@ class _XRayResultState extends State<XRayResult> {
                   else if (_index == 1)
                     const ToothIdentification()
                   else if (_index == 2)
-                    const Anatomy()
+                    Expanded(
+                      child: Anatomy(
+                        anatomy: widget.currentXray.anatomy,
+                      ),
+                    )
                   else if (_index == 3)
                     Expanded(
-                        child: Foreign(
-                      image: charting,
-                    ))
+                      child: Foreign(
+                        charting: charting,
+                        foreign: widget.currentXray.annotated,
+                      ),
+                    )
                   else if (_index == 4) // Caries (decay)
-                    const Expanded(child: Decay())
+                    Expanded(
+                      child: Decay(
+                        decay: widget.currentXray.caries,
+                      ),
+                    )
                   else if (_index == 5) // Bone-Loss
-                    const BoneLoss()
+                    BoneLoss(
+                      boneloss: widget.currentXray.boneloss,
+                    )
                   else if (_index == 6 || _index == 7)
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.35,

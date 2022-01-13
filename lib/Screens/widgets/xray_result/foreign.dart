@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/text_table.dart';
 import 'package:nurow/Screens/widgets/xray_result_charting.dart';
+import 'package:nurow/models/xray_category.dart';
 
 class Foreign extends StatelessWidget {
-  const Foreign({Key? key, required this.image}) : super(key: key);
+  const Foreign({
+    Key? key,
+    required this.charting,
+    this.foreign,
+  }) : super(key: key);
 
-  final String image;
+  final String charting;
+  final XrayCategory? foreign;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class Foreign extends StatelessWidget {
                 height: 10,
               ),
               XRayResultCharting(
-                image: image,
+                image: charting,
               ),
               const SizedBox(
                 height: 10,
@@ -67,9 +73,15 @@ class Foreign extends StatelessWidget {
                   const SizedBox(),
                 ],
               ),
-              const TextTable(
-                column: _column,
-                row: _row,
+              TextTable(
+                column: foreign?.table != null
+                    ? [
+                        "Tooth Number",
+                        "Foreign structures Identified",
+                        "Pathology Identified/ Notes",
+                      ]
+                    : _column,
+                row: foreign?.table ?? _row,
               )
             ],
           ),

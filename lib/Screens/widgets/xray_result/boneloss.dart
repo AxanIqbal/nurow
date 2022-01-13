@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nurow/models/xray_category.dart';
 
 class BoneLoss extends StatelessWidget {
-  const BoneLoss({Key? key}) : super(key: key);
+  const BoneLoss({Key? key, this.boneloss}) : super(key: key);
+
+  final XrayCategory? boneloss;
 
   @override
   Widget build(BuildContext context) {
@@ -11,56 +14,79 @@ class BoneLoss extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text("Diagnosis: Generalised mild horizontal boneloss "),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "\u2022 CEJ reference point identified: 8 teeth",
-          ),
-          Text(
-            " (Reference point for original bone level)",
-          ),
-          Text(
-            "\u2022 Impediments to original bone level projection: 0",
-          ),
-          Text(
-            " (Indicate higher confidence in tracing)",
-          ),
-          Text(
-            "\u2022 Impediments to current bone level tracing:  crowding/over-lapping structures",
-          ),
-          Text(
-            " (Adjusted confidence in the projection)",
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "\u2022 % of current bone tracing within 2mm of CEJ : 47%",
-          ),
-          Text(
-            "\u2022 Overall Confidence in findings: 98%",
-          ),
-          SizedBox(
+        children: [
+          if (boneloss?.data?['Diagnosis'] != null)
+            Text(boneloss?.data!['Diagnosis'])
+          else
+            const Text("Diagnosis: Generalised mild horizontal boneloss "),
+          const SizedBox(
             height: 20,
           ),
-          Text(
-            "Adjunctive clinical data from patient notes",
+          const Text(
+            "Data",
             style: TextStyle(
               decoration: TextDecoration.underline,
             ),
           ),
-          Text(
-            "Irregular interdental cleaning",
+          const SizedBox(
+            height: 10,
           ),
-          Text(
-            "Diabetic",
+          if (boneloss?.data?['Data'] != null)
+            Text(boneloss?.data!['Data'])
+          else ...[
+            const Text(
+              "\u2022 CEJ reference point identified: 8 teeth",
+            ),
+            const Text(
+              " (Reference point for original bone level)",
+            ),
+            const Text(
+              "\u2022 Impediments to original bone level projection: 0",
+            ),
+            const Text(
+              " (Indicate higher confidence in tracing)",
+            ),
+            const Text(
+              "\u2022 Impediments to current bone level tracing:  crowding/over-lapping structures",
+            ),
+            const Text(
+              " (Adjusted confidence in the projection)",
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              "\u2022 % of current bone tracing within 2mm of CEJ : 47%",
+            ),
+            const Text(
+              "\u2022 Overall Confidence in findings: 98%",
+            ),
+          ],
+          const SizedBox(
+            height: 20,
           ),
-          Text(
-            "Smokes 10/day",
+          const Text(
+            "Adjunctive clinical data from historical patient records",
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+            ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          if (boneloss?.data?['Adjunctive'] != null)
+            Text(boneloss?.data!['Adjunctive'])
+          else ...[
+            const Text(
+              "Irregular interdental cleaning",
+            ),
+            const Text(
+              "Diabetic",
+            ),
+            const Text(
+              "Smokes 10/day",
+            ),
+          ],
         ],
       ),
     );

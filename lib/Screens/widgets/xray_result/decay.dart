@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/text_table.dart';
+import 'package:nurow/models/xray_category.dart';
 
 class Decay extends StatelessWidget {
-  const Decay({Key? key}) : super(key: key);
+  const Decay({Key? key, this.decay}) : super(key: key);
+
+  final XrayCategory? decay;
 
   @override
   Widget build(BuildContext context) {
@@ -22,62 +25,97 @@ class Decay extends StatelessWidget {
       style: const TextStyle(
         fontSize: 16,
       ),
-      child: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(
-          scrollbars: false,
-        ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              TextTable(column: _column, row: _row),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "\u2022 Number of decayed teeth in image: 4",
-              ),
-              Text(
-                " (Indicate higher decay risk)",
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "\u2022 Number of restored teeth in image: 5",
-              ),
-              Text(
-                " (Indicate high historical caries rate)",
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "\u2022 % of decay identified within known hotspots:  87%",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "\u2022 Overall confidence in caries diagnosis: 96%",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Adjunctive clinical data from patient notes",
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            scrollbars: false,
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              Text(
-                "Reported high sugar intake, High frequency grazing.",
-              ),
-              Text(
-                "Irregular interdental cleaning",
-              ),
-            ],
+                const Text(
+                  "Data",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (decay?.data?['Data'] != null)
+                  Text(decay?.data!['Data'])
+                else ...[
+                  const Text(
+                    "\u2022 Number of decayed teeth in image: 4",
+                  ),
+                  const Text(
+                    " (Indicate higher decay risk)",
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    "\u2022 Number of restored teeth in image: 5",
+                  ),
+                  const Text(
+                    " (Indicate high historical caries rate)",
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    "\u2022 % of decay identified within known hotspots:  87%",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "\u2022 Overall confidence in caries diagnosis: 96%",
+                  ),
+                ],
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Adjunctive clinical data from historical patient records",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                if (decay?.data?['Adjunctive'] != null)
+                  Text(decay?.data!['Adjunctive'])
+                else ...[
+                  const Text(
+                    "Reported high sugar intake, High frequency grazing.",
+                  ),
+                  const Text(
+                    "Irregular interdental cleaning",
+                  ),
+                ],
+                TextTable(
+                  column: decay?.table != null
+                      ? [
+                          'Tooth Number',
+                          'Position on Tooth',
+                          'Advancement Level',
+                          'Indicators',
+                          'Uncertainties',
+                          'Confidence %'
+                        ]
+                      : _column,
+                  row: decay?.table ?? _row,
+                ),
+              ],
+            ),
           ),
         ),
       ),

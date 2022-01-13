@@ -7,6 +7,7 @@ import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/Screens/xray_view.dart';
 import 'package:nurow/controller/xrayform.dart';
+import 'package:nurow/models/optional_images.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
@@ -631,17 +632,24 @@ class XRayForm extends GetView<XrayFormController> {
                               .saveAndValidate()) {
                             // controller.formKey.value.currentState!.value['dob'] =
                             //     DateTime.parse(controller.formKey.value.currentState!.value['dob']);
-                            Xray currentXray = Xray(
-                              originalImage: controller.currentXray.value !=
-                                      null
-                                  ? controller.currentXray.value!.originalImage
-                                  : controller.formKey.value.currentState!
-                                      .value['originalImage'][0].path,
-                              radiographType: controller.formKey.value
-                                  .currentState!.value['xrayLabel'],
-                              timeStamp: DateTime.now(),
-                              optionalImages: [],
-                            );
+                            Xray currentXray;
+                            if (controller.currentXray.value != null) {
+                              currentXray = controller.currentXray.value!;
+                            } else {
+                              currentXray = Xray(
+                                originalImage: controller
+                                    .formKey
+                                    .value
+                                    .currentState!
+                                    .value['originalImage'][0]
+                                    .path,
+                                radiographType: controller.formKey.value
+                                    .currentState!.value['xrayLabel'],
+                                timeStamp: DateTime.now(),
+                                optionalImages: [],
+                              );
+                            }
+
                             if (controller.formKey.value.currentState!
                                         .value['optionalImage1'] !=
                                     null &&

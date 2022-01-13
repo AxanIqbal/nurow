@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nurow/Screens/widgets/text_table.dart';
+import 'package:nurow/models/xray_category.dart';
 
 class ToothIdentification extends StatelessWidget {
-  const ToothIdentification({Key? key}) : super(key: key);
+  const ToothIdentification({Key? key, this.label}) : super(key: key);
+
+  final XrayCategory? label;
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +66,10 @@ class ToothIdentification extends StatelessWidget {
         "100%",
       ],
     ];
-    return const Expanded(
+    return Expanded(
       child: TextTable(
         column: _column,
-        row: _row,
+        row: label?.table ?? _row,
       ),
     );
   }
