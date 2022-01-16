@@ -40,12 +40,10 @@ dependencies:
   form_builder_image_picker: ^2.0.0
   form_builder_validators: ^7.2.0
   intl: ^0.17.0
-  animations: ^2.0.2
   firebase_storage: ^10.2.5
   pdf: ^3.6.2
   printing: ^5.6.2
   auto_size_text: ^3.0.0
-  http: ^0.13.4
 
 
   # The following adds the Cupertino Icons font to your application.

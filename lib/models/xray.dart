@@ -47,12 +47,26 @@ class Xray {
                     OptionalImages.fromJson(json['optionalImages']),
                   ]
             : [],
+        id: json['id'],
+        charting: json['charting'],
+        report: json['report'],
+        anatomy: XrayCategory.fromJson(json['anatomy']),
+        annotated: XrayCategory.fromJson(json['annotated']),
+        boneloss: XrayCategory.fromJson(json['boneloss']),
+        caries: XrayCategory.fromJson(json['caries']),
+        labelled: XrayCategory.fromJson(json['labelled']),
       );
 
   Map<String, dynamic> toJson() => {
         "originalImage": originalImage,
         "timeStamp": DateFormat('EEE, dd MMM yyyy hh:mm:ss').format(timeStamp),
         "radiographType": radiographType,
-        // "optionalImages": optionalImages.map((e) => e.toJson()),
+        "charting": charting,
+        "report": report,
+        "anatomy": anatomy?.toJson(),
+        "annotated": annotated?.toJson(),
+        "boneloss": boneloss?.toJson(),
+        "caries": caries?.toJson(),
+        "labelled": labelled?.toJson(),
       };
 }

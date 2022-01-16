@@ -32,7 +32,6 @@ final patientDemo = Patient(
       timeStamp: DateFormat('dd MMM yyyy').parse('20 Nov 2021'),
       optionalImages: [],
       anatomy: XrayCategory(
-        description: 'description',
         image: 'assets/A anatomy.png',
         table: [
           ['UL3', 'F,D,P', ''],
@@ -48,7 +47,6 @@ final patientDemo = Patient(
         ],
       ),
       annotated: XrayCategory(
-        description: 'description',
         image: 'assets/A-annotated.png',
         table: [
           ['UL3', '', 'Caries'],
@@ -64,7 +62,6 @@ final patientDemo = Patient(
         ],
       ),
       boneloss: XrayCategory(
-        description: 'description',
         image: 'assets/A-boneloss.png',
         data: {
           'Diagnosis': '''Generalized Mild-early moderate horizontal bone-loss
@@ -87,22 +84,21 @@ OH regime: No interdental cleaning'''
         },
       ),
       labelled: XrayCategory(
-          description: 'description',
-          image: 'assets/A-LABELLED.png',
-          table: [
-            ['UL3', 'Partial', '50%'],
-            ['UL4', 'Full', '100%'],
-            ['UL5', 'Full', '100%'],
-            ['UL6', 'Full', '100%'],
-            ['UL7', 'Full', '100%'],
-            ['UL3', 'Partial', '30%'],
-            ['UL4', 'Partial', '70%'],
-            ['UL5', 'Full', '100%'],
-            ['UL6', 'Full', '100%'],
-            ['UL7', 'Full', '100%'],
-          ]),
+        image: 'assets/A-LABELLED.png',
+        table: [
+          ['UL3', 'Partial', '50%'],
+          ['UL4', 'Full', '100%'],
+          ['UL5', 'Full', '100%'],
+          ['UL6', 'Full', '100%'],
+          ['UL7', 'Full', '100%'],
+          ['UL3', 'Partial', '30%'],
+          ['UL4', 'Partial', '70%'],
+          ['UL5', 'Full', '100%'],
+          ['UL6', 'Full', '100%'],
+          ['UL7', 'Full', '100%'],
+        ],
+      ),
       caries: XrayCategory(
-        description: 'description',
         image: 'assets/A caries.JPG',
         data: {
           'Data': '''10 teeth identified on original image
@@ -116,7 +112,7 @@ OH regime: No interdental cleaning'''
         },
         table: [
           [
-            'Ul3',
+            'UL3',
             'Proximal',
             'Dentine',
             '''Irregular shaped radiolucency.
@@ -129,7 +125,7 @@ No interdental cleaning reported''',
             '87%',
           ],
           [
-            'Ul4',
+            'UL4',
             'Proximal',
             'Dentine',
             '''Open contact point.
@@ -142,7 +138,7 @@ No interdental cleaning reported''',
             '7%',
           ],
           [
-            'Ul7',
+            'UL7',
             'Proximal',
             'Dentine',
             '''Irregular shaped radiolucency.
@@ -166,7 +162,6 @@ No interdental cleaning reported''',
       timeStamp: DateFormat('dd MMM yyyy').parse('20 Nov 2021'),
       optionalImages: [],
       anatomy: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_59 anatomy.png',
         table: [
           ['UNKNOWN', 'E,D,CEJ', ''],
@@ -181,11 +176,10 @@ No interdental cleaning reported''',
         ],
       ),
       annotated: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_59 annotated.png',
         table: [
-          ['UL4', 'Restoration  Caries', ''],
-          ['UL5', 'Restoration  Caries, Marginal discrepancy', ''],
+          ['UL4', 'Restoration', 'Caries'],
+          ['UL5', 'Restoration', 'Caries, Marginal discrepancy'],
           ['UL6', 'Restoration  Marginal discrepancy', ''],
           ['UL7', '', ''],
           ['LL4', '', ''],
@@ -195,7 +189,6 @@ No interdental cleaning reported''',
         ],
       ),
       boneloss: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_59 boneloss.png',
         data: {
           'Diagnosis':
@@ -217,7 +210,6 @@ OH regime: Rare interdental cleaning'''
         },
       ),
       labelled: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_59 Labelled.png',
         table: [
           ['UNKNOWN', 'Partial', '100%'],
@@ -232,7 +224,6 @@ OH regime: Rare interdental cleaning'''
         ],
       ),
       caries: XrayCategory(
-        description: 'description',
         image: 'assets/Decay 59 Caries.JPG',
         data: {
           'Data': '''8 teeth identified on original image
@@ -308,7 +299,6 @@ Check additional views if available!''',
       timeStamp: DateFormat('dd MMM yyyy').parse('20 Nov 2021'),
       optionalImages: [],
       anatomy: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_198 anatomy.png',
         table: [
           ['UL4', 'D,P', ''],
@@ -322,7 +312,6 @@ Check additional views if available!''',
         ],
       ),
       annotated: XrayCategory(
-        description: 'description',
         image: 'assets/Decay 198 annotated.JPG',
         table: [
           ['UL4', 'Crown', 'Overhang'],
@@ -336,7 +325,6 @@ Check additional views if available!''',
         ],
       ),
       boneloss: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_198 boneloss.png',
         data: {
           'Diagnosis': '''Generalized mild to moderate horizontal bone-loss
@@ -359,7 +347,6 @@ OH regime: Rare interdental cleaning'''
         },
       ),
       labelled: XrayCategory(
-        description: 'description',
         image: 'assets/Decay_198-labelled.png',
         table: [
           ['UL4', 'Partial', '98%'],
@@ -373,7 +360,6 @@ OH regime: Rare interdental cleaning'''
         ],
       ),
       caries: XrayCategory(
-        description: 'description',
         image: 'assets/Decay 198 caries.JPG',
         data: {
           'Data': '''8 teeth identified on original image
@@ -437,7 +423,6 @@ Check additional views if available!''',
       timeStamp: DateFormat('dd MMM yyyy').parse('20 Nov 2021'),
       optionalImages: [],
       anatomy: XrayCategory(
-        description: 'description',
         image: 'assets/Normal_30 anatomy.png',
         table: [
           ['UL4', 'E,D,P', ''],
@@ -453,7 +438,6 @@ Check additional views if available!''',
         ],
       ),
       annotated: XrayCategory(
-        description: 'description',
         image: 'assets/Normal 30 annotated.JPG',
         table: [
           ['UL4', '', 'Caries, Cervical burnout'],
@@ -469,7 +453,6 @@ Check additional views if available!''',
         ],
       ),
       boneloss: XrayCategory(
-        description: 'description',
         image: 'assets/Normal_30 boneloss.png',
         data: {
           'Diagnosis':
@@ -490,7 +473,6 @@ OH regime: ETBx2, Daily Floss'''
         },
       ),
       labelled: XrayCategory(
-        description: 'description',
         image: 'assets/Normal_30-labelled.png',
         table: [
           ['UL4', 'Full', '99%'],
@@ -506,7 +488,6 @@ OH regime: ETBx2, Daily Floss'''
         ],
       ),
       caries: XrayCategory(
-        description: 'description',
         image: 'assets/Normal 30 caries.JPG',
         data: {
           'Data': '''10 teeth identified on original image
@@ -546,7 +527,7 @@ Image overlap''',
       ),
       charting: 'assets/Charting Normal_30.png',
       report: 'assets/Report Radiograph Normal_30 PDF.pdf',
-    )
+    ),
   ],
   subXray: [],
 );

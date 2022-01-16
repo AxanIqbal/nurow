@@ -35,33 +35,155 @@ class XRayResult extends StatefulWidget {
 class _XRayResultState extends State<XRayResult> {
   late String _image;
   int _index = 0;
+  Widget? _widget;
+  late final String originalImage = widget.currentXray.originalImage,
+      toothIdentical = widget.currentXray.labelled?.image ??
+          'assets/tooth identification.jpg',
+      anatomy = widget.currentXray.anatomy?.image ?? 'assets/anatomy.png',
+      foriegnStructures = widget.currentXray.annotated?.image ??
+          'assets/foriegn structures.png',
+      decay = widget.currentXray.caries?.image ?? 'assets/Decay.png',
+      boneLevel = widget.currentXray.boneloss?.image ?? 'assets/bone-level.png',
+      charting = widget.currentXray.charting ?? 'assets/charting.png';
 
   @override
   void initState() {
     super.initState();
     _image = widget.currentXray.originalImage;
+    _widget = Column(
+      children: [
+        const Text(
+          "Charting",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        XRayResultCharting(
+          image: charting,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const SizedBox(),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Agree"),
+              style: ElevatedButton.styleFrom(primary: Colors.green),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Edit"),
+              style: ElevatedButton.styleFrom(primary: Colors.orange),
+            ),
+            const SizedBox(),
+          ],
+        ),
+        // const SizedBox(),
+      ],
+    );
   }
 
   void changeImage(String image, int index) {
-    setState(() {
-      _image = image;
-      _index = index;
-    });
+    _image = image;
+    _index = index;
+    if (_index == 0) {
+      _widget = Column(
+        children: [
+          const Text(
+            "Charting",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          XRayResultCharting(
+            image: charting,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const SizedBox(),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("Agree"),
+                style: ElevatedButton.styleFrom(primary: Colors.green),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("Edit"),
+                style: ElevatedButton.styleFrom(primary: Colors.orange),
+              ),
+              const SizedBox(),
+            ],
+          ),
+          // const SizedBox(),
+        ],
+      );
+    }
+    if (_index == 1) {
+      _widget = ToothIdentification(
+        label: widget.currentXray.labelled,
+      );
+    }
+    if (_index == 2) {
+      _widget = Expanded(
+        child: Anatomy(
+          anatomy: widget.currentXray.anatomy,
+        ),
+      );
+    }
+    if (_index == 3) {
+      _widget = Expanded(
+        child: Foreign(
+          charting: charting,
+          foreign: widget.currentXray.annotated,
+        ),
+      );
+    }
+    if (_index == 4) // Caries (decay)
+    {
+      _widget = Expanded(
+        child: Decay(
+          decay: widget.currentXray.caries,
+        ),
+      );
+    }
+    if (_index == 5) // Bone-Loss
+    {
+      _widget = BoneLoss(
+        boneloss: widget.currentXray.boneloss,
+      );
+    }
+    if (_index == 6 || _index == 7) {
+      _widget = SizedBox(
+        width: MediaQuery.of(context).size.width * 0.35,
+        child: const Text(
+          "Nurow is currently working on intra oral image detection to combine with radiographic diagnosis to improve outcomes",
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+          ),
+        ),
+      );
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final originalImage = widget.currentXray.originalImage;
-    String toothIdentical =
-        widget.currentXray.labelled?.image ?? 'assets/tooth identification.jpg';
-    String anatomy = widget.currentXray.anatomy?.image ?? 'assets/anatomy.png';
-    String foriegnStructures =
-        widget.currentXray.annotated?.image ?? 'assets/foriegn structures.png';
-    String decay = widget.currentXray.caries?.image ?? 'assets/Decay.png';
-    String boneLevel =
-        widget.currentXray.boneloss?.image ?? 'assets/bone-level.png';
-    String charting = widget.currentXray.charting ?? 'assets/charting.png';
-
     return CustomScaffold(
       // floatingActionButton: widget.isBack != null && widget.isBack == true
       //     ? Transform.translate(
@@ -309,85 +431,12 @@ class _XRayResultState extends State<XRayResult> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  if (_index == 0)
-                    Column(
-                      children: [
-                        const Text(
-                          "Charting",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        XRayResultCharting(
-                          image: charting,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const SizedBox(),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text("Agree"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.green),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text("Edit"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.orange),
-                            ),
-                            const SizedBox(),
-                          ],
-                        ),
-                        // const SizedBox(),
-                      ],
-                    )
-                  else if (_index == 1)
-                    const ToothIdentification()
-                  else if (_index == 2)
-                    Expanded(
-                      child: Anatomy(
-                        anatomy: widget.currentXray.anatomy,
-                      ),
-                    )
-                  else if (_index == 3)
-                    Expanded(
-                      child: Foreign(
-                        charting: charting,
-                        foreign: widget.currentXray.annotated,
-                      ),
-                    )
-                  else if (_index == 4) // Caries (decay)
-                    Expanded(
-                      child: Decay(
-                        decay: widget.currentXray.caries,
-                      ),
-                    )
-                  else if (_index == 5) // Bone-Loss
-                    BoneLoss(
-                      boneloss: widget.currentXray.boneloss,
-                    )
-                  else if (_index == 6 || _index == 7)
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      child: const Text(
-                        "Nurow is currently working on intra oral image detection to combine with radiographic diagnosis to improve outcomes",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
+                  Flexible(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 500),
+                      child: _widget,
                     ),
-                  const SizedBox(),
-                  const SizedBox(),
+                  ),
                 ],
               ),
             ),

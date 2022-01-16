@@ -10,17 +10,19 @@ class CustomScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[400],
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const PagesNavBar(),
-          const SizedBox(
-            height: 30,
-          ),
-          Expanded(
-            child: body,
-          ),
-        ],
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const PagesNavBar(),
+            const SizedBox(
+              height: 30,
+            ),
+            Expanded(
+              child: body,
+            ),
+          ],
+        ),
       ),
     );
   }

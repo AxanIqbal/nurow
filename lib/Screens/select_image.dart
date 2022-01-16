@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/Screens/xray_form.dart';
+import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -56,7 +57,9 @@ class SelectImage extends StatelessWidget {
                                 child: Container(
                                   color: Colors.grey[350],
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 20),
+                                    vertical: 15,
+                                    horizontal: 20,
+                                  ),
                                   child: PatientsTable(
                                     patients: [patientDemo],
                                     handle: (Patient patient) {
@@ -64,38 +67,35 @@ class SelectImage extends StatelessWidget {
                                         Dialog(
                                           child: Container(
                                             color: Colors.grey[350],
+                                            width: 400,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 ...patient.xray.map(
-                                                  (e) => Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      TextButton(
-                                                          onPressed: () {
-                                                            // Get.to(
-                                                            //   () => XRayAnalyse(
-                                                            //     patient:
-                                                            //         patient,
-                                                            //     currentXray: e,
-                                                            //   ),
-                                                            // );
-                                                            Get.to(
-                                                              () => XRayForm(
-                                                                patient:
-                                                                    patient,
-                                                                currentXray: e,
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: const Text(
-                                                              'Select')),
-                                                      const SizedBox(
-                                                        width: 20,
+                                                  (e) => ListTile(
+                                                    title:
+                                                        Text(e.radiographType),
+                                                    onTap: () => Get.to(
+                                                      () => XRayResult(
+                                                        patient: patient,
+                                                        currentXray: e,
                                                       ),
-                                                      Text(e.radiographType)
-                                                    ],
+                                                    ),
+                                                    leading: CircleAvatar(
+                                                      backgroundImage: GetUtils
+                                                                  .isURL(e
+                                                                      .originalImage) ||
+                                                              GetUtils.hasMatch(
+                                                                  e
+                                                                      .originalImage,
+                                                                  'blob:')
+                                                          ? NetworkImage(
+                                                              e.originalImage)
+                                                          : AssetImage(e
+                                                                  .originalImage)
+                                                              as ImageProvider<
+                                                                  Object>,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
