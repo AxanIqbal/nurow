@@ -20,6 +20,20 @@ final usersRef =
           toFirestore: (user, options) => user.toJson(),
         );
 
+CollectionReference<Xray> getAllXray(String patientId) {
+  return FirebaseFirestore.instance
+      .collection('patients')
+      .doc(patientId)
+      .collection('views')
+      .withConverter(
+        fromFirestore: (snapshot, options) => Xray.fromJson({
+          ...snapshot.data()!,
+          'id': snapshot.id,
+        }),
+        toFirestore: (xray, options) => xray.toJson(),
+      );
+}
+
 final patientDemo = Patient(
   name: 'Quentin Beck',
   dob: DateFormat('dd/MM/yyyy').parse('01/06/1964'),
@@ -47,7 +61,7 @@ final patientDemo = Patient(
         ],
       ),
       annotated: XrayCategory(
-        image: 'assets/A-annotated.png',
+        image: 'assets/Radiograph A annotated.JPG',
         table: [
           ['UL3', '', 'Caries'],
           ['UL4', '', 'Caries'],
@@ -80,7 +94,9 @@ Overall Confidence in findings: 96%''',
           'Adjunctive': '''Patient Risk Factors: 
 SH: Smoker 10/day 
 MH: Diabetes 
-OH regime: No interdental cleaning'''
+OH regime: No interdental cleaning
+
+Further details can be found in full PDF report'''
         },
       ),
       labelled: XrayCategory(
@@ -154,7 +170,8 @@ No interdental cleaning reported''',
         ],
       ),
       charting: 'assets/Charting A.png',
-      report: 'assets/Report Radiograph A PDF.pdf',
+      report: 'assets/Report Radiograph A.pdf',
+      aiReport: 'assets/A.I report Radiograph A.pdf',
     ),
     Xray(
       originalImage: 'assets/decay_59.JPG',
@@ -176,7 +193,7 @@ No interdental cleaning reported''',
         ],
       ),
       annotated: XrayCategory(
-        image: 'assets/Decay_59 annotated.png',
+        image: 'assets/Decay 59 annotated.JPG',
         table: [
           ['UL4', 'Restoration', 'Caries'],
           ['UL5', 'Restoration', 'Caries, Marginal discrepancy'],
@@ -206,7 +223,9 @@ Overall Confidence in findings: 98%''',
           'Adjunctive': '''Patient Risk Factors: 
 SH: Smoker 10/day 
 MH: NIL
-OH regime: Rare interdental cleaning'''
+OH regime: Rare interdental cleaning
+
+Further details can be found in full PDF report'''
         },
       ),
       labelled: XrayCategory(
@@ -291,7 +310,8 @@ Check additional views if available!''',
         ],
       ),
       charting: 'assets/Charting decay_59.png',
-      report: 'assets/Report Radiograph decay_59 PDF.pdf',
+      report: 'assets/Report Radiograph decay_59.pdf',
+      aiReport: 'assets/A.I report Decay_59.pdf',
     ),
     Xray(
       originalImage: 'assets/Decay_198.png',
@@ -312,7 +332,7 @@ Check additional views if available!''',
         ],
       ),
       annotated: XrayCategory(
-        image: 'assets/Decay 198 annotated.JPG',
+        image: 'assets/Decay_198 annotated.JPG',
         table: [
           ['UL4', 'Crown', 'Overhang'],
           ['UL5', 'Crown', ''],
@@ -343,7 +363,9 @@ Overall Confidence in findings: 97%''',
           'Adjunctive': '''Patient Risk Factors: 
 SH: Smoker 10/day 
 MH: Diabetes 
-OH regime: Rare interdental cleaning'''
+OH regime: Rare interdental cleaning
+
+Further details can be found in full PDF report'''
         },
       ),
       labelled: XrayCategory(
@@ -415,7 +437,8 @@ Check additional views if available!''',
         ],
       ),
       charting: 'assets/Charting decay_198.png',
-      report: 'assets/Report Radiograph decay_198 PDF.pdf',
+      report: 'assets/Report Radiograph decay_198.pdf',
+      aiReport: 'assets/A.I report Decay_198.pdf',
     ),
     Xray(
       originalImage: 'assets/normal_30.jpg',
@@ -438,7 +461,7 @@ Check additional views if available!''',
         ],
       ),
       annotated: XrayCategory(
-        image: 'assets/Normal 30 annotated.JPG',
+        image: 'assets/Normal annotated.JPG',
         table: [
           ['UL4', '', 'Caries, Cervical burnout'],
           ['UL5', '', ''],
@@ -469,7 +492,9 @@ Overall Confidence in findings: 97%''',
           'Adjunctive': '''Patient Risk Factors: 
 SH: Smoker 10/day 
 MH: Nil
-OH regime: ETBx2, Daily Floss'''
+OH regime: ETBx2, Daily Floss
+
+Further details can be found in full PDF report'''
         },
       ),
       labelled: XrayCategory(
@@ -526,7 +551,8 @@ Image overlap''',
         ],
       ),
       charting: 'assets/Charting Normal_30.png',
-      report: 'assets/Report Radiograph Normal_30 PDF.pdf',
+      report: 'assets/Report Radiograph Normal_30.pdf',
+      aiReport: 'assets/A.I report Normal 30.pdf',
     ),
   ],
   subXray: [],

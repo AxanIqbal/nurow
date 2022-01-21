@@ -6,7 +6,7 @@ import 'package:nurow/Screens/Substrative/bindings/report_binding.dart';
 import 'package:nurow/Screens/Substrative/report.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/xray_result.dart';
-import 'package:nurow/Services/database.dart';
+import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/subtraction.dart';
 import 'package:nurow/models/xray.dart';
@@ -122,8 +122,8 @@ class PatientDetailTable extends StatelessWidget {
             Expanded(
               child: Card(
                 color: Colors.grey[400],
-                child: FutureBuilder<List<Xray>>(
-                  future: DataService().getAllXrays(patient.id!),
+                child: FutureBuilder<QuerySnapshot<Xray>>(
+                  future: getAllXray(patient.id!).get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const SizedBox(
@@ -134,10 +134,10 @@ class PatientDetailTable extends StatelessWidget {
                       );
                     }
                     if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                         patient.xray = [];
-                        for (var xray in snapshot.data!) {
-                          patient.xray.add(xray);
+                        for (var xray in snapshot.data!.docs) {
+                          patient.xray.add(xray.data());
                         }
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,

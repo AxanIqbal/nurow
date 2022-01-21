@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 List<User> userFromJson(String str) =>
@@ -27,19 +28,25 @@ class User {
   String userName;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        creationTime: json["dob"] is DateTime
-            ? json["dob"]
-            : DateFormat('EEE, dd MMM yyyy hh:mm:ss')
-                .parse(json["creationTime"]),
+        creationTime: json["creationTime"] is DateTime
+            ? json["creationTime"]
+            : json["creationTime"] is Timestamp
+                ? json["creationTime"].toDate()
+                : DateFormat('EEE, dd MMM yyyy hh:mm:ss')
+                    .parse(json["creationTime"]),
         email: json["email"],
-        lastLogOutTime: List<DateTime>.from(json["lastLogOutTime"].map((x) =>
-            x is DateTime
+        lastLogOutTime:
+            List<DateTime>.from(json["lastLogOutTime"].map((x) => x is DateTime
                 ? x
-                : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
-        lastSignInTime: List<DateTime>.from(json["lastSignInTime"].map((x) =>
-            x is DateTime
+                : x is Timestamp
+                    ? x.toDate()
+                    : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
+        lastSignInTime:
+            List<DateTime>.from(json["lastSignInTime"].map((x) => x is DateTime
                 ? x
-                : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
+                : x is Timestamp
+                    ? x.toDate()
+                    : DateFormat('EEE, dd MMM yyyy hh:mm:ss').parse(x))),
         userName: json["userName"],
       );
 

@@ -25,11 +25,12 @@ class Xray {
     this.report,
     this.caries,
     this.charting,
+    this.aiReport,
   });
 
   String originalImage, radiographType;
   DateTime timeStamp;
-  String? id, charting, report;
+  String? id, charting, report, aiReport;
   List<OptionalImages> optionalImages;
   XrayCategory? anatomy, boneloss, labelled, annotated, caries;
 
@@ -50,11 +51,22 @@ class Xray {
         id: json['id'],
         charting: json['charting'],
         report: json['report'],
-        anatomy: XrayCategory.fromJson(json['anatomy']),
-        annotated: XrayCategory.fromJson(json['annotated']),
-        boneloss: XrayCategory.fromJson(json['boneloss']),
-        caries: XrayCategory.fromJson(json['caries']),
-        labelled: XrayCategory.fromJson(json['labelled']),
+        aiReport: json['aiReport'],
+        anatomy: json['anatomy'] == null
+            ? null
+            : XrayCategory.fromJson(json['anatomy']),
+        annotated: json['annotated'] == null
+            ? null
+            : XrayCategory.fromJson(json['annotated']),
+        boneloss: json['boneloss'] == null
+            ? null
+            : XrayCategory.fromJson(json['boneloss']),
+        caries: json['caries'] == null
+            ? null
+            : XrayCategory.fromJson(json['caries']),
+        labelled: json['labelled'] == null
+            ? null
+            : XrayCategory.fromJson(json['labelled']),
       );
 
   Map<String, dynamic> toJson() => {

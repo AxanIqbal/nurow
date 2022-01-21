@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/Screens/xray_form.dart';
-import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -76,7 +75,7 @@ class SelectImage extends StatelessWidget {
                                                     title:
                                                         Text(e.radiographType),
                                                     onTap: () => Get.to(
-                                                      () => XRayResult(
+                                                      () => XRayForm(
                                                         patient: patient,
                                                         currentXray: e,
                                                       ),

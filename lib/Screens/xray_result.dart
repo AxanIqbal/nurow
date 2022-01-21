@@ -139,26 +139,20 @@ class _XRayResultState extends State<XRayResult> {
       );
     }
     if (_index == 2) {
-      _widget = Expanded(
-        child: Anatomy(
-          anatomy: widget.currentXray.anatomy,
-        ),
+      _widget = Anatomy(
+        anatomy: widget.currentXray.anatomy,
       );
     }
     if (_index == 3) {
-      _widget = Expanded(
-        child: Foreign(
-          charting: charting,
-          foreign: widget.currentXray.annotated,
-        ),
+      _widget = Foreign(
+        charting: charting,
+        foreign: widget.currentXray.annotated,
       );
     }
     if (_index == 4) // Caries (decay)
     {
-      _widget = Expanded(
-        child: Decay(
-          decay: widget.currentXray.caries,
-        ),
+      _widget = Decay(
+        decay: widget.currentXray.caries,
       );
     }
     if (_index == 5) // Bone-Loss
@@ -431,7 +425,7 @@ class _XRayResultState extends State<XRayResult> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Flexible(
+                  Expanded(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
                       child: _widget,
@@ -509,8 +503,15 @@ class _XRayResultState extends State<XRayResult> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            final pdf = await rootBundle
-                                .load("assets/Diagnostic report.pdf");
+                            ByteData pdf;
+                            if (widget.currentXray.aiReport != null) {
+                              pdf = await rootBundle
+                                  .load(widget.currentXray.aiReport!);
+                            } else {
+                              pdf = await rootBundle
+                                  .load("assets/Diagnostic report.pdf");
+                            }
+
                             Get.to(
                               () => PdfPreview(
                                 maxPageWidth: 700,
@@ -547,7 +548,7 @@ class _XRayResultState extends State<XRayResult> {
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: const Center(
                               child: AutoSizeText(
-                                "Disease data & Statics PDF",
+                                "Disease Information",
                                 minFontSize: 0,
                               ),
                             ),

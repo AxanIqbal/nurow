@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nurow/Services/database.dart';
+import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/user.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -138,8 +139,8 @@ class Audit extends StatelessWidget {
                 ),
                 SizedBox(
                   height: height * 0.7,
-                  child: FutureBuilder<List<User>>(
-                    future: DataService().getUserLogs(),
+                  child: FutureBuilder<QuerySnapshot<User>>(
+                    future: usersRef.get(),
                     builder: (context, snapshot) {
                       // print(snapshot.data);
 
@@ -157,6 +158,10 @@ class Audit extends StatelessWidget {
 
                       if (snapshot.connectionState == ConnectionState.done &&
                           snapshot.hasData) {
+                        List<User> users = [];
+                        for (var element in snapshot.data!.docs) {
+                          users.add(element.data());
+                        }
                         // List<User> data = List<User>.from(snapshot
                         //     .data!.data!
                         //     .map((e) => User.fromJson(e)));
@@ -182,14 +187,12 @@ class Audit extends StatelessWidget {
                               ),
                             ],
                             rows: List<DataRow>.generate(
-                              snapshot.data!.length,
+                              users.length,
                               (int index) => DataRow(
                                 cells: [
-                                  DataCell(
-                                      Text(snapshot.data![index].userName)),
-                                  DataCell(Text(snapshot
-                                      .data![index].creationTime
-                                      .toString())),
+                                  DataCell(Text(users[index].userName)),
+                                  DataCell(Text(
+                                      users[index].creationTime.toString())),
                                   DataCell(
                                     TextButton(
                                       onPressed: () {
@@ -222,16 +225,14 @@ class Audit extends StatelessWidget {
                                                         ],
                                                         rows: List<
                                                             DataRow>.generate(
-                                                          snapshot
-                                                              .data![index]
+                                                          users[index]
                                                               .lastSignInTime
                                                               .length,
                                                           (int index2) =>
                                                               DataRow(
                                                             cells: [
                                                               DataCell(
-                                                                Text(snapshot
-                                                                    .data![
+                                                                Text(users[
                                                                         index]
                                                                     .lastSignInTime[
                                                                         index2]
@@ -251,16 +252,14 @@ class Audit extends StatelessWidget {
                                                         ],
                                                         rows: List<
                                                             DataRow>.generate(
-                                                          snapshot
-                                                              .data![index]
+                                                          users[index]
                                                               .lastLogOutTime
                                                               .length,
                                                           (int index2) =>
                                                               DataRow(
                                                             cells: [
                                                               DataCell(
-                                                                Text(snapshot
-                                                                    .data![
+                                                                Text(users[
                                                                         index]
                                                                     .lastLogOutTime[
                                                                         index2]

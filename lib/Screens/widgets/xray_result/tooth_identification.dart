@@ -66,11 +66,9 @@ class ToothIdentification extends StatelessWidget {
         "100%",
       ],
     ];
-    return Expanded(
-      child: TextTable(
-        column: _column,
-        row: label?.table ?? _row,
-      ),
+    return TextTable(
+      column: _column,
+      row: label?.table ?? _row,
     );
   }
 }
