@@ -87,7 +87,7 @@ class _TextAnimationState extends State<TextAnimation>
             ),
             if (_isAnimationDone && text != '' && text[text.length - 1] == ' ')
               if (_isAnimationDoneAfter && _isWaitFunctionDone)
-                const Text("done")
+                const Text("Complete")
               else
                 const SizedBox(
                   height: 14,

@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nurow/Routing/route_names.dart';
-import 'package:nurow/Screens/select_image.dart';
-import 'package:nurow/Screens/xray_form.dart';
+import 'package:nurow/Screens/Xray/select_image.dart';
+import 'package:nurow/Screens/Xray/xray_form.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   log('generateRoute: ${settings.name}');

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Screens/Xray/xray_form.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
-import 'package:nurow/Screens/xray_form.dart';
 import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:responsive_builder/responsive_builder.dart';

@@ -136,10 +136,7 @@ class _SubAnalyseState extends State<SubAnalyse> {
       ['Caries detection - ', () {}],
       ['BoneLevel detection - ', () {}],
       ['Searching for comparable Radiograph - ', () {}],
-      [
-        'Searching Patient record for same historical radiograph for possible subtractive imagery analysis - ',
-        () {}
-      ],
+      ['Searching for data for subtractive imagery - ', () {}],
       ['', () {}],
       ['Radiograph 2:', () {}],
       ['', () {}],
@@ -155,10 +152,7 @@ class _SubAnalyseState extends State<SubAnalyse> {
       ['Caries detection - ', () {}],
       ['BoneLevel detection - ', () {}],
       ['Searching for comparable Radiograph - ', () {}],
-      [
-        'Searching Patient record for same historical radiograph for possible subtractive imagery analysis - ',
-        () {}
-      ],
+      ['Searching for data for subtractive imagery - ', () {}],
       ['', () {}],
       ['', () {}],
     ];

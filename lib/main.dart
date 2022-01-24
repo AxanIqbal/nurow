@@ -11,8 +11,8 @@ import 'package:nurow/firebase_options.dart';
 import 'package:nurow/middleware/auth.dart';
 
 import 'Screens/Substrative/select.dart';
+import 'Screens/Xray/select_image.dart';
 import 'Screens/audit.dart';
-import 'Screens/select_image.dart';
 import 'Screens/select_patient.dart';
 
 void main() async {

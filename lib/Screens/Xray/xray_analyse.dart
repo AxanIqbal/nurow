@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nurow/Screens/Xray/xray_result.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
 import 'package:nurow/Screens/widgets/xray_image.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
-import 'package:nurow/Screens/xray_result.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/xray.dart';
 
