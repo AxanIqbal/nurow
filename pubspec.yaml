@@ -32,7 +32,6 @@ dependencies:
   cloud_firestore: ^3.1.6
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
-  responsive_builder: ^0.4.1
   video_player: null
   get: ^4.6.1
   flutter_form_builder: ^7.0.0

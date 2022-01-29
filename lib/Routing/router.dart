@@ -1,47 +1,55 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import 'package:nurow/Routing/route_names.dart';
+import 'package:get/get.dart';
+import 'package:nurow/Authentication/Login/login.dart';
+import 'package:nurow/Authentication/Register/register.dart';
+import 'package:nurow/Screens/Substrative/select.dart';
 import 'package:nurow/Screens/Xray/select_image.dart';
-import 'package:nurow/Screens/Xray/xray_form.dart';
+import 'package:nurow/Screens/audit.dart';
+import 'package:nurow/Screens/loading.dart';
+import 'package:nurow/Screens/select_patient.dart';
+import 'package:nurow/Screens/widgets/custom_scaffold.dart';
+import 'package:nurow/middleware/auth.dart';
 
-Route<dynamic> generateRoute(RouteSettings settings) {
-  log('generateRoute: ${settings.name}');
-  switch (settings.name) {
-    case xRayForm:
-      return _getPageRoute(const XRayForm());
-    // case xRayView:
-    //   return _getPageRoute(const XRayView(data: data));
-    default:
-      return _getPageRoute(const SelectImage());
-  }
-}
-
-PageRoute _getPageRoute(Widget child) {
-  return _FadeRoute(
-    child: child,
-  );
-}
-
-class _FadeRoute extends PageRouteBuilder {
-  final Widget child;
-  _FadeRoute({required this.child})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              child,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-        );
-}
+List<GetPage> getRoutes = [
+  GetPage(
+    name: '/',
+    page: () => CustomScaffold(body: SelectImage()),
+    middlewares: [
+      AuthMiddleware(),
+    ],
+  ),
+  GetPage(
+    name: '/Login',
+    page: () => LoginPage(),
+    middlewares: [AuthReverseMiddleware()],
+  ),
+  GetPage(
+    name: '/Register',
+    page: () => RegisterPage(),
+    middlewares: [AuthReverseMiddleware()],
+  ),
+  GetPage(
+    name: '/init',
+    page: () => const Loading(),
+  ),
+  GetPage(
+    name: '/selectSubAnalysis',
+    page: () => CustomScaffold(body: SelectSubAnalysis()),
+    middlewares: [
+      AuthMiddleware(),
+    ],
+  ),
+  GetPage(
+    name: '/patientsSelect',
+    page: () => CustomScaffold(body: const SelectPatient()),
+    middlewares: [
+      AuthMiddleware(),
+    ],
+  ),
+  GetPage(
+    name: '/audit',
+    page: () => CustomScaffold(body: const Audit()),
+    middlewares: [
+      AuthMiddleware(),
+    ],
+  ),
+];

@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'PagesNavbar/nav_bar.dart';
 
-class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({Key? key, required this.body}) : super(key: key);
+class CustomScaffold extends GetResponsiveView {
+  CustomScaffold({Key? key, required this.body}) : super(key: key);
   final Widget body;
 
   @override
-  Widget build(BuildContext context) {
+  Widget builder() {
     return Scaffold(
       backgroundColor: Colors.grey[400],
+      drawer: screen.responsiveValue(
+        mobile: const PagesNavBar(),
+      ),
+      floatingActionButton: screen.isPhone || screen.isTablet
+          ? FloatingActionButton(
+              onPressed: () => Scaffold.of(screen.context).openDrawer(),
+              child: const Icon(Icons.menu),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const PagesNavBar(),
-            const SizedBox(
-              height: 30,
-            ),
+            if (screen.isDesktop || screen.isTablet) ...{
+              const PagesNavBar(),
+              const SizedBox(
+                height: 30,
+              ),
+            },
             Expanded(
               child: body,
             ),

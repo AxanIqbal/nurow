@@ -37,7 +37,7 @@ CollectionReference<Xray> getAllXray(String patientId) {
 final patientDemo = Patient(
   name: 'Quentin Beck',
   dob: DateFormat('dd/MM/yyyy').parse('01/06/1964'),
-  number: '07907907907',
+  number: '0127',
   address: '20 Ingram Street, London, W1K 1QA',
   xray: [
     Xray(

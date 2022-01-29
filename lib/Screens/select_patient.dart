@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nurow/Screens/patient_details.dart';
 import 'package:nurow/Screens/widgets/patient_table.dart';
 import 'package:nurow/models/patient.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class SelectPatient extends StatelessWidget {
   const SelectPatient({Key? key}) : super(key: key);
@@ -18,33 +17,31 @@ class SelectPatient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(builder: (context, sizingInformation) {
-      return Scaffold(
-        backgroundColor: Colors.grey[400],
-        body: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 40),
-                child: Text(
-                  "Search Patient",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Scaffold(
+      backgroundColor: Colors.grey[400],
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 40),
+              child: Text(
+                "Search Patient",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: PatientsTable(
-                  handle: gotoDetail,
-                ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: PatientsTable(
+                handle: gotoDetail,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }

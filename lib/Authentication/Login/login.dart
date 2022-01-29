@@ -15,6 +15,7 @@ class LoginPage extends GetResponsiveView<LoginPageController> {
       backgroundColor: Colors.grey[900],
       body: screen.responsiveValue(
         mobile: const MobileMode(),
+        watch: const MobileMode(),
         tablet: const DesktopMode(),
         desktop: const DesktopMode(),
       ),

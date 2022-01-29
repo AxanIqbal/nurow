@@ -12,7 +12,12 @@ class PagesNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width * 0.17,
+      width: context.responsiveValue(
+        desktop: MediaQuery.of(context).size.width * 0.17,
+        tablet: MediaQuery.of(context).size.width * 0.3,
+        mobile: MediaQuery.of(context).size.width * 0.5,
+        watch: MediaQuery.of(context).size.width * 0.7,
+      ),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(
