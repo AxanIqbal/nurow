@@ -424,7 +424,12 @@ class XRayForm extends GetView<XrayFormController> {
                         ],
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        width: context.responsiveValue(
+                          desktop: MediaQuery.of(context).size.width * 0.4,
+                          tablet: MediaQuery.of(context).size.width * 0.5,
+                          mobile: MediaQuery.of(context).size.width * 0.9,
+                          watch: MediaQuery.of(context).size.width * 0.9,
+                        ),
                         child: DefaultTextStyle(
                           style: const TextStyle(
                             fontSize: 16,

@@ -15,10 +15,16 @@ class CustomScaffold extends GetResponsiveView {
         mobile: const PagesNavBar(),
       ),
       floatingActionButton: screen.isPhone || screen.isTablet
-          ? FloatingActionButton(
-              onPressed: () => Scaffold.of(screen.context).openDrawer(),
-              child: const Icon(Icons.menu),
-            )
+          ? Builder(builder: (context) {
+              return FloatingActionButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                child: const Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.grey[500],
+              );
+            })
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: SafeArea(

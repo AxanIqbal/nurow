@@ -88,7 +88,12 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
               ],
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
+              width: context.responsiveValue(
+                desktop: MediaQuery.of(context).size.width * 0.5,
+                tablet: MediaQuery.of(context).size.width * 0.6,
+                mobile: MediaQuery.of(context).size.width,
+                watch: MediaQuery.of(context).size.width,
+              ),
               height: MediaQuery.of(context).size.height * 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),

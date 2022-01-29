@@ -15,8 +15,8 @@ class PagesNavBar extends StatelessWidget {
       width: context.responsiveValue(
         desktop: MediaQuery.of(context).size.width * 0.17,
         tablet: MediaQuery.of(context).size.width * 0.3,
-        mobile: MediaQuery.of(context).size.width * 0.5,
-        watch: MediaQuery.of(context).size.width * 0.7,
+        mobile: MediaQuery.of(context).size.width * 0.7,
+        watch: MediaQuery.of(context).size.width * 0.8,
       ),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -159,7 +159,12 @@ Widget navbarItem(
       //   maxWidth: 30,
       //   maxHeight: 23,
       // ),
-      width: MediaQuery.of(context).size.width * 0.02,
+      width: context.responsiveValue(
+        desktop: MediaQuery.of(context).size.width * 0.02,
+        tablet: MediaQuery.of(context).size.width * 0.04,
+        mobile: MediaQuery.of(context).size.width * 0.07,
+        watch: MediaQuery.of(context).size.width * 0.08,
+      ),
       height: MediaQuery.of(context).size.height * 0.025,
       child: Image.asset(
         icon,

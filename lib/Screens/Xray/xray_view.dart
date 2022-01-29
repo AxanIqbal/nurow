@@ -84,13 +84,23 @@ class XRayView extends StatelessWidget {
                   xRayImage(
                     currentXray.originalImage,
                     imageHeight: MediaQuery.of(context).size.height * 0.5,
-                    imageWidth: MediaQuery.of(context).size.width * 0.5,
+                    imageWidth: context.responsiveValue(
+                      desktop: MediaQuery.of(context).size.width * 0.5,
+                      tablet: MediaQuery.of(context).size.width * 0.6,
+                      mobile: MediaQuery.of(context).size.width * 0.7,
+                      watch: MediaQuery.of(context).size.width * 0.7,
+                    ),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: context.responsiveValue(
+                desktop: MediaQuery.of(context).size.width * 0.4,
+                tablet: MediaQuery.of(context).size.width * 0.5,
+                mobile: MediaQuery.of(context).size.width * 0.7,
+                watch: MediaQuery.of(context).size.width * 0.8,
+              ),
               child: XRayTable(
                 data: data,
                 currentXray: currentXray,

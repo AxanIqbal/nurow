@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:nurow/Services/scroll_behaviour.dart';
 
 class TextTable extends StatelessWidget {
   const TextTable({Key? key, required this.column, required this.row})
@@ -46,14 +46,4 @@ class TextTable extends StatelessWidget {
       ),
     );
   }
-}
-
-class MyCustomScrollBehavior extends MaterialScrollBehavior {
-  // Override behavior methods and getters like dragDevices
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-        // etc.
-      };
 }

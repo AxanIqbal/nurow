@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nurow/Services/scroll_behaviour.dart';
 import 'package:nurow/models/patient.dart';
 
 class PatientDetails extends StatefulWidget {
@@ -77,77 +78,83 @@ class _PatientDetailsState extends State<PatientDetails> {
             child: Card(
               color: Colors.grey[400],
               elevation: 1.5,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: DataTable(
-                  columns: const <DataColumn>[
-                    DataColumn(
-                      label: Text(
-                        'Name',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Date Of Birth',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Address',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Record Number',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                  rows: List.generate(
-                    patientFiltered.length,
-                    (index) => DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          TextButton(
-                            onPressed: () =>
-                                widget.handle(patientFiltered[index]),
-                            child: Text(patientFiltered[index].name),
+              child: ScrollConfiguration(
+                behavior: MyCustomScrollBehavior(),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            'Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        DataCell(
-                          Text(
-                            DateFormat("dd-MM-yyyy")
-                                .format(patientFiltered[index].dob),
+                        DataColumn(
+                          label: Text(
+                            'Date Of Birth',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        DataCell(
-                          Text(patientFiltered[index].address),
+                        DataColumn(
+                          label: Text(
+                            'Address',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        DataCell(
-                          Text(patientFiltered[index].number),
+                        DataColumn(
+                          label: Text(
+                            'Record Number',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        // if (widget.handle != null)
-                        //   DataCell(
-                        //     IconButton(
-                        //       icon: const Icon(
-                        //         Icons.check,
-                        //         color: Colors.blue,
-                        //       ),
-                        //       onPressed: () => widget.handle!(patientFiltered[index]),
-                        //     ),
-                        //   ),
                       ],
+                      rows: List.generate(
+                        patientFiltered.length,
+                        (index) => DataRow(
+                          cells: <DataCell>[
+                            DataCell(
+                              TextButton(
+                                onPressed: () =>
+                                    widget.handle(patientFiltered[index]),
+                                child: Text(patientFiltered[index].name),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                DateFormat("dd-MM-yyyy")
+                                    .format(patientFiltered[index].dob),
+                              ),
+                            ),
+                            DataCell(
+                              Text(patientFiltered[index].address),
+                            ),
+                            DataCell(
+                              Text(patientFiltered[index].number),
+                            ),
+                            // if (widget.handle != null)
+                            //   DataCell(
+                            //     IconButton(
+                            //       icon: const Icon(
+                            //         Icons.check,
+                            //         color: Colors.blue,
+                            //       ),
+                            //       onPressed: () => widget.handle!(patientFiltered[index]),
+                            //     ),
+                            //   ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
