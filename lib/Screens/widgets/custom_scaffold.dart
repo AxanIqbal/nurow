@@ -27,6 +27,7 @@ class CustomScaffold extends GetResponsiveView {
             })
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -29,7 +29,17 @@ class SubAnalyseView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.5,
+            height: context.responsiveValue(
+              mobile: MediaQuery.of(context).size.height * 0.1,
+            ),
+          ),
+          SizedBox(
+            width: context.responsiveValue(
+              desktop: MediaQuery.of(context).size.width * 0.5,
+              tablet: MediaQuery.of(context).size.width * 0.6,
+              mobile: MediaQuery.of(context).size.width * 0.8,
+              watch: MediaQuery.of(context).size.width * 0.8,
+            ),
             child: Center(
               child: XRayTable(
                 data: patient,
@@ -38,8 +48,8 @@ class SubAnalyseView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 60,
+          SizedBox(
+            height: context.height * 0.05,
           ),
           DefaultTextStyle(
             style: TextStyle(
@@ -53,7 +63,12 @@ class SubAnalyseView extends StatelessWidget {
                   children: [
                     xRayImage(
                       xray1.originalImage,
-                      imageWidth: MediaQuery.of(context).size.width * 0.3,
+                      imageWidth: context.responsiveValue(
+                        desktop: MediaQuery.of(context).size.width * 0.3,
+                        tablet: MediaQuery.of(context).size.width * 0.35,
+                        mobile: MediaQuery.of(context).size.width * 0.45,
+                        watch: MediaQuery.of(context).size.width * 0.45,
+                      ),
                       imageHeight: MediaQuery.of(context).size.height * 0.3,
                     ),
                     const SizedBox(
@@ -70,7 +85,12 @@ class SubAnalyseView extends StatelessWidget {
                       height: 20,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: context.responsiveValue(
+                        desktop: MediaQuery.of(context).size.width * 0.25,
+                        tablet: MediaQuery.of(context).size.width * 0.3,
+                        mobile: MediaQuery.of(context).size.width * 0.48,
+                        watch: MediaQuery.of(context).size.width * 0.48,
+                      ),
                       child: Table(
                         columnWidths: const {
                           0: FlexColumnWidth(3),
@@ -105,14 +125,19 @@ class SubAnalyseView extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.01,
                 ),
                 Column(
                   children: [
                     xRayImage(
                       xray2.originalImage,
-                      imageWidth: MediaQuery.of(context).size.width * 0.3,
+                      imageWidth: context.responsiveValue(
+                        desktop: MediaQuery.of(context).size.width * 0.3,
+                        tablet: MediaQuery.of(context).size.width * 0.35,
+                        mobile: MediaQuery.of(context).size.width * 0.45,
+                        watch: MediaQuery.of(context).size.width * 0.45,
+                      ),
                       imageHeight: MediaQuery.of(context).size.height * 0.3,
                     ),
                     const SizedBox(
@@ -129,7 +154,12 @@ class SubAnalyseView extends StatelessWidget {
                       height: 20,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: context.responsiveValue(
+                        desktop: MediaQuery.of(context).size.width * 0.25,
+                        tablet: MediaQuery.of(context).size.width * 0.3,
+                        mobile: MediaQuery.of(context).size.width * 0.48,
+                        watch: MediaQuery.of(context).size.width * 0.48,
+                      ),
                       child: Table(
                         columnWidths: const {
                           0: FlexColumnWidth(3),
@@ -167,8 +197,8 @@ class SubAnalyseView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 80,
+          SizedBox(
+            height: context.height * 0.1,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

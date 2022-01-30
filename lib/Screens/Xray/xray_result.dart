@@ -50,51 +50,9 @@ class _XRayResultState extends State<XRayResult> {
   void initState() {
     super.initState();
     _image = widget.currentXray.originalImage;
-    _widget = Column(
-      children: [
-        const Text(
-          "Charting",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        XRayResultCharting(
-          image: charting,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const SizedBox(),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Agree"),
-              style: ElevatedButton.styleFrom(primary: Colors.green),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Edit"),
-              style: ElevatedButton.styleFrom(primary: Colors.orange),
-            ),
-            const SizedBox(),
-          ],
-        ),
-        // const SizedBox(),
-      ],
-    );
-  }
-
-  void changeImage(String image, int index) {
-    _image = image;
-    _index = index;
-    if (_index == 0) {
-      _widget = Column(
+    _widget = SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
         children: [
           const Text(
             "Charting",
@@ -131,6 +89,54 @@ class _XRayResultState extends State<XRayResult> {
           ),
           // const SizedBox(),
         ],
+      ),
+    );
+  }
+
+  void changeImage(String image, int index) {
+    _image = image;
+    _index = index;
+    if (_index == 0) {
+      _widget = SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            const Text(
+              "Charting",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            XRayResultCharting(
+              image: charting,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const SizedBox(),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Agree"),
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Edit"),
+                  style: ElevatedButton.styleFrom(primary: Colors.orange),
+                ),
+                const SizedBox(),
+              ],
+            ),
+            // const SizedBox(),
+          ],
+        ),
       );
     }
     if (_index == 1) {
@@ -379,7 +385,12 @@ class _XRayResultState extends State<XRayResult> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: context.responsiveValue(
+                      desktop: MediaQuery.of(context).size.width * 0.35,
+                      tablet: MediaQuery.of(context).size.width * 0.4,
+                      mobile: MediaQuery.of(context).size.width * 0.5,
+                      watch: MediaQuery.of(context).size.width * 0.5,
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Center(
                       child: XRayTable(
@@ -444,28 +455,30 @@ class _XRayResultState extends State<XRayResult> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Reports",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
+                        FittedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Reports",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: 35,
-                              child: Image.asset(
-                                'assets/Report.png',
-                                color: Colors.black,
-                                fit: BoxFit.fill,
+                              const SizedBox(
+                                width: 10,
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                width: 35,
+                                child: Image.asset(
+                                  'assets/Report.png',
+                                  color: Colors.black,
+                                  fit: BoxFit.fill,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () async {

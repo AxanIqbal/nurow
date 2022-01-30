@@ -44,7 +44,12 @@ class MultiForm extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  width: context.responsiveValue(
+                    desktop: MediaQuery.of(context).size.width * 0.4,
+                    tablet: MediaQuery.of(context).size.width * 0.5,
+                    mobile: MediaQuery.of(context).size.width * 0.7,
+                    watch: MediaQuery.of(context).size.width * 0.8,
+                  ),
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: FormBuilderImagePicker(
                     name: 'originalImage',
@@ -57,12 +62,22 @@ class MultiForm extends StatelessWidget {
                     maxImages: 1,
                     fit: BoxFit.fill,
                     previewHeight: MediaQuery.of(context).size.height * 0.4,
-                    previewWidth: MediaQuery.of(context).size.width * 0.4,
+                    previewWidth: context.responsiveValue(
+                      desktop: MediaQuery.of(context).size.width * 0.4,
+                      tablet: MediaQuery.of(context).size.width * 0.5,
+                      mobile: MediaQuery.of(context).size.width * 0.7,
+                      watch: MediaQuery.of(context).size.width * 0.8,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: context.responsiveValue(
+                  desktop: MediaQuery.of(context).size.width * 0.4,
+                  tablet: MediaQuery.of(context).size.width * 0.5,
+                  mobile: MediaQuery.of(context).size.width * 0.75,
+                  watch: MediaQuery.of(context).size.width * 0.8,
+                ),
                 child: DefaultTextStyle(
                   style: const TextStyle(
                     fontSize: 16,

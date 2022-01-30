@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nurow/Services/constants.dart';
+import 'package:nurow/Services/scroll_behaviour.dart';
 import 'package:nurow/models/user.dart';
 
 class Audit extends StatelessWidget {
@@ -162,117 +163,129 @@ class Audit extends StatelessWidget {
                       //     .data!.data!
                       //     .map((e) => User.fromJson(e)));
                       // List<UserModel> data = snapshot.data.data;
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: DataTable(
-                          columns: const [
-                            DataColumn(
-                              label: Text(
-                                "User Name",
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                "Created on",
-                              ),
-                            ),
-                            DataColumn(
-                              label: Text(
-                                "Last Login",
-                              ),
-                            ),
-                          ],
-                          rows: List<DataRow>.generate(
-                            users.length,
-                            (int index) => DataRow(
-                              cells: [
-                                DataCell(Text(users[index].userName)),
-                                DataCell(
-                                    Text(users[index].creationTime.toString())),
-                                DataCell(
-                                  TextButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.vertical,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 15),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    DataTable(
-                                                      columns: const [
-                                                        DataColumn(
-                                                          label: Text(
-                                                            "last Logged In",
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      rows: List<
-                                                          DataRow>.generate(
-                                                        users[index]
-                                                            .lastSignInTime
-                                                            .length,
-                                                        (int index2) => DataRow(
-                                                          cells: [
-                                                            DataCell(
-                                                              Text(users[index]
-                                                                  .lastSignInTime[
-                                                                      index2]
-                                                                  .toString()),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    DataTable(
-                                                      columns: const [
-                                                        DataColumn(
-                                                          label: Text(
-                                                            "last Logged Out",
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      rows: List<
-                                                          DataRow>.generate(
-                                                        users[index]
-                                                            .lastLogOutTime
-                                                            .length,
-                                                        (int index2) => DataRow(
-                                                          cells: [
-                                                            DataCell(
-                                                              Text(users[index]
-                                                                  .lastLogOutTime[
-                                                                      index2]
-                                                                  .toString()),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: const Text('View'),
+                      return ScrollConfiguration(
+                        behavior: MyCustomScrollBehavior(),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: DataTable(
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    "User Name",
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "Created on",
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "Last Login",
                                   ),
                                 ),
                               ],
+                              rows: List<DataRow>.generate(
+                                users.length,
+                                (int index) => DataRow(
+                                  cells: [
+                                    DataCell(Text(users[index].userName)),
+                                    DataCell(Text(
+                                        users[index].creationTime.toString())),
+                                    DataCell(
+                                      TextButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                child: SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 15),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        DataTable(
+                                                          columns: const [
+                                                            DataColumn(
+                                                              label: Text(
+                                                                "last Logged In",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          rows: List<
+                                                              DataRow>.generate(
+                                                            users[index]
+                                                                .lastSignInTime
+                                                                .length,
+                                                            (int index2) =>
+                                                                DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(users[
+                                                                          index]
+                                                                      .lastSignInTime[
+                                                                          index2]
+                                                                      .toString()),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        DataTable(
+                                                          columns: const [
+                                                            DataColumn(
+                                                              label: Text(
+                                                                "last Logged Out",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                          rows: List<
+                                                              DataRow>.generate(
+                                                            users[index]
+                                                                .lastLogOutTime
+                                                                .length,
+                                                            (int index2) =>
+                                                                DataRow(
+                                                              cells: [
+                                                                DataCell(
+                                                                  Text(users[
+                                                                          index]
+                                                                      .lastLogOutTime[
+                                                                          index2]
+                                                                      .toString()),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: const Text('View'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
