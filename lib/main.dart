@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get.dart';
 import 'package:nurow/Routing/router.dart';
@@ -8,7 +7,10 @@ import 'package:nurow/controller/auth.dart';
 import 'package:nurow/firebase_options.dart';
 
 void main() async {
-  FlutterNativeSplash.removeAfter(initialization);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(AuthController(), permanent: true);
   runApp(const MyApp());
 }
@@ -42,8 +44,4 @@ void initialization(BuildContext context) async {
   // This is where you can initialize the resources needed by your app while
   // the splash screen is displayed.  After this function completes, the
   // splash screen will be removed.
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 }
