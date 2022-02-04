@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
     }
 
     throw UnsupportedError(
@@ -57,11 +54,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA_YrCS0_ISVyH7Dop-iQ_kJHYG9neYHr0',
-    appId: '1:658864643652:ios:a84d9e810b6c5fc6ee6611',
+    appId: '1:658864643652:ios:f6f0675e35163f04ee6611',
     messagingSenderId: '658864643652',
     projectId: 'nurowai',
     storageBucket: 'nurowai.appspot.com',
-    iosClientId: '658864643652-ocn0n8mdn09nt38qufk7skogpll8eol5.apps.googleusercontent.com',
-    iosBundleId: 'com.nurowai',
+    iosClientId: '658864643652-fr694n1mridu3s6pof6v8vr0qsh6k13n.apps.googleusercontent.com',
+    iosBundleId: 'com.nurowai.nurow',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyA_YrCS0_ISVyH7Dop-iQ_kJHYG9neYHr0',
+    appId: '1:658864643652:ios:f6f0675e35163f04ee6611',
+    messagingSenderId: '658864643652',
+    projectId: 'nurowai',
+    storageBucket: 'nurowai.appspot.com',
+    iosClientId: '658864643652-fr694n1mridu3s6pof6v8vr0qsh6k13n.apps.googleusercontent.com',
+    iosBundleId: 'com.nurowai.nurow',
   );
 }
