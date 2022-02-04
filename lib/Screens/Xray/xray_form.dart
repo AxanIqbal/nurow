@@ -101,7 +101,14 @@ class XRayForm extends GetView<XrayFormController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: context.responsiveValue(
+                                desktop: 15,
+                                tablet: 7,
+                                mobile: 0,
+                                watch: 0,
+                              ),
+                            ),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.4,
                               height: MediaQuery.of(context).size.height * 0.4,
@@ -211,9 +218,24 @@ class XRayForm extends GetView<XrayFormController> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
+                                        width: context.responsiveValue(
+                                          desktop: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          tablet: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          mobile: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          watch: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                        ),
                                         child: Obx(
                                           () => FormBuilderDropdown(
                                             name: 'ToothSelection1',
@@ -247,9 +269,24 @@ class XRayForm extends GetView<XrayFormController> {
                                         height: 10,
                                       ),
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
+                                        width: context.responsiveValue(
+                                          desktop: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          tablet: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          mobile: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          watch: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                        ),
                                         child: Obx(
                                           () => FormBuilderDropdown(
                                             name: 'view1',
@@ -347,9 +384,24 @@ class XRayForm extends GetView<XrayFormController> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
+                                        width: context.responsiveValue(
+                                          desktop: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          tablet: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          mobile: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          watch: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                        ),
                                         child: Obx(
                                           () => FormBuilderDropdown(
                                             name: 'ToothSelection2',
@@ -383,9 +435,24 @@ class XRayForm extends GetView<XrayFormController> {
                                         height: 10,
                                       ),
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.15,
+                                        width: context.responsiveValue(
+                                          desktop: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          tablet: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          mobile: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          watch: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                        ),
                                         child: Obx(
                                           () => FormBuilderDropdown(
                                             name: 'view2',
@@ -637,6 +704,8 @@ class XRayForm extends GetView<XrayFormController> {
                               .saveAndValidate()) {
                             // controller.formKey.value.currentState!.value['dob'] =
                             //     DateTime.parse(controller.formKey.value.currentState!.value['dob']);
+                            print(controller.formKey.value.currentState!
+                                .value['originalImage'][0]);
                             Xray currentXray;
                             if (controller.currentXray.value != null) {
                               currentXray = controller.currentXray.value!;

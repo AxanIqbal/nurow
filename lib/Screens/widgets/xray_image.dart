@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +16,9 @@ Widget xRayImage(String image,
       image: DecorationImage(
         image: GetUtils.isURL(image) || GetUtils.hasMatch(image, 'blob:')
             ? NetworkImage(image)
-            : AssetImage(image) as ImageProvider<Object>,
+            : GetPlatform.isMobile && image[0] == '/'
+                ? FileImage(File(image))
+                : AssetImage(image) as ImageProvider<Object>,
         fit: BoxFit.fill,
       ),
       border: Border.all(color: Colors.blueAccent, width: 2),

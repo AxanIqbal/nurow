@@ -428,7 +428,12 @@ class _XRayResultState extends State<XRayResult> {
                         ),
                       xRayImage(
                         _image,
-                        imageWidth: MediaQuery.of(context).size.width * 0.40,
+                        imageWidth: context.responsiveValue(
+                          desktop: MediaQuery.of(context).size.width * 0.4,
+                          tablet: MediaQuery.of(context).size.width * 0.5,
+                          mobile: MediaQuery.of(context).size.width * 0.5,
+                          watch: MediaQuery.of(context).size.width * 0.5,
+                        ),
                         imageHeight: MediaQuery.of(context).size.height * 0.40,
                       ),
                     ],
@@ -452,124 +457,130 @@ class _XRayResultState extends State<XRayResult> {
                 color: Colors.grey[350],
                 child: Stack(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        FittedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Reports",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
+                    Align(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Reports",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                width: 35,
-                                child: Image.asset(
-                                  'assets/Report.png',
-                                  color: Colors.black,
-                                  fit: BoxFit.fill,
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  width: 35,
+                                  child: Image.asset(
+                                    'assets/Report.png',
+                                    color: Colors.black,
+                                    fit: BoxFit.fill,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            ByteData pdf;
-                            if (widget.currentXray.report != null) {
-                              pdf = await rootBundle
-                                  .load(widget.currentXray.report!);
+                          ElevatedButton(
+                            onPressed: () async {
+                              ByteData pdf;
+                              if (widget.currentXray.report != null) {
+                                pdf = await rootBundle
+                                    .load(widget.currentXray.report!);
+                                Get.to(
+                                  () => PdfPreview(
+                                    maxPageWidth: 700,
+                                    build: (format) => pdf.buffer.asUint8List(),
+                                  ),
+                                );
+                              }
+
+                              Get.to(
+                                () => PdfPreview(
+                                  maxPageWidth: 700,
+                                  build: (format) =>
+                                      masterPDF(format, widget.patient),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * (0.1),
+                              height:
+                                  MediaQuery.of(context).size.height * (0.06),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: const Center(
+                                child: AutoSizeText(
+                                  "Master Report PDF",
+                                  minFontSize: 0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              ByteData pdf;
+                              if (widget.currentXray.aiReport != null) {
+                                pdf = await rootBundle
+                                    .load(widget.currentXray.aiReport!);
+                              } else {
+                                pdf = await rootBundle
+                                    .load("assets/Diagnostic report.pdf");
+                              }
+
                               Get.to(
                                 () => PdfPreview(
                                   maxPageWidth: 700,
                                   build: (format) => pdf.buffer.asUint8List(),
                                 ),
                               );
-                            }
-
-                            Get.to(
-                              () => PdfPreview(
-                                maxPageWidth: 700,
-                                build: (format) =>
-                                    masterPDF(format, widget.patient),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * (0.1),
-                            height: MediaQuery.of(context).size.height * (0.06),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: const Center(
-                              child: AutoSizeText(
-                                "Master Report PDF",
-                                minFontSize: 0,
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * (0.1),
+                              height:
+                                  MediaQuery.of(context).size.height * (0.06),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: const Center(
+                                child: AutoSizeText(
+                                  "A.I diagnostic report",
+                                  minFontSize: 0,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            ByteData pdf;
-                            if (widget.currentXray.aiReport != null) {
-                              pdf = await rootBundle
-                                  .load(widget.currentXray.aiReport!);
-                            } else {
-                              pdf = await rootBundle
-                                  .load("assets/Diagnostic report.pdf");
-                            }
-
-                            Get.to(
-                              () => PdfPreview(
-                                maxPageWidth: 700,
-                                build: (format) => pdf.buffer.asUint8List(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * (0.1),
-                            height: MediaQuery.of(context).size.height * (0.06),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: const Center(
-                              child: AutoSizeText(
-                                "A.I diagnostic report",
-                                minFontSize: 0,
+                          ElevatedButton(
+                            onPressed: () async {
+                              final pdf = await rootBundle
+                                  .load("assets/Nurow Disease Data report.pdf");
+                              Get.to(
+                                () => PdfPreview(
+                                  maxPageWidth: 700,
+                                  build: (format) => pdf.buffer.asUint8List(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * (0.1),
+                              height:
+                                  MediaQuery.of(context).size.height * (0.06),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: const Center(
+                                child: AutoSizeText(
+                                  "Disease Information",
+                                  minFontSize: 0,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            final pdf = await rootBundle
-                                .load("assets/Nurow Disease Data report.pdf");
-                            Get.to(
-                              () => PdfPreview(
-                                maxPageWidth: 700,
-                                build: (format) => pdf.buffer.asUint8List(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * (0.1),
-                            height: MediaQuery.of(context).size.height * (0.06),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: const Center(
-                              child: AutoSizeText(
-                                "Disease Information",
-                                minFontSize: 0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(),
-                        const SizedBox(),
-                      ],
+                          const SizedBox(),
+                          const SizedBox(),
+                        ],
+                      ),
+                      alignment: Alignment.center,
                     ),
                     if (widget.isBack != null && widget.isBack == true)
                       Align(

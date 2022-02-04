@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -182,14 +184,28 @@ class _ButtonState extends State<_Button> {
         .child('xrays')
         .child(widget.data.id ?? 'dumped')
         .child(path);
-    http.Response bytes = await http.get(
-      Uri.parse(image),
-    );
-    UploadTask _task = _ref.putData(
-      bytes.bodyBytes,
-      SettableMetadata(contentType: 'image/jpeg'),
-    );
-    String _img = await (await _task).ref.getDownloadURL();
+    UploadTask _task;
+    String _img;
+    try {
+      if (GetPlatform.isMobile) {
+        _task = _ref.putFile(
+          File(image),
+          SettableMetadata(contentType: 'image/jpeg'),
+        );
+      } else {
+        http.Response bytes = await http.get(
+          Uri.parse(image),
+        );
+        _task = _ref.putData(
+          bytes.bodyBytes,
+          SettableMetadata(contentType: 'image/jpeg'),
+        );
+      }
+      _img = await (await _task).ref.getDownloadURL();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      _img = 'error';
+    }
     return _img;
   }
 

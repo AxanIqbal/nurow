@@ -9,7 +9,7 @@ import 'package:nurow/Screens/Substrative/report.dart';
 import 'package:nurow/Screens/widgets/custom_scaffold.dart';
 import 'package:nurow/Screens/widgets/text_animation.dart';
 import 'package:nurow/Screens/widgets/xray_table.dart';
-import 'package:nurow/Services/database.dart';
+import 'package:nurow/Services/constants.dart';
 import 'package:nurow/models/patient.dart';
 import 'package:nurow/models/subtraction.dart';
 
@@ -66,7 +66,7 @@ class _SubAnalyseState extends State<SubAnalyse> {
         () async {
           if (widget.isNew) {
             Patient? _x =
-                await DataService().addPatient(widget.patient.toJson());
+                (await (await patientsRef.add(widget.patient)).get()).data();
             if (_x != null) {
               widget.patient.id = _x.id;
             }

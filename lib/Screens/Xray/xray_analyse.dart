@@ -48,7 +48,7 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
     _count += 1;
     setState(() {});
     if (_count >= _text.length) {
-      Get.to(
+      Get.off(
         () => XRayResult(
           patient: widget.patient,
           currentXray: widget.currentXray,
@@ -71,14 +71,30 @@ class _XRayAnalyseState extends State<XRayAnalyse> {
               children: [
                 xRayImage(
                   widget.currentXray.originalImage,
-                  imageWidth: MediaQuery.of(context).size.width * 0.4,
+                  imageWidth: context.responsiveValue(
+                    desktop: MediaQuery.of(context).size.width * 0.4,
+                    tablet: MediaQuery.of(context).size.width * 0.4,
+                    mobile: MediaQuery.of(context).size.width * 0.4,
+                    watch: MediaQuery.of(context).size.width * 0.4,
+                  ),
                   imageHeight: MediaQuery.of(context).size.height * 0.4,
                 ),
-                const SizedBox(),
+                if (context.isTablet || GetPlatform.isWeb) const SizedBox(),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  width: context.responsiveValue(
+                    desktop: MediaQuery.of(context).size.width * 0.4,
+                    tablet: MediaQuery.of(context).size.width * 0.4,
+                    mobile: MediaQuery.of(context).size.width * 0.5,
+                    watch: MediaQuery.of(context).size.width * 0.5,
+                  ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: context.responsiveValue(
+                      desktop: 8.0,
+                      tablet: 6.0,
+                      mobile: 2.0,
+                      watch: 0.0,
+                    )),
                     child: XRayTable(
                       data: widget.patient,
                       currentXray: widget.currentXray,
